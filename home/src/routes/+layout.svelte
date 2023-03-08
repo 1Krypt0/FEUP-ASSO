@@ -1,14 +1,16 @@
 <script>
 	import Header from '$lib/components/header.svelte';
-	import './styles.css';
+	import Sidebar from '$lib/components/sidebar.svelte';
 	import '../app.css';
 	let darkMode = false;
+	let sideBarVisible = true;
 </script>
 
-<div class:dark={darkMode} class="flex flex-col min-h-screen">
-	<Header bind:darkMode />
+<div class:dark={darkMode} class="flex flex-col min-h-screen h-screen">
+	<Header bind:darkMode bind:sideBarVisible />
 
-	<main class="flex flex-1 flex-col p-4 w-full max-w-5xl my-0 mx-auto box-border">
+	<main class="flex h-full">
+		<Sidebar visible={sideBarVisible} />
 		<slot />
 	</main>
 </div>
