@@ -3,6 +3,6 @@
 </script>
 
 <aside
-	style:width={visible ? '8rem' : '18rem'}
-	class="duration-300 flex flex-col min-h-full bg-black"
+	style:width={visible ? '6rem' : '18rem'}
+	class="duration-300 flex flex-col min-h-full bg-white"
 />

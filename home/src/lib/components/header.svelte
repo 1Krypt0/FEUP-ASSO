@@ -11,7 +11,7 @@
 	}
 </script>
 
-<header class="flex justify-between items-center px-8 lg:px-12 py-2 bg-white">
+<header class="flex justify-between items-center px-8  py-2 bg-white">
 	<button on:click={toggleSideBar}>
 		{#if sideBarVisible}
 			<img in:fly alt="dropdown menu" class="h-6 w-6" src={dropdown} />
