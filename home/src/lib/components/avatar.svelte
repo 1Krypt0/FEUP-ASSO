@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { MoonIcon, SunIcon } from 'svelte-feather-icons'
 	import svelte_logo from '$lib/images/svelte-logo.svg';
-	import moon from '$lib/assets/moon.svg';
-	import sun from '$lib/assets/sun.svg';
 	import Dropdown from './dropdown.svelte';
+	
 	export let darkMode = false;
 
 	function toggleDarkMode() {
@@ -20,7 +20,11 @@
 	<Dropdown />
 
 	<!-- TODO: Change to sm:block when implemented -->
-	<button on:click={toggleDarkMode} class="hidden sm:hidden">
-		<img alt="Dark/Light Mode toggle" src={darkMode ? sun : moon} />
+	<button on:click={toggleDarkMode} class="hidden sm:block">
+		{#if darkMode}
+		 	<SunIcon class="h-6 w-6" />
+		{:else}
+			<MoonIcon class="h-6 w-6" />
+		{/if}
 	</button>
 </section>
