@@ -15,18 +15,14 @@
 </script>
 
 <div class="flex items-center mb-8">
-	<input
-		type="radio"
-		id={route}
-		name="route"
-		value={route}
-		class="hidden peer/{route}"
-		checked={$page.url.pathname === `/${route}`}
-	/>
+	<input type="radio" id={route} name="route" value={route} class="hidden peer/{route}" />
 	<label
 		on:click={handleSelect}
 		for={route}
-		class="inline-flex items-center justify-center w-full p-4 text-black rounded-[15px] cursor-pointer peer-checked/{route}:{bg_color} peer-checked/{route}:text-white"
+		class="inline-flex items-center justify-center w-full p-4 text-black rounded-[15px] cursor-pointer peer-checked/{route}:{bg_color} peer-checked/{route}:text-white {$page
+			.url.pathname === `/${route}`
+			? bg_color
+			: ''}"
 	>
 		<svelte:component this={icon} />
 		{#if visible}
