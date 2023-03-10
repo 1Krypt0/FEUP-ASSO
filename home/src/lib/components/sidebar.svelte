@@ -25,10 +25,10 @@
 	];
 </script>
 
-<!-- TODO: Make mobile responsive -->
 <aside
-	style:width={visible ? '18rem' : '6rem'}
-	class="duration-300 flex flex-col items-start justify-between min-h-full bg-white py-6"
+	class="duration-300 {visible
+		? 'w-72'
+		: 'w-0 sm:w-24'} flex flex-col items-start justify-between min-h-full bg-white py-6"
 >
 	<ul class="w-full px-4">
 		{#each entries as route}
