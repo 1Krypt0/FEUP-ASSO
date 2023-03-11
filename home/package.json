@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-feather-icons": "^4.0.0"
+		"svelte-feather-icons": "^4.0.0",
+		"svelte-forms-lib": "^2.0.1"
 	}
 }

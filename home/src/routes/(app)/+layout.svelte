@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Header from '$lib/components/header.svelte';
 	import Sidebar from '$lib/components/sidebar.svelte';
-	import '../app.css';
 	import type { LayoutServerData } from './$types';
+	import '../../app.css';
 
 	export let data: LayoutServerData;
 	let darkMode = false;
