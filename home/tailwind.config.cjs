@@ -8,21 +8,16 @@ module.exports = {
 			colors: {
 				lights: {
 					50: '#fffbeb',
-					300: '#fcd34d'
+					100: '#fef3c7'
 				},
 				media: {
 					50: '#ecfeff',
-					300: '#67e8f9'
+					100: '#e0f2fe'
 				},
 				climate: {
 					50: '#f0fdf4',
-					300: '#86efac'
+					100: '#ecfccb'
 				}
-			},
-			backgroundImage: {
-				lights: "url('$lib/assets/bg-lights.svg')",
-				media: "url('$lib/assets/bg-media.svg')",
-				climate: "url('$lib/assets/bg-climate.svg')"
 			}
 		}
 	},
