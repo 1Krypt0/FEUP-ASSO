@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import Header from '$lib/components/header.svelte';
 	import Sidebar from '$lib/components/sidebar.svelte';
-	import '../app.css';
+	import '../../app.css';
 
 	let darkMode = false;
 	let sidebarVisible = false;
