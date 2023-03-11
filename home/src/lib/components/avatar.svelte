@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { ChevronDownIcon, MoonIcon, SunIcon } from 'svelte-feather-icons'
+	import { MoonIcon, SunIcon } from 'svelte-feather-icons';
 	import svelte_logo from '$lib/images/svelte-logo.svg';
-	
+	import Dropdown from './dropdown.svelte';
+
 	export let darkMode = false;
 
 	function toggleDarkMode() {
@@ -16,12 +17,12 @@
 	<!-- TODO: Complete with dynamic profile pic -->
 	<img class="w-12 h-12" alt="user profile" src={svelte_logo} />
 
-	<ChevronDownIcon />
+	<Dropdown />
 
 	<!-- TODO: Change to sm:block when implemented -->
 	<button on:click={toggleDarkMode} class="hidden sm:block">
 		{#if darkMode}
-		 	<SunIcon class="h-6 w-6" />
+			<SunIcon class="h-6 w-6" />
 		{:else}
 			<MoonIcon class="h-6 w-6" />
 		{/if}

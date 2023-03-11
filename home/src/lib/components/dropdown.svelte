@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import down_arrow from '$lib/assets/chevron-down.svg';
+	import { ChevronDownIcon } from 'svelte-feather-icons';
 	let visible = false;
 	function toggleVisibility() {
 		visible = !visible;
@@ -8,8 +8,8 @@
 </script>
 
 <div class="relative inline-block text-left">
-	<button on:click={toggleVisibility}>
-		<img class="pt-2" alt="dropdown-arrow" src={down_arrow} />
+	<button class="pt-2" on:click={toggleVisibility}>
+		<ChevronDownIcon />
 	</button>
 
 	{#if visible}
