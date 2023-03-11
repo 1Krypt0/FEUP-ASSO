@@ -1,15 +1,22 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { PlusIcon } from 'svelte-feather-icons';
 
-	export let data: PageData;
+	const device = $page.params.page.charAt(0).toUpperCase() + $page.params.page.slice(1);
+
+	function handleAddDevice() {
+		goto(`${$page.url}/add`);
+	}
 </script>
 
 <svelte:head>
-	<title>Home by Iota</title>
-	<meta name="description" content="Home page" />
+	<title>Home by Iota - {device}</title>
+	<meta name="description" content={`${device} Page`} />
 </svelte:head>
 
-<section
-	class="bg-right-bottom bg-contain bg-no-repeat w-full {data.colors[data.page]} "
-	style:background-image={data.bg_img}
-/>
+<section class="w-full flex justify-center">
+	<button on:click={handleAddDevice}>
+		<PlusIcon />
+	</button>
+</section>

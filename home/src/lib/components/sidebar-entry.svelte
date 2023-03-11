@@ -14,7 +14,7 @@
 	}
 </script>
 
-<div class="flex items-center mb-8">
+<div class="flex items-center my-4">
 	<input
 		type="radio"
 		id={route}
@@ -27,7 +27,7 @@
 	<label
 		on:click={handleSelect}
 		for={route}
-		class="inline-flex items-center justify-center w-full p-4 text-black rounded-[15px] cursor-pointer 
+		class="flex justify-center w-full p-4 text-black rounded-[15px] cursor-pointer 
 			   peer-checked:{bg_color} peer-checked:text-white 
 			   {$page.url.pathname === `/${route}` ? bg_color : ''} "
 	>

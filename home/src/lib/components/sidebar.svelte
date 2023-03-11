@@ -25,9 +25,9 @@
 </script>
 
 <aside
-	class="duration-300 {visible
-		? 'w-72'
-		: 'w-0 sm:w-24'} flex flex-col items-start justify-between bg-white h-fit sm:min-h-full py-6"
+	class="{visible
+		? 'w-52'
+		: 'hidden sm:w-24'} absolute sm:flex flex-col items-start justify-between bg-white h-fit sm:min-h-full"
 >
 	<ul class="w-full px-4">
 		{#each entries as entry}
@@ -35,12 +35,12 @@
 				route={entry.route}
 				name={entry.name}
 				icon={entry.icon}
-				bg_color={colors[entry.route]}
+				bg_color={colors[entry.route][400]}
 				{visible}
 			/>
 		{/each}
 	</ul>
-	<a class="px-8 hidden sm:block" href="/settings">
+	<a class="px-8 pb-8 hidden sm:block" href="/settings">
 		<SettingsIcon />
 	</a>
 </aside>
