@@ -8,15 +8,18 @@ module.exports = {
 			colors: {
 				lights: {
 					50: '#fffbeb',
-					100: '#fef3c7'
+					400: '#fbbf24',
+					500: '#f59e0b'
 				},
 				media: {
 					50: '#ecfeff',
-					100: '#e0f2fe'
+					400: '#22d3ee',
+					500: '#06b6d4'
 				},
 				climate: {
 					50: '#f0fdf4',
-					100: '#ecfccb'
+					400: '#4ade80',
+					500: '#22c55e'
 				}
 			}
 		}
