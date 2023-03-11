@@ -7,16 +7,16 @@ module.exports = {
 		extend: {
 			colors: {
 				lights: {
-					50: '#fffbeb',
-					100: '#fef3c7'
+					50: '#fef8e0',
+					100: '#fde99f'
 				},
 				media: {
-					50: '#ecfeff',
-					100: '#e0f2fe'
+					50: '#dbedfc',
+					100: '#8fc6f6'
 				},
 				climate: {
-					50: '#f0fdf4',
-					100: '#ecfccb'
+					50: '#e5f5dd',
+					100: '#ace194'
 				}
 			}
 		}

@@ -13,7 +13,7 @@
 	<Header bind:darkMode bind:sidebarVisible />
 
 	<main class="flex h-full ">
-		<Sidebar visible={sidebarVisible} colors={data.colors} />
+		<Sidebar visible={sidebarVisible} colors={data.colors.sidebarColors} />
 		<slot />
 	</main>
 </div>

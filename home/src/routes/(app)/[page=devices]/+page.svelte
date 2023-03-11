@@ -10,6 +10,6 @@
 </svelte:head>
 
 <section
-	class="bg-right-bottom bg-contain bg-no-repeat w-full {data.colors[data.page]} "
+	class="bg-right-bottom bg-contain bg-no-repeat w-full {data.colors.pageColors[data.page]} "
 	style:background-image={data.bg_img}
 />
