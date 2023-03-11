@@ -3,6 +3,8 @@
 	import SidebarEntry from './sidebar-entry.svelte';
 
 	export let visible = false;
+	export let colors: any;
+
 	let entries = [
 		{
 			route: 'lights',
@@ -33,7 +35,7 @@
 				route={entry.route}
 				name={entry.name}
 				icon={entry.icon}
-				bg_color={`bg-${entry.route}-300`}
+				bg_color={colors[entry.route]}
 				{visible}
 			/>
 		{/each}
