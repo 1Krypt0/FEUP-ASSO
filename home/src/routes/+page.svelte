@@ -1,11 +1,6 @@
-<script>
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-</script>
-
 <svelte:head>
 	<title>Home by Iota</title>
-	<meta name="description" content="Home page" />
+	<meta name="description" content="Homepage" />
 </svelte:head>
 
-<section class="bg-black w-full">text</section>
+<section class="w-full">text</section>

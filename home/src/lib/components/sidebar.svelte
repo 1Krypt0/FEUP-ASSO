@@ -7,20 +7,17 @@
 		{
 			route: 'lights',
 			name: 'Lighting',
-			icon: SunIcon,
-			bg: 'bg-yellow-300'
+			icon: SunIcon
 		},
 		{
 			route: 'media',
 			name: 'Media',
-			icon: MonitorIcon,
-			bg: 'bg-blue-300'
+			icon: MonitorIcon
 		},
 		{
 			route: 'climate',
 			name: 'Climate',
-			icon: DropletIcon,
-			bg: 'bg-green-300'
+			icon: DropletIcon
 		}
 	];
 </script>
@@ -28,15 +25,15 @@
 <aside
 	class="duration-300 {visible
 		? 'w-72'
-		: 'w-0 sm:w-24'} flex flex-col items-start justify-between min-h-full bg-white py-6"
+		: 'w-0 sm:w-24'} flex flex-col items-start justify-between bg-white h-fit sm:min-h-full py-6"
 >
 	<ul class="w-full px-4">
-		{#each entries as route}
+		{#each entries as entry}
 			<SidebarEntry
-				route={route.route}
-				name={route.name}
-				icon={route.icon}
-				bg_color={route.bg}
+				route={entry.route}
+				name={entry.name}
+				icon={entry.icon}
+				bg_color={`bg-${entry.route}-300`}
 				{visible}
 			/>
 		{/each}
