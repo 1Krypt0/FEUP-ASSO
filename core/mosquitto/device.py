@@ -15,7 +15,7 @@ MAC_ADDRESS = sys.argv[1]
 ACTION = "ACTION-" + MAC_ADDRESS
 VALUE = "DATA-" + MAC_ADDRESS
 
-status = 0
+status = "0"
 
 def on_connect(client, userdata, flags, return_code):
     if return_code != 0:
@@ -26,7 +26,12 @@ def on_connect(client, userdata, flags, return_code):
     client.subscribe(ACTION)
 
 def on_message(client, userdata, message):
-    print("Received message: ", str(message.payload.decode("utf-8")))
+    global status
+    parsed = str(message.payload.decode("utf-8"))
+    print("Received message: ", parsed)
+
+    status = parsed
+
 
 client = mqtt.Client("Client1")
 # client.username_pw_set(username="user_name", password="password") # uncomment if you use password auth
@@ -45,7 +50,7 @@ try:
             print("Failed to send message to broker")
             continue
 
-        print("Written value", status, "to broker")
+        print("Written value", status, "to broker", str(VALUE))
 
 finally:
     client.loop_stop()
