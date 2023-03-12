@@ -48,5 +48,3 @@ class Device {
     @Enumerated
     var status: NetworkStatus? = null
 }
-
-
