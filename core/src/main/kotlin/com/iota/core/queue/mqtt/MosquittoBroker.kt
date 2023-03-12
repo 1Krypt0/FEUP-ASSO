@@ -3,8 +3,8 @@ package com.iota.core.queue.mqtt
 import com.iota.core.queue.Broker
 import com.iota.core.queue.mqtt.handlers.DeviceHandler
 import com.iota.core.repository.DeviceRepository
-import com.iota.core.service.DeviceService
 import org.eclipse.paho.client.mqttv3.MqttClient
+import org.eclipse.paho.client.mqttv3.MqttMessage
 
 class MosquittoBroker(
     private val client: MqttClient,
@@ -13,19 +13,21 @@ class MosquittoBroker(
 
     private var subscriptions: HashSet<String> = HashSet()
 
-    override fun subscribe(topic: String) {
+    override fun subscribe(deviceId: Long, topic: String) {
         if (subscriptions.contains(topic)) {
             return
         }
         subscriptions.add(topic)
 
-        val handler = DeviceHandler(repository)
+        val handler = DeviceHandler(deviceId, repository)
         client.subscribe(topic, handler)
     }
 
     override fun unsubscribe(topic: String) {
     }
 
-    override fun addToTopic(topic: String) {
+    override fun addToTopic(topic: String, value: String) {
+        val message = MqttMessage(value.toByteArray())
+        client.publish(topic, message)
     }
 }

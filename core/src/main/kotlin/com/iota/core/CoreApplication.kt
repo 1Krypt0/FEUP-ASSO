@@ -11,8 +11,4 @@ class CoreApplication
 
 fun main(args: Array<String>) {
 	val app = runApplication<CoreApplication>(*args)
-
-	println(app.getBean(BrokerConfig::class.java).broker())
-	println(app.getBean(BrokerConfig::class.java).broker())
-	println(app.getBean(BrokerConfig::class.java).broker())
 }

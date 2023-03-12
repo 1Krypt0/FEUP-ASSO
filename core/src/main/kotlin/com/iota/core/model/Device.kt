@@ -37,6 +37,9 @@ class Device {
     @Column(unique = true)
     var macAddress: String = ""
 
+    @Column(nullable = true)
+    var currentValue: String? = ""
+
     @NotNull
     @Enumerated
     var type: DeviceType? = null

@@ -1,6 +1,7 @@
 package com.iota.core.controller
 
 import com.iota.core.config.broker.BrokerConfig
+import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.model.Device
 import com.iota.core.service.DeviceService
@@ -25,7 +26,7 @@ class DeviceController(
     @GetMapping("/{id}")
     fun device(@PathVariable id: Long): Device {
         val device = service.device(id)
-        broker.subscribe(device.dataTopic)
+        broker.subscribe(id, device.dataTopic)
 
         return device
     }
@@ -33,12 +34,20 @@ class DeviceController(
     @GetMapping("/{id}/status")
     fun deviceStatus(@PathVariable id: Long) = mapOf("status" to service.device(id).status)
 
+    @PostMapping("/{id}/value")
+    fun updateDeviceValue(@PathVariable id: Long, @RequestBody deviceUpdate: DeviceUpdate) {
+        val device = service.device(id)
+        broker.addToTopic(device.actionTopic, deviceUpdate.value)
+    }
+
     @PostMapping("/new")
     fun newDevice(@RequestBody dto: DeviceDto): Device {
         val broker = brokerConfig.broker()
         val device = service.new(dto)
 
-        broker.subscribe(device.dataTopic)
+        device.id?.let {
+            broker.subscribe(it, device.dataTopic)
+        }
 
         return device
     }

@@ -5,10 +5,16 @@ import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
 class DeviceHandler(
+    val deviceId: Long,
     val deviceRepository: DeviceRepository,
 ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
-        println(topic)
-        println(message?.payload?.let { String(it) })
+        val device = deviceRepository.findById(deviceId).get()
+
+        message?.payload?.let {
+            val value = String(it)
+            device.currentValue = value
+            deviceRepository.save(device)
+        }
     }
 }
