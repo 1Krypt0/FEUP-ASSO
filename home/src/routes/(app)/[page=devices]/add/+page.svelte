@@ -8,7 +8,6 @@
 	let description = '';
 	let macAddress = '';
 
-	console.log(data, type);
 	const device = type.charAt(0).toUpperCase() + type.slice(1);
 
 	function addDevice() {}
@@ -56,7 +55,9 @@
 		<div class="flex justify-end w-full mt-4">
 			<button
 				type="submit"
-				class="{data.colors[type][400]} text-white font-bold rounded-full py-2 px-4">Add</button
+				class="{data.colors[type][400]} hover:{data.colors[
+					type
+				][500]} text-white font-bold rounded-full py-2 px-4">Add</button
 			>
 		</div>
 	</form>

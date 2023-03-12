@@ -14,7 +14,7 @@
 	}
 </script>
 
-<div class="flex items-center my-4">
+<div class="flex my-4">
 	<input
 		type="radio"
 		id={route}
@@ -27,9 +27,11 @@
 	<label
 		on:click={handleSelect}
 		for={route}
-		class="flex justify-center w-full p-4 text-black rounded-[15px] cursor-pointer 
+		class="flex {visible
+			? 'justify-start'
+			: 'justify-center'} w-full p-4 text-black rounded-[15px] cursor-pointer 
 			   peer-checked:{bg_color} peer-checked:text-white 
-			   {$page.url.pathname === `/${route}` ? bg_color : ''} "
+			   {$page.url.pathname === `/${route}` ? bg_color : ''}"
 	>
 		<svelte:component this={icon} />
 		{#if visible}
