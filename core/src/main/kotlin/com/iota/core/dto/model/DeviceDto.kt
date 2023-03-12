@@ -2,8 +2,6 @@ package com.iota.core.dto.model
 
 import com.iota.core.model.Device
 import com.iota.core.model.DeviceType
-import jakarta.persistence.Enumerated
-import org.jetbrains.annotations.NotNull
 
 class DeviceDto(
     val name: String,

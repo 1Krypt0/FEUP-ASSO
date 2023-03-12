@@ -1,5 +1,6 @@
 package com.iota.core.model
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
@@ -24,12 +25,16 @@ class Device {
     var id: Long? = null
 
     @NotNull
-    var topic: String = ""
+    var dataTopic: String = ""
+
+    @NotNull
+    var actionTopic: String = ""
 
     @NotNull
     var name: String = ""
 
     @NotNull
+    @Column(unique = true)
     var macAddress: String = ""
 
     @NotNull

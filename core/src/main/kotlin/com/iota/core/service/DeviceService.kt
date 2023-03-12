@@ -21,13 +21,11 @@ class DeviceService(
 
     fun new(dto: DeviceDto): Device {
         val device = dto.create()
-        device.topic = "VALUE-" + device.macAddress
+        device.dataTopic = "DATA-" + device.macAddress
+        device.actionTopic = "ACTION-" + device.macAddress
         device.status = NetworkStatus.CONNECTED
 
-        brokerConfig.broker().subscribe(device.topic)
-
         deviceRepository.save(device)
-
         return device
     }
 }

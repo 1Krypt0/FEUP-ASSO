@@ -13,7 +13,7 @@ port = 1883
 
 MAC_ADDRESS = sys.argv[1]
 ACTION = "ACTION-" + MAC_ADDRESS
-VALUE = "VALUE-" + MAC_ADDRESS
+VALUE = "DATA-" + MAC_ADDRESS
 
 status = 0
 
@@ -40,7 +40,7 @@ client.loop_start()
 try:
     while True:
         time.sleep(1)
-        result = client.publish(VALUE, status)
+        result = client.publish(str(VALUE), status)
         if result[0] != 0:
             print("Failed to send message to broker")
             continue
