@@ -1,6 +1,7 @@
 package com.iota.core.model
 
 import jakarta.persistence.Entity
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import org.jetbrains.annotations.NotNull
@@ -10,20 +11,34 @@ enum class NetworkStatus {
     DISCONNECTED
 }
 
+enum class DeviceType {
+    LIGHT,
+    MEDIA,
+    CLIMATE
+}
+
 @Entity
 class Device {
     @Id
     @GeneratedValue
-    private val id: Long? = null
+    var id: Long? = null
 
     @NotNull
-    private val topic: String = ""
+    var topic: String = ""
 
     @NotNull
-    private val name: String = ""
+    var name: String = ""
 
     @NotNull
-    private val macAddress: String = ""
+    var macAddress: String = ""
+
+    @NotNull
+    @Enumerated
+    var type: DeviceType? = null
+
+    @NotNull
+    @Enumerated
+    var status: NetworkStatus? = null
 }
 
 
