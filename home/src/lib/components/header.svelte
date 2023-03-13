@@ -15,8 +15,8 @@
 	}
 </script>
 
-<header class="flex justify-between items-center px-8 py-2 bg-white">
-	<div class="flex gap-6 items-center">
+<header class="flex justify-between items-center bg-white z-10 px-8 py-2">
+	<div class="flex items-center gap-6">
 		<button on:click={toggleSidebar}>
 			{#if sidebarVisible}
 				<XIcon class="h-6 w-6" />

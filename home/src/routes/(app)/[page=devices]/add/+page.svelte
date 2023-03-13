@@ -18,7 +18,7 @@
 	<meta name="description" content="Add {device} Page" />
 </svelte:head>
 
-<section class="flex justify-center items-center w-full">
+<section class="flex justify-center items-center w-full h-full">
 	<form on:submit|preventDefault={addDevice} class="flex flex-col sm:items-end">
 		<h1 class="text-4xl font-bold pb-8">Add a device</h1>
 

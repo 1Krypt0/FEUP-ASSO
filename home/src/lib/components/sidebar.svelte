@@ -27,9 +27,9 @@
 <aside
 	class="{visible
 		? 'w-52'
-		: 'hidden sm:w-24'} absolute sm:flex flex-col items-start justify-between bg-white h-fit sm:min-h-full"
+		: 'hidden sm:w-24'} fixed top-0 sm:h-full sm:flex flex-col items-start justify-between bg-white"
 >
-	<ul class="w-full px-4">
+	<ul class="w-full mt-16 px-4">
 		{#each entries as entry}
 			<SidebarEntry
 				route={entry.route}
@@ -40,7 +40,7 @@
 			/>
 		{/each}
 	</ul>
-	<a class="px-8 pb-8 hidden sm:block" href="/settings">
+	<a class="mb-8 px-8 hidden sm:block" href="/settings">
 		<SettingsIcon />
 	</a>
 </aside>

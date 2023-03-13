@@ -8,10 +8,6 @@
 	export let name = '';
 	export let icon = SunIcon;
 	export let bg_color = '';
-
-	function handleSelect() {
-		goto(`/${route}`);
-	}
 </script>
 
 <div class="flex my-4">
@@ -21,17 +17,17 @@
 		name="route"
 		value={route}
 		class="hidden peer"
-		checked={$page.url.pathname === `/${route}`}
+		checked={$page.url.pathname.split('/')[1] === `${route}`}
 	/>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<label
-		on:click={handleSelect}
+		on:click={() => goto(`/${route}`)}
 		for={route}
 		class="flex {visible
 			? 'justify-start'
 			: 'justify-center'} w-full p-4 text-black rounded-[15px] cursor-pointer 
 			   peer-checked:{bg_color} peer-checked:text-white 
-			   {$page.url.pathname === `/${route}` ? bg_color : ''}"
+			   {$page.url.pathname.split('/')[1] === `${route}` ? bg_color : ''}"
 	>
 		<svelte:component this={icon} />
 		{#if visible}
