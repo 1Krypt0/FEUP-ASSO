@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+mosquitto/data/mosquitto.db
+
+iota-be-h2-db.*
