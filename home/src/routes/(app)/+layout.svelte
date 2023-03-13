@@ -14,7 +14,7 @@
 	<Header bind:darkMode bind:sidebarVisible />
 
 	<main
-		class="relative h-full overflow-y-scroll bg-right-bottom bg-contain bg-no-repeat bg-fixed {data
+		class="flex h-full overflow-y-scroll bg-right-bottom bg-contain bg-no-repeat bg-fixed {data
 			.colors[data.page][50]}"
 		style:background-image={data.bg_img}
 	>
