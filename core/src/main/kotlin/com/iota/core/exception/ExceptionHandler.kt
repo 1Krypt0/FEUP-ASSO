@@ -1,11 +1,14 @@
 package com.iota.core.exception
 
+import com.iota.core.dto.ErrorDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatusCode
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
@@ -20,6 +23,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     @Override
+    @ResponseBody
     override fun handleExceptionInternal(
         ex: Exception,
         body: Any?,
@@ -36,5 +40,15 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException::class)
+    @ResponseBody
+    protected fun handleAnyException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders();
+
+        val error = ErrorDto("An error occurred");
+        headers.contentType = MediaType.APPLICATION_JSON;
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(500), request);
     }
 }

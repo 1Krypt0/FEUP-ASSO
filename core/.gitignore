@@ -39,3 +39,5 @@ out/
 mosquitto/data/mosquitto.db
 
 iota-be-h2-db.*
+
+logs/
