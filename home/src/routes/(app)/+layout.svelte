@@ -1,0 +1,24 @@
+<script lang="ts">
+	import Header from '$lib/components/header.svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
+	import type { LayoutServerData } from './$types';
+	import '../../app.css';
+
+	export let data: LayoutServerData;
+
+	let darkMode = false;
+	let sidebarVisible = false;
+</script>
+
+<div class:dark={darkMode} class="flex flex-col min-h-screen h-screen">
+	<Header bind:darkMode bind:sidebarVisible />
+
+	<main
+		class="relative h-full overflow-y-scroll bg-right-bottom bg-contain bg-no-repeat bg-fixed {data
+			.colors[data.page][50]}"
+		style:background-image={data.bg_img}
+	>
+		<Sidebar visible={sidebarVisible} colors={data.colors} />
+		<slot />
+	</main>
+</div>
