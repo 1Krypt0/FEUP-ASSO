@@ -1,8 +1,13 @@
-import type { LayoutServerLoad } from './[page=devices]/$types';
+import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	return {
-		page: params.page,
+		page: params.page as 'lights' | 'media' | 'climate',
+		type: {
+			lights: 'LIGHT',
+			media: 'MEDIA',
+			climate: 'CLIMATE'
+		},
 		bg_img: `url('/bg-${params.page}.svg')`,
 		colors: {
 			lights: {

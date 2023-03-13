@@ -1,18 +1,14 @@
 <script lang="ts">
+	import type { Device } from '$lib/types/device';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { PlusIcon } from 'svelte-feather-icons';
 	import DeviceCard from '$lib/components/device-card.svelte';
 
 	export let data;
 
-	const device = $page.params.page.charAt(0).toUpperCase() + $page.params.page.slice(1);
+	const device = data.page.charAt(0).toUpperCase() + data.page.slice(1);
 
-	let devices: { id: string; name: string }[] = [];
-
-	function handleAddDevice() {
-		goto(`${$page.url}/add`);
-	}
+	let devices: Device[] = data.devices || [];
 </script>
 
 <svelte:head>
@@ -22,13 +18,13 @@
 
 <section
 	class={devices.length === 0
-		? 'h-full flex justify-center'
+		? 'h-full flex justify-center items-center'
 		: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 m-8 sm:ml-32'}
 >
 	{#if devices.length === 0}
-		<button on:click={handleAddDevice}>
+		<a href={`${$page.url}/add`}>
 			<PlusIcon />
-		</button>
+		</a>
 	{:else}
 		{#each devices as device}
 			<DeviceCard {device} {data} />
