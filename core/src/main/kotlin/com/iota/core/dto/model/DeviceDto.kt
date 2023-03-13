@@ -2,6 +2,7 @@ package com.iota.core.dto.model
 
 import com.iota.core.model.Device
 import com.iota.core.model.DeviceType
+import com.iota.core.validator.UniqueMAC
 import com.iota.core.validator.ValueOfEnum
 import jakarta.persistence.Column
 import jakarta.validation.constraints.NotEmpty
@@ -12,6 +13,7 @@ class DeviceDto : EntityDto<Device> {
     var name: String = "";
 
     @NotEmpty
+    @UniqueMAC
     var macAddress: String = "";
 
     @NotEmpty

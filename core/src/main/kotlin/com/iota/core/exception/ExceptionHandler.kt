@@ -4,6 +4,7 @@ import com.iota.core.dto.ErrorDto
 import com.iota.core.dto.FieldErrorDto
 import com.iota.core.dto.FieldErrorsDto
 import com.iota.core.exception.device.DeviceNotFoundException
+import com.iota.core.exception.device.MACAlreadyRegistered
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
@@ -55,8 +56,20 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         val headers = HttpHeaders();
         headers.contentType = MediaType.APPLICATION_JSON;
 
-        val error = ErrorDto("Device %d was not found".format(ex.id));
+        val error = ErrorDto("device %d was not found".format(ex.id));
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(MACAlreadyRegistered::class)
+    @ResponseBody
+    protected fun handleMacAlreadyRegistered(ex: MACAlreadyRegistered, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders();
+        headers.contentType = MediaType.APPLICATION_JSON;
+
+        val error = FieldErrorsDto("arguments not valid");
+        error.fieldErrors.add(FieldErrorDto(ex.field, ex.message ?: "already registered"));
+
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(400), request);
     }
 
     override fun handleMethodArgumentNotValid(
@@ -70,7 +83,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         headers.contentType = MediaType.APPLICATION_JSON;
 
         val result = ex.bindingResult;
-        val error = FieldErrorsDto("Arguments not valid");
+        val error = FieldErrorsDto("arguments not valid");
 
         for (fieldError in result.fieldErrors) {
             error.fieldErrors.add(FieldErrorDto(fieldError.field, fieldError.defaultMessage ?: ""));
@@ -86,7 +99,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         val headers = HttpHeaders();
         headers.contentType = MediaType.APPLICATION_JSON;
 
-        val error = ErrorDto("An error occurred");
+        val error = ErrorDto("an error occurred");
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(500), request);
     }
 }
