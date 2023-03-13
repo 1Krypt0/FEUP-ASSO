@@ -2,6 +2,7 @@ package com.iota.core.service
 
 import com.iota.core.config.broker.BrokerConfig
 import com.iota.core.dto.model.DeviceDto
+import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.model.Device
 import com.iota.core.model.DeviceType
 import com.iota.core.model.NetworkStatus
@@ -22,9 +23,13 @@ class DeviceService(
     }
 
     fun device(id: Long): Device {
-        val device = deviceRepository.findById(id)
+        try {
+            val device = deviceRepository.findById(id)
 
-        return device.get()
+            return device.get()
+        } catch (ex: NoSuchElementException) {
+            throw DeviceNotFoundException(ex.message, ex.cause, id);
+        }
     }
 
     fun new(dto: DeviceDto): Device {
