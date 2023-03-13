@@ -1,13 +1,19 @@
 package com.iota.core.exception
 
 import com.iota.core.dto.ErrorDto
+import com.iota.core.dto.FieldErrorDto
+import com.iota.core.dto.FieldErrorsDto
 import com.iota.core.exception.device.DeviceNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindingResult
+import org.springframework.validation.FieldError
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -52,6 +58,27 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         val error = ErrorDto("Device %d was not found".format(ex.id));
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request);
     }
+
+    override fun handleMethodArgumentNotValid(
+        ex: MethodArgumentNotValidException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+
+        val headers = HttpHeaders();
+        headers.contentType = MediaType.APPLICATION_JSON;
+
+        val result = ex.bindingResult;
+        val error = FieldErrorsDto("Arguments not valid");
+
+        for (fieldError in result.fieldErrors) {
+            error.fieldErrors.add(FieldErrorDto(fieldError.field, fieldError.defaultMessage ?: ""));
+        }
+
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(400), request);
+    }
+
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception::class)
     @ResponseBody

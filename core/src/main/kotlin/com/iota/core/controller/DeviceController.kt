@@ -6,6 +6,7 @@ import com.iota.core.dto.model.DeviceDto
 import com.iota.core.model.Device
 import com.iota.core.model.DeviceType
 import com.iota.core.service.DeviceService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -43,7 +44,7 @@ class DeviceController(
     }
 
     @PostMapping("/new")
-    fun newDevice(@RequestBody dto: DeviceDto): Device {
+    fun newDevice(@Valid @RequestBody dto: DeviceDto): Device {
         val device = service.new(dto)
 
         device.id?.let {
