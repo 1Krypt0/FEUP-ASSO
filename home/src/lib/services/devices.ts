@@ -22,6 +22,29 @@ export async function createDevice(device: Device) {
 	return data;
 }
 
+export async function updateDeviceValue(id:string, value:string) {
+	const data = await fetch(`${PUBLIC_URL}/devices/${id}/value`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			value:value
+		})
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			return data;
+		})
+		.catch((error) => {
+			console.log('Error updating device value', error);
+			return { error };
+		});
+
+	return data;
+}
+
 export async function getDevices(type: string): Promise<Device[]> {
 	const data = await fetch(`${PUBLIC_URL}/devices?type=${type}`)
 		.then((response) => response.json())

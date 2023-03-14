@@ -1,28 +1,24 @@
 <script lang="ts">
 
     import { page } from '$app/stores';
+	import { updateDeviceValue } from '$lib/services/devices';
+	import type { Device } from '$lib/types/device';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
+    console.log("data.page", data.page);
     const type = $page.params.page;
-    const device = {
-        name: "Bedroom Light",
-        status: "CONNECTED",
-        currentValue: "0"
-    }
+    const device:Device = data.device;
 
     function toggleDevice() {
 		device.currentValue = device.currentValue == "0" ? "1" : "0";
         console.log("button", device.currentValue);
-        on = !on
+        updateDeviceValue(device.id, device.currentValue);
 	}
 
-    let on = false;
-
-    $: on_lights_class = on ? `${data.colors[type][400]} text-white border-white` : `bg-white text-lights-400`;
-    $: on_media_class = on ? `${data.colors[type][400]} text-white border-white` : `bg-white text-media-400`;
-    $: on_climate_class = on ? `${data.colors[type][400]} text-white border-white` : `bg-white text-climate-400`;
+    $: on_lights_class = device.currentValue === "1" ? `${data.colors[type][400]} text-white border-white` : `bg-white text-lights-400`;
+    $: on_media_class = device.currentValue === "1" ? `${data.colors[type][400]} text-white border-white` : `bg-white text-media-400`;
+    $: on_climate_class = device.currentValue === "1" ? `${data.colors[type][400]} text-white border-white` : `bg-white text-climate-400`;
 
 </script>
 
