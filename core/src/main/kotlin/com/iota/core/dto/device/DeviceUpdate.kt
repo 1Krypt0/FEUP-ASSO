@@ -1,5 +1,8 @@
 package com.iota.core.dto.device
 
-class DeviceUpdate(
-    val value: String
-)
+import jakarta.validation.constraints.NotNull
+
+class DeviceUpdate {
+    @NotNull
+    val value: String? = null;
+}
