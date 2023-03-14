@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../routes/$types';
+	import type { PageData } from './$types';
 	import type { Device } from '$lib/types/device';
 	import { page } from '$app/stores';
 

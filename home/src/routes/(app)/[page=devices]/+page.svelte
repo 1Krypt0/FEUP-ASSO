@@ -1,17 +1,13 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import type { Device } from '$lib/types/device';
-	import { getDevices } from '$lib/services/devices';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 	import { PlusIcon } from 'svelte-feather-icons';
 	import DeviceCard from '$lib/components/device-card.svelte';
 
-	export let data;
+	export let data: PageData;
 
-	let devices: Device[] = [];
-	onMount(async () => {
-		devices = await getDevices(data.type[data.page]);
-	});
+	let devices: Device[] = data.devices;
 </script>
 
 <svelte:head>
@@ -28,7 +24,7 @@
 	{#if devices.length !== 0}
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
 			{#each devices as device}
-				<DeviceCard {device} {data} />
+				<DeviceCard {data} {device} />
 			{/each}
 		</div>
 	{/if}
