@@ -15,7 +15,7 @@
 	<meta name="description" content={`${data.title} Page`} />
 </svelte:head>
 
-<section class={devices.length !== 0 ? 'w-full p-6' : 'h-full flex justify-center items-center'}>
+<section class="w-full {devices.length !== 0 ? 'p-6' : 'h-full flex justify-center items-center'}">
 	<div class={devices.length !== 0 ? 'mb-4' : ''}>
 		<a href={`${$page.url}/add`}>
 			<PlusIcon />
