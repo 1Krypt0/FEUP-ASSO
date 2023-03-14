@@ -26,10 +26,10 @@
 
 <aside
 	class="{visible
-		? 'w-52'
-		: 'hidden sm:w-24'} fixed top-0 sm:h-full sm:flex flex-col items-start justify-between bg-white"
+		? 'w-60 absolute sm:relative'
+		: 'hidden sm:w-24'} sm:h-full sm:flex flex-col items-start justify-between bg-white"
 >
-	<ul class="w-full mt-16 px-4">
+	<ul class="w-full px-4">
 		{#each entries as entry}
 			<SidebarEntry
 				route={entry.route}

@@ -1,13 +1,13 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+	import type { Device } from '$lib/types/device';
 	import { page } from '$app/stores';
 
-	export let device: { id: string; name: string };
-	export let data: any;
-
-	console.log(data);
+	export let data: PageData;
+	export let device: Device;
 </script>
 
-<div class="h-full w-full p-6 bg-white rounded-lg shadow-md">
+<div class="flex flex-col justify-between h-full w-full p-6 bg-white rounded-lg shadow-md">
 	<h5 class="mb-2 text-2xl font-bold">
 		{device.name}
 	</h5>
