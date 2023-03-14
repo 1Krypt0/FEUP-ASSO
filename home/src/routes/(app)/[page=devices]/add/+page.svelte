@@ -3,16 +3,25 @@
 	import { createDevice } from '$lib/services/devices';
 
 	export let data;
+	
+	let error: string = '';
 
-	let name = '';
-	let macAddress = '';
+	let name: string = '';
+	let macAddress: string = '';
 
 	async function addDevice() {
-		await createDevice({
+		const res = await createDevice({
 			name: name,
 			macAddress: macAddress,
 			type: data.type[data.page]
 		});
+
+		if (res.error) {
+			error = 'Failed to add device.';
+			return;
+		}
+
+		error = '';
 		goto(`/${data.page}`);
 	}
 </script>
@@ -54,4 +63,8 @@
 			>
 		</div>
 	</form>
+
+	{#if error}
+		<div class="text-red-500 font-bold mt-4">{error}</div>
+	{/if}
 </section>
