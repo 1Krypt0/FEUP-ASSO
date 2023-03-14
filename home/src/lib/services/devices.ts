@@ -25,3 +25,17 @@ export async function getDevices(type: string): Promise<Device[]> {
 
 	return data;
 }
+
+export async function getDevice(id: string): Promise<Device> {
+	const data = await fetch(`${PUBLIC_URL}/devices/${id}`)
+		.then((response) => response.json())
+		.then((data) => {
+			return data;
+		})
+		.catch((error) => {
+			console.log(error);
+			return {};
+		});
+
+	return data;
+}
