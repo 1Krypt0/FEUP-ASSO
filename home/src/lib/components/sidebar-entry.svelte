@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { SunIcon } from 'svelte-feather-icons';
 
 	export let visible = false;
@@ -11,27 +10,17 @@
 </script>
 
 <div class="flex my-4">
-	<input
-		type="radio"
-		id={route}
-		name="route"
-		value={route}
-		class="hidden peer"
-		checked={$page.url.pathname.split('/')[1] === `${route}`}
-	/>
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<label
-		on:click={() => goto(`/${route}`)}
-		for={route}
+	<a
+		data-sveltekit-reload
+		href="/{route}"
 		class="flex {visible
 			? 'justify-start'
 			: 'justify-center'} w-full p-4 text-black rounded-[15px] cursor-pointer 
-			   peer-checked:{bg_color} peer-checked:text-white 
-			   {$page.url.pathname.split('/')[1] === `${route}` ? bg_color : ''}"
+			   {$page.url.pathname.split('/')[1] === `${route}` ? bg_color + ' text-white' : ''}"
 	>
 		<svelte:component this={icon} />
 		{#if visible}
 			<span class="ml-8">{name}</span>
 		{/if}
-	</label>
+	</a>
 </div>
