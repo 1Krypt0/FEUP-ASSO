@@ -1,0 +1,18 @@
+Adapter Pattern
+
+!!!Context!!!
+
+Since our Hub will need to communicate with devices of different origins and protocols, it would be a good idea to have an abstract protocol that is then adapted to work with the different devices, much like a driver for the device. 
+
+!!!Mapping!!!
+
+The pattern is implemented via the Adapter components present in the component diagram. They translate our API to one that can be understood by a supported device, much like a device driver.
+
+The commands are read from the Mosquitto broker and translated to the device, which should issue a response that is translated back to the broker.
+
+!!!Consequences!!!
+
+This pattern makes it easier to interface with components of several origins and with possibly different protocols, by creating a common interface the Hub can use to communicate with any device, which is then translated into instructions specific to the device's protocol. 
+
+The biggest problem with this pattern is having to instantiate a new adapter for every new component that is supported, which can lead to a lot of classes that have relatively similar functionality and maybe some code duplication.
+
