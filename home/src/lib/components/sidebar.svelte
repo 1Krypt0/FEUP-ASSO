@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { SettingsIcon, SunIcon, MonitorIcon, DropletIcon } from 'svelte-feather-icons';
+	import { SunIcon, MonitorIcon, DropletIcon } from 'svelte-feather-icons';
 	import SidebarEntry from './sidebar-entry.svelte';
 
 	export let visible = false;
-	export let colors: any;
-
 	let entries = [
 		{
 			route: 'lights',
@@ -24,23 +22,10 @@
 	];
 </script>
 
-<aside
-	class="{visible
-		? 'w-60 absolute sm:relative'
-		: 'hidden sm:w-24'} sm:h-full sm:flex flex-col items-start justify-between bg-white"
->
+<aside class="{visible ? 'flex' : 'hidden'} bg-white">
 	<ul class="w-full px-4">
 		{#each entries as entry}
-			<SidebarEntry
-				route={entry.route}
-				name={entry.name}
-				icon={entry.icon}
-				bg_color={colors[entry.route][400]}
-				{visible}
-			/>
+			<SidebarEntry route={entry.route} name={entry.name} icon={entry.icon} {visible} />
 		{/each}
 	</ul>
-	<a class="mb-8 px-8 hidden sm:block" href="/settings">
-		<SettingsIcon />
-	</a>
 </aside>

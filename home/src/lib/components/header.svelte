@@ -1,7 +1,6 @@
 <script>
 	import Avatar from '$lib/components/avatar.svelte';
-	import { AlignCenterIcon, SettingsIcon, XIcon, SunIcon, MoonIcon } from 'svelte-feather-icons';
-	import { fly } from 'svelte/transition';
+	import { SettingsIcon, XIcon, SunIcon, MoonIcon, AlignJustifyIcon } from 'svelte-feather-icons';
 
 	export let darkMode = false;
 	export let sidebarVisible = false;
@@ -21,14 +20,10 @@
 			{#if sidebarVisible}
 				<XIcon class="h-6 w-6" />
 			{:else}
-				<AlignCenterIcon class="h-6 w-6" />
+				<AlignJustifyIcon class="h-6 w-6" />
 			{/if}
 		</button>
 		{#if sidebarVisible}
-			<a class="sm:hidden" href="/settings">
-				<SettingsIcon />
-			</a>
-
 			<button on:click={toggleDarkMode} class=" sm:hidden">
 				{#if darkMode}
 					<SunIcon class="h-6 w-6" />

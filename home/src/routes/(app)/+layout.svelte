@@ -36,12 +36,8 @@
 <div class:dark={darkMode} class="flex flex-col min-h-screen h-screen">
 	<Header bind:darkMode bind:sidebarVisible />
 
-	<main
-		class="flex h-full overflow-y-scroll bg-right-bottom bg-contain bg-no-repeat bg-fixed {data
-			.colors[data.page][50]}"
-		style:background-image={data.bg_img}
-	>
-		<Sidebar visible={sidebarVisible} colors={data.colors} />
+	<main class="flex h-full bg-light">
+		<Sidebar visible={sidebarVisible} />
 		<slot />
 	</main>
 </div>
