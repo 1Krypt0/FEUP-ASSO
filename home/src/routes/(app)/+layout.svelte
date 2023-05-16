@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
-	import Sidebar from '$lib/components/sidebar.svelte';
-	import type { LayoutServerData } from './$types';
+	import Header from './header.svelte';
+	import Sidebar from './sidebar.svelte';
 	import '../../app.css';
 	import { onMount } from 'svelte';
 	import { pwaInfo } from 'virtual:pwa-info';
+	import type { LayoutServerData } from '../$types';
 
 	export let data: LayoutServerData;
 
@@ -37,7 +37,7 @@
 	<Header bind:darkMode bind:sidebarVisible />
 
 	<main class="flex h-full bg-light">
-		<Sidebar visible={sidebarVisible} />
+		<Sidebar visible={sidebarVisible} rooms={data.rooms} />
 		<slot />
 	</main>
 </div>
