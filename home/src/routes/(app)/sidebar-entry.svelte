@@ -19,6 +19,6 @@
 		{#if icon !== null}
 			<svelte:component this={icon} />
 		{/if}
-		<span class="ml-4">{name}</span>
+		<span class={icon !== null ? 'ml-4' : ''}>{name}</span>
 	</a>
 </div>

@@ -27,7 +27,9 @@
 </script>
 
 <aside class="{visible ? 'flex flex-col' : 'hidden'} w-1/5 px-4 bg-white">
-	<h2 class="font-semibold pt-2 text-2xl">Rooms</h2>
+	{#if rooms.length > 0}
+		<h2 class="font-semibold pt-2 text-2xl">Rooms</h2>
+	{/if}
 	<ul class="w-full">
 		{#each rooms as room}
 			<SidebarEntry name={room.name} id={room.id} />
