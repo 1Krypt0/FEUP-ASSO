@@ -1,6 +1,6 @@
 <script>
-	import Avatar from '$lib/components/avatar.svelte';
-	import { SettingsIcon, XIcon, SunIcon, MoonIcon, AlignJustifyIcon } from 'svelte-feather-icons';
+	import Avatar from './avatar.svelte';
+	import { XIcon, SunIcon, MoonIcon, AlignJustifyIcon } from 'svelte-feather-icons';
 
 	export let darkMode = false;
 	export let sidebarVisible = false;
