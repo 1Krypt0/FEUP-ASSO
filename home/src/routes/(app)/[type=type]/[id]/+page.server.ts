@@ -14,11 +14,14 @@ export const load = (async ({ params, parent }) => {
 	//const device = await getDevice(params.id);
 
 	let divisionName;
+	let isRoom;
 	if (params.type === 'category') {
 		divisionName = params.id.charAt(0).toUpperCase() + params.id.slice(1);
+		isRoom = false;
 	} else if (params.type === 'room') {
 		const room = parentData.rooms.find((elem) => elem.id == Number.parseInt(params.id));
 		divisionName = room?.name;
+		isRoom = true;
 	}
 
 	// TODO: Change to data fetching when available
@@ -70,5 +73,5 @@ export const load = (async ({ params, parent }) => {
 	];
 
 	const divisionDevices = devices.filter((elem) => elem[params.type] == params.id);
-	return { divisionDevices, divisionName };
+	return { divisionDevices, divisionName, isRoom };
 }) satisfies PageServerLoad;
