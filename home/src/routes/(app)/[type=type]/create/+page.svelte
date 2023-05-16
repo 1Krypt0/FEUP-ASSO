@@ -8,7 +8,7 @@
 	<h1 class="font-bold pl-20 pt-12 text-5xl">Add a new Room</h1>
 	<section class="w-full h-full">
 		<form method="post" class="w-1/4 h-2/3 mx-auto flex flex-col items-center justify-center">
-			<div class="">
+			<div class="flex items-center">
 				<label for="device-name" class="pr-5">Name</label>
 				<input
 					id="device-name"

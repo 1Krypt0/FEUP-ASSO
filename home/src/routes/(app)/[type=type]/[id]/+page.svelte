@@ -1,13 +1,16 @@
 <script lang="ts">
 	import DeviceCard from './device-card.svelte';
 	import type { PageData } from './$types';
-	import { MonitorIcon, SunIcon, WindIcon } from 'svelte-feather-icons';
+	import { MonitorIcon, PlusIcon, SunIcon, WindIcon } from 'svelte-feather-icons';
 
 	export let data: PageData;
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
-	<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
+	<span class="flex w-full items-center justify-between">
+		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
+		<a href="/device/create"><PlusIcon /></a>
+	</span>
 	<section class="grid grid-cols-4 gap-16 py-12">
 		{#each data.divisionDevices as device}
 			{#if device.category === 'lights'}

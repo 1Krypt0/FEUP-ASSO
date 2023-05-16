@@ -32,7 +32,7 @@ export const load = (async ({ params, parent }) => {
 		{
 			id: 2,
 			name: 'Device 2',
-			room: 2,
+			room: 0,
 			category: 'media'
 		},
 		{
