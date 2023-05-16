@@ -4,7 +4,7 @@
 	import '../../app.css';
 	import { onMount } from 'svelte';
 	import { pwaInfo } from 'virtual:pwa-info';
-	import type { LayoutServerData } from '../$types';
+	import type { LayoutServerData } from './$types';
 
 	export let data: LayoutServerData;
 

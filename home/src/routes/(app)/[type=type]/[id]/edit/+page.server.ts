@@ -1,5 +1,5 @@
 import type { Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params, parent }) => {
 	const parentData = await parent();

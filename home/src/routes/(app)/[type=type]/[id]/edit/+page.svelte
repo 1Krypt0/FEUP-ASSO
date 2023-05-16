@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../../../$types';
+	import type { PageData } from './$types';
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
