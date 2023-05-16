@@ -10,11 +10,11 @@ class DeviceHandler(
 ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
         val device = deviceRepository.findById(deviceId).get()
-
-        message?.payload?.let {
-            val value = String(it)
-            device.currentValue = value
-            deviceRepository.save(device)
-        }
+// TODO
+//        message?.payload?.let {
+//            val value = String(it)
+//            device.currentValue = value
+//            deviceRepository.save(device)
+//        }
     }
 }

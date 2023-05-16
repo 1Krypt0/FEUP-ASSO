@@ -5,6 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 import org.jetbrains.annotations.NotNull
@@ -22,8 +23,8 @@ enum class DeviceType {
 
 @Entity
 @Table(uniqueConstraints = [
-    UniqueConstraint(name = "UC_MAC", columnNames = ["macAddress"])
-])
+    UniqueConstraint(name = "UC_MAC", columnNames = ["macAddress"]),
+], name = "device")
 class Device {
     @Id
     @GeneratedValue
@@ -41,9 +42,6 @@ class Device {
     @NotNull
     var macAddress: String = ""
 
-    @Column(nullable = true)
-    var currentValue: String? = ""
-
     @NotNull
     @Enumerated
     var type: DeviceType? = null
@@ -51,4 +49,7 @@ class Device {
     @NotNull
     @Enumerated
     var status: NetworkStatus? = null
+
+    @OneToMany(mappedBy = "device")
+    var actions: List<Action> = listOf()
 }

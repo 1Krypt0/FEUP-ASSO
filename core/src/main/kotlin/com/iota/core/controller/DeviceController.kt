@@ -40,7 +40,8 @@ class DeviceController(
     @PostMapping("/{id}/value")
     fun updateDeviceValue(@PathVariable id: Long, @Valid @RequestBody deviceUpdate: DeviceUpdate) {
         val device = service.device(id)
-        broker.addToTopic(device.actionTopic, deviceUpdate.value ?: "")
+        // TODO
+//        broker.addToTopic(device.actionTopic, deviceUpdate.value ?: "")
     }
 
     @PostMapping("/new")
