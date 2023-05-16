@@ -7,17 +7,16 @@
 
 	export let data: PageData;
 
-	let devices: Device[] = data.devices;
+	let devices: Device[] = []; //data.devices;
 </script>
 
 <svelte:head>
-	<title>Home by Iota - {data.title}</title>
-	<meta name="description" content={`${data.title} Page`} />
+	<title>Home by Iota</title>
 </svelte:head>
 
 <section class="w-full {devices.length !== 0 ? 'p-6' : 'h-full flex justify-center items-center'}">
 	<div class={devices.length !== 0 ? 'mb-4' : ''}>
-		<a href={`${$page.url}/add`}>
+		<a href={`${$page.url}/create`}>
 			<PlusIcon />
 		</a>
 	</div>
