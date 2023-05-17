@@ -2,19 +2,16 @@
 	import DeviceCard from './device-card.svelte';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
-	import { MonitorIcon, PlusIcon, SettingsIcon, SunIcon, WindIcon } from 'svelte-feather-icons';
+	import { DropletIcon, MonitorIcon, PlusIcon, SettingsIcon, SunIcon } from 'svelte-feather-icons';
 
 	export let data: PageData;
-	const params = new URLSearchParams();
-	params.set('division', $page.params.id);
-	params.set('type', $page.params.type);
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
 	<span class="flex w-full items-center justify-between">
 		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
 		<span class="flex items-center gap-6">
-			<a href="/devices/create?{params.toString()}"><PlusIcon /></a>
+			<a href="/devices/create"><PlusIcon /></a>
 			{#if data.isRoom && Number.parseInt($page.params.id) > 0}
 				<a href="/rooms/{$page.params.id}/edit"><SettingsIcon /></a>
 			{/if}
@@ -29,7 +26,8 @@
 					><MonitorIcon class="stroke-accent" /></DeviceCard
 				>
 			{:else if device.category === 'climate'}
-				<DeviceCard name={device.name} id={device.id}><WindIcon class="stroke-accent" /></DeviceCard
+				<DeviceCard name={device.name} id={device.id}
+					><DropletIcon class="stroke-accent" /></DeviceCard
 				>
 			{/if}
 		{/each}

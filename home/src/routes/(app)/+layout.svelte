@@ -34,7 +34,7 @@
 	<Header bind:darkMode bind:sidebarVisible />
 
 	<main class="flex h-full bg-light">
-		<Sidebar visible={sidebarVisible} rooms={data.rooms} />
+		<Sidebar visible={sidebarVisible} rooms={data.rooms} categories={data.categories} />
 		<slot />
 	</main>
 </div>

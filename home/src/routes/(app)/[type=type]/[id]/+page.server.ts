@@ -15,10 +15,10 @@ export const load = (async ({ params, parent }) => {
 
 	let divisionName;
 	let isRoom;
-	if (params.type === 'category') {
+	if (params.type === 'categories') {
 		divisionName = params.id.charAt(0).toUpperCase() + params.id.slice(1);
 		isRoom = false;
-	} else if (params.type === 'room') {
+	} else if (params.type === 'rooms') {
 		const room = parentData.rooms.find((elem) => elem.id == Number.parseInt(params.id));
 		divisionName = room?.name;
 		isRoom = true;
@@ -63,7 +63,6 @@ export const load = (async ({ params, parent }) => {
 			room: 1,
 			category: 'lights'
 		},
-
 		{
 			id: 7,
 			name: 'Device 7',
@@ -72,6 +71,8 @@ export const load = (async ({ params, parent }) => {
 		}
 	];
 
-	const divisionDevices = devices.filter((elem) => elem[params.type] == params.id);
+	const idx = params.type === 'rooms' ? 'room' : params.type === 'categories' ? 'category' : '';
+
+	const divisionDevices = devices.filter((elem) => elem[idx] == params.id);
 	return { divisionDevices, divisionName, isRoom };
 }) satisfies PageServerLoad;

@@ -1,29 +1,19 @@
 <script lang="ts">
-	import { SunIcon, MonitorIcon, DropletIcon } from 'svelte-feather-icons';
 	import SidebarEntry from './sidebar-entry.svelte';
 	import { page } from '$app/stores';
+	import type { ComponentType } from 'svelte';
+	import { DropletIcon, MonitorIcon, SunIcon } from 'svelte-feather-icons';
 
 	export let rooms: { name: string; id: number }[] = [];
 	export let visible = false;
+	export let categories: { name: string; id: number }[] = [];
 	const createRoomURL = '/rooms/create';
 
-	const categories = [
-		{
-			name: 'Lights',
-			id: 'lights',
-			icon: SunIcon
-		},
-		{
-			name: 'Media',
-			id: 'media',
-			icon: MonitorIcon
-		},
-		{
-			name: 'Climate',
-			id: 'climate',
-			icon: DropletIcon
-		}
-	];
+	const iconDict: { [key: string]: ComponentType } = {
+		lights: SunIcon,
+		media: MonitorIcon,
+		climate: DropletIcon
+	};
 </script>
 
 <aside class="{visible ? 'flex flex-col' : 'hidden'} w-1/5 px-4 bg-white">
@@ -45,7 +35,7 @@
 	<h2 class="font-semibold pt-6 text-2xl">Categories</h2>
 	<ul class="w-full ">
 		{#each categories as category}
-			<SidebarEntry name={category.name} id={category.id} icon={category.icon} />
+			<SidebarEntry name={category.name} id={category.id} icon={iconDict[category.id]} />
 		{/each}
 	</ul>
 </aside>
