@@ -22,7 +22,7 @@
 	{/if}
 	<ul class="w-full">
 		{#each rooms as room}
-			<SidebarEntry name={room.name} id={room.id} />
+			<SidebarEntry name={room.name} id={room.id} isRoom={true} />
 		{/each}
 		<a
 			href={createRoomURL}
@@ -35,7 +35,12 @@
 	<h2 class="font-semibold pt-6 text-2xl">Categories</h2>
 	<ul class="w-full ">
 		{#each categories as category}
-			<SidebarEntry name={category.name} id={category.id} icon={iconDict[category.id]} />
+			<SidebarEntry
+				name={category.name}
+				id={category.id}
+				icon={iconDict[category.id]}
+				isRoom={false}
+			/>
 		{/each}
 	</ul>
 </aside>

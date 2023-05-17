@@ -3,6 +3,7 @@
 	import type { ComponentType } from 'svelte';
 
 	export let name = '';
+	export let isRoom = true;
 	export let id: number | string = 0;
 	export let icon: ComponentType | null = null;
 
@@ -13,11 +14,7 @@
 
 <div class="flex my-4">
 	<a
-		href={typeof id === 'number'
-			? `/rooms/${id}`
-			: typeof id === 'string'
-			? `/categories/${id}`
-			: ''}
+		href={isRoom ? `/rooms/${id}` : `/categories/${id}`}
 		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {types.includes(route[1]) &&
 		route[2] === `${id}`
 			? 'bg-accent text-white'
