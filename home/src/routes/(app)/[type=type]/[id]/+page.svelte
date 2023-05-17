@@ -5,15 +5,18 @@
 	import { MonitorIcon, PlusIcon, SettingsIcon, SunIcon, WindIcon } from 'svelte-feather-icons';
 
 	export let data: PageData;
+	const params = new URLSearchParams();
+	params.set('division', $page.params.id);
+	params.set('type', $page.params.type);
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
 	<span class="flex w-full items-center justify-between">
 		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
 		<span class="flex items-center gap-6">
-			<a href="/device/create"><PlusIcon /></a>
+			<a href="/devices/create?{params.toString()}"><PlusIcon /></a>
 			{#if data.isRoom && Number.parseInt($page.params.id) > 0}
-				<a href="/room/{$page.params.id}/edit"><SettingsIcon /></a>
+				<a href="/rooms/{$page.params.id}/edit"><SettingsIcon /></a>
 			{/if}
 		</span>
 	</span>

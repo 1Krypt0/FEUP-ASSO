@@ -9,7 +9,7 @@
 		<p>{name}</p>
 	</div>
 	<a
-		href="/device/{id}"
+		href="/devices/{id}"
 		class="self-end px-8 mx-5 text-center text-white font-bold my-6  py-3 rounded-full bg-primary"
 		>See more</a
 	>

@@ -9,7 +9,11 @@
 
 <div class="flex my-4">
 	<a
-		href={typeof id === 'number' ? `/room/${id}` : typeof id === 'string' ? `/category/${id}` : ''}
+		href={typeof id === 'number'
+			? `/rooms/${id}`
+			: typeof id === 'string'
+			? `/categories/${id}`
+			: ''}
 		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {$page.url.pathname.split(
 			'/'
 		)[2] === `${id}`

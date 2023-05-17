@@ -16,7 +16,7 @@ export const actions = {
 		const newName = data.get('name');
 
 		if (!newName) {
-			return fail(400, { name, missing: true });
+			return fail(400, { newName, missing: true });
 		}
 		//TODO: Change to update actual room name
 		return true;

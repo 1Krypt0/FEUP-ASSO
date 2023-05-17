@@ -5,7 +5,7 @@
 
 	export let rooms: { name: string; id: number }[] = [];
 	export let visible = false;
-	const createRoomURL = '/room/create';
+	const createRoomURL = '/rooms/create';
 
 	const categories = [
 		{
