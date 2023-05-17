@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { PageData, ActionData } from './$types';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
-	export let form: ActionData;
 	let step = 0;
 	let formData = {
 		name: '',
@@ -44,9 +43,6 @@
 						class="py-3 px-5 rounded-full w-full"
 					/>
 				</div>
-				{#if form?.missing}
-					<p class="pt-2 pr-8">Name field is required</p>
-				{/if}
 
 				<div class="flex items-center">
 					<label for="device-room" class="pr-5">Room</label>
