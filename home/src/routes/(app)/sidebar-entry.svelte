@@ -5,6 +5,10 @@
 	export let name = '';
 	export let id: number | string = 0;
 	export let icon: ComponentType | null = null;
+
+	const types = ['rooms', 'categories'];
+
+	$: route = $page.url.pathname.split('/');
 </script>
 
 <div class="flex my-4">
@@ -14,9 +18,8 @@
 			: typeof id === 'string'
 			? `/categories/${id}`
 			: ''}
-		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {$page.url.pathname.split(
-			'/'
-		)[2] === `${id}`
+		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {types.includes(route[1]) &&
+		route[2] === `${id}`
 			? 'bg-accent text-white'
 			: ''}"
 	>
