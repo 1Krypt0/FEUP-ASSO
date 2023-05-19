@@ -32,7 +32,7 @@
 		</span>
 	</span>
 	<section
-		class="flex flex-col items-center sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16 py-12"
+		class="flex flex-col items-center sm:grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-16 py-12"
 	>
 		{#each data.divisionDevices as device}
 			{#if device.category === 'lights'}
