@@ -27,6 +27,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
 	runtimeOnly("com.h2database:h2")
+	implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,7 +1,9 @@
 package com.iota.core.model
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.iota.core.dto.device.RequiredProperties
+import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
+import org.hibernate.annotations.Type
 import org.jetbrains.annotations.NotNull
 
 @Entity
@@ -14,19 +16,8 @@ class Action {
     @NotNull
     var name: String? = null
 
+    @Type(JsonType::class)
     @Lob
-    var actionValue: String? = null
-
-    fun setValue(data: Any) {
-        actionValue = ObjectMapper().writeValueAsString(data)
-    }
-
-    fun getValue(): Any {
-        return ObjectMapper().readValue(actionValue, Any::class.java)
-    }
-
-    @ManyToOne
-    @NotNull
-    @JoinColumn(name = "device_id")
-    var device: Device? = null
+    @Column(columnDefinition = "json")
+    var required: RequiredProperties? = null
 }
