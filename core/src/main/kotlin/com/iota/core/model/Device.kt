@@ -71,19 +71,4 @@ class Device {
         result = 31 * result + (status?.hashCode() ?: 0)
         return result
     }
-
-    fun toDeviceGet() : DeviceGet {
-        val deviceGet = DeviceGet()
-
-        deviceGet.id = this.id!!
-        deviceGet.name = this.name
-        deviceGet.macAddress = this.macAddress
-        deviceGet.type = this.type!!
-        deviceGet.status = this.status!!
-        deviceGet.deviceActions = this.deviceActions.map { it.toDeviceActionGet() }.toSet()
-        deviceGet.actionTopic = this.actionTopic
-        deviceGet.dataTopic = this.dataTopic
-
-        return deviceGet
-    }
 }

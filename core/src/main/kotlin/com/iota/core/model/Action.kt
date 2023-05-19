@@ -45,15 +45,4 @@ class Action {
         result = 31 * result + required.hashCode()
         return result
     }
-
-    fun toActionGet() : ActionGet {
-        val actionGet = ActionGet()
-
-        actionGet.id = this.id!!
-        actionGet.name = this.name
-        actionGet.type = this.type
-        actionGet.required = this.required
-
-        return actionGet
-    }
 }

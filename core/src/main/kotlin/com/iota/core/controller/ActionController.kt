@@ -17,12 +17,12 @@ class ActionController(
 ) {
     @GetMapping("/{id}")
     fun action(@PathVariable id: Long): ActionGet {
-        return service.action(id).toActionGet()
+        return ActionGet(service.action(id))
     }
 
 
     @PostMapping("/new")
     fun newAction(@Valid @RequestBody dto: ActionDto): ActionGet {
-        return service.new(dto).toActionGet()
+        return ActionGet(service.new(dto))
     }
 }

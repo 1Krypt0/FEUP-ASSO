@@ -26,7 +26,7 @@ class DeviceController(
 
     @GetMapping("")
     fun list(@RequestParam(required = false) type: DeviceType?): List<DeviceGet> {
-        return service.findAll(type).map { it.toDeviceGet() }
+        return service.findAll(type).map { DeviceGet(it) }
     }
 
     @GetMapping("/{id}")
@@ -34,7 +34,7 @@ class DeviceController(
         val device = service.device(id)
         broker.subscribe(id, device.dataTopic) // TODO Remove this for a better fault tolerance
 
-        return device.toDeviceGet()
+        return DeviceGet(device)
     }
 
     @GetMapping("/{id}/status")
@@ -55,6 +55,6 @@ class DeviceController(
             broker.subscribe(it, device.dataTopic)
         }
 
-        return device.toDeviceGet()
+        return DeviceGet(device)
     }
 }

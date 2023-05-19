@@ -54,17 +54,4 @@ class DeviceAction {
         result = 31 * result + status.hashCode()
         return result
     }
-
-    fun toDeviceActionGet() : DeviceActionGet {
-        val deviceActionGet = DeviceActionGet()
-
-        deviceActionGet.id = this.id!!
-        deviceActionGet.action = this.action!!.toActionGet()
-        deviceActionGet.displayName = this.displayName
-        deviceActionGet.description = this.description
-        deviceActionGet.properties = this.properties
-        deviceActionGet.status = this.status
-
-        return deviceActionGet
-    }
 }
