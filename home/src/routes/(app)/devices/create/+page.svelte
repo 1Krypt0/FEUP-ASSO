@@ -23,36 +23,36 @@
 		});
 
 		if (response.ok) {
-			goto('rooms');
+			goto('/');
 		}
 	}
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
-	<h1 class="font-bold pl-20 pt-12 text-5xl">Add a device</h1>
-	<section class="w-full h-full">
+	<h1 class="font-bold md:pl-20 pt-12 text-center md:text-start text-5xl">Add a device</h1>
+	<section class="w-full h-full flex items-center justify-center">
 		<form
 			method="POST"
 			on:submit|preventDefault={submit}
-			class="w-1/3 h-2/3 mx-auto flex flex-col gap-6 justify-center"
+			class="flex flex-col justify-center gap-6"
 		>
 			{#if step === 0}
-				<div class="flex items-center">
-					<label for="device-name" class="pr-5">Name</label>
+				<div class="pl-5">
+					<label for="device-name">Name</label>
 					<input
 						bind:value={formData.name}
 						id="device-name"
 						name="name"
 						type="text"
 						placeholder="Enter the new device name here"
-						class="py-3 px-5 rounded-full w-full"
+						class="py-3 px-2 md:px-5 rounded-full mt-5 sm:ml-5"
 					/>
 				</div>
 
-				<div class="flex items-center">
-					<label for="device-room" class="pr-5">Room</label>
+				<div class="sm:flex sm:items-center pl-5">
+					<label for="device-room">Room</label>
 					<select
-						class="flex py-3 rounded-full text-center w-full bg-white"
+						class="flex py-3 mt-5 sm:ml-5 rounded-full text-center w-full bg-white"
 						id="device-room"
 						name="room"
 						bind:value={formData.roomID}
@@ -63,10 +63,10 @@
 					</select>
 				</div>
 
-				<div class="flex items-center">
-					<label for="device-category" class="pr-5">Category</label>
+				<div class="sm:flex sm:items-center pl-5">
+					<label for="device-category">Category</label>
 					<select
-						class="flex py-3 rounded-full text-center w-full bg-white"
+						class="flex py-3 mt-5 sm:ml-5 rounded-full text-center w-full bg-white"
 						id="device-category"
 						name="category"
 						bind:value={formData.categoryID}
@@ -82,13 +82,15 @@
 					on:click={() => step++}>Search</button
 				>
 			{:else if step === 1}
-				<h2 class="font-bold text-3xl">Search Results</h2>
+				<h2 class="font-bold text-center md:text-start text-3xl">Search Results</h2>
 
-				<section class="flex flex-col gap-6 overflow-auto py-6">
+				<section
+					class="flex flex-col items-center gap-6 max-h-56 md:max-h-72 lg:max-h-96 overflow-auto py-6"
+				>
 					{#each data.foundDevices as result}
 						<button
 							type="button"
-							class="bg-white drop-shadow-lg rounded-full text-center text-lg py-3 w-2/3 focus:bg-accent focus:text-white"
+							class="bg-white px-5 drop-shadow-lg rounded-full text-center text-lg py-3 w-full focus:bg-accent focus:text-white"
 							on:click={() => (formData.selectedName = result.name)}
 						>
 							{result.name}
