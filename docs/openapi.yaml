@@ -71,30 +71,6 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Room not found
-    post:
-      tags:
-        - rooms
-      summary: Add a new device to the room
-      operationId: addDeviceToRoom
-      requestBody:
-        description: Create a new device
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Device'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Device'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Room'          
-        '405':
-          description: Invalid input
     put:
       tags:
         - rooms
@@ -163,11 +139,12 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Category not found
+  /devices:
     post:
       tags:
-        - categories
-      summary: Add a new device of specific category
-      operationId: addDeviceOfCategory
+        - devices
+      summary: Add a new device
+      operationId: addDevice
       requestBody:
         description: Create a new device
         content:
