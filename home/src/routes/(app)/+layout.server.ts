@@ -1,4 +1,3 @@
-import { DropletIcon, MonitorIcon, SunIcon } from 'svelte-feather-icons';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {

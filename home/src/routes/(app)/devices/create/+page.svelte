@@ -1,13 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	const roomID = Number.parseInt($page.url.searchParams.get('roomID') ?? '-1');
+	const categoryID = $page.url.searchParams.get('category') ?? '';
+
 	let step = 0;
 	let formData = {
 		name: '',
-		roomID: '',
-		categoryID: '',
+		roomID: roomID,
+		categoryID: categoryID,
 		selectedName: ''
 	};
 

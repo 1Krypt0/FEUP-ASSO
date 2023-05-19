@@ -5,13 +5,27 @@
 	import { DropletIcon, MonitorIcon, PlusIcon, SettingsIcon, SunIcon } from 'svelte-feather-icons';
 
 	export let data: PageData;
+	const id = $page.params.id;
+
+	const queryParams = new URLSearchParams();
+	switch ($page.params.type) {
+		case 'rooms':
+			queryParams.set('roomID', id);
+			break;
+
+		case 'categories':
+			queryParams.set('category', id);
+			break;
+		default:
+			break;
+	}
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
 	<span class="flex w-full items-center justify-between pt-10">
 		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
 		<span class="flex items-center gap-6">
-			<a href="/devices/create"><PlusIcon /></a>
+			<a href="/devices/create?{queryParams.toString()}"><PlusIcon /></a>
 			{#if data.isRoom && Number.parseInt($page.params.id) > 0}
 				<a href="/rooms/{$page.params.id}/edit"><SettingsIcon /></a>
 			{/if}
