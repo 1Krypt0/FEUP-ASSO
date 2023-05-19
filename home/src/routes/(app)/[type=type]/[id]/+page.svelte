@@ -8,7 +8,7 @@
 </script>
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
-	<span class="flex w-full items-center justify-between">
+	<span class="flex w-full items-center justify-between pt-10">
 		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
 		<span class="flex items-center gap-6">
 			<a href="/devices/create"><PlusIcon /></a>
