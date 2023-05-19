@@ -2,18 +2,20 @@ package com.iota.core.dto.model
 
 import com.iota.core.dto.device.Properties
 import com.iota.core.model.DeviceAction
+import com.iota.core.validator.ValidActionId
+import com.iota.core.validator.ValidDeviceActionProperties
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 
+@ValidDeviceActionProperties
 class DeviceActionDto : EntityDto<DeviceAction> {
     @NotNull
-    // TODO: Add action validation
+    @ValidActionId
     var id: Long? = null;
 
     @NotEmpty
     var name: String = "";
 
-    // TODO: add properties validation
     var properties: Properties = mutableMapOf();
 
     @NotNull

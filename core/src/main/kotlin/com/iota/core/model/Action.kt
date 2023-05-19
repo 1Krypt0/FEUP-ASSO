@@ -22,7 +22,7 @@ class Action {
     @Column(columnDefinition = "json")
     var required: RequiredProperties? = null
 
-    @OneToMany(mappedBy = "action")
+    @OneToMany(mappedBy = "action", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var deviceActions: Set<DeviceAction> = setOf()
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
