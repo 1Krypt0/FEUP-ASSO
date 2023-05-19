@@ -45,14 +45,14 @@
 						name="name"
 						type="text"
 						placeholder="Enter the new device name here"
-						class="py-3 px-2 md:px-5 rounded-full mt-5 sm:ml-5"
+						class="py-3 px-2 md:px-5 rounded-full mt-5  sm:ml-5"
 					/>
 				</div>
 
 				<div class="sm:flex sm:items-center pl-5">
 					<label for="device-room">Room</label>
 					<select
-						class="flex py-3 mt-5 sm:ml-5 rounded-full text-center w-full bg-white"
+						class="flex py-3 mt-5 sm:ml-5 sm:mt-0 rounded-full text-center w-full bg-white"
 						id="device-room"
 						name="room"
 						bind:value={formData.roomID}
@@ -66,7 +66,7 @@
 				<div class="sm:flex sm:items-center pl-5">
 					<label for="device-category">Category</label>
 					<select
-						class="flex py-3 mt-5 sm:ml-5 rounded-full text-center w-full bg-white"
+						class="flex py-3 mt-5 sm:ml-5 sm:mt-0 rounded-full text-center w-full bg-white"
 						id="device-category"
 						name="category"
 						bind:value={formData.categoryID}

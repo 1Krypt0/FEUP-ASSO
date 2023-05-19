@@ -5,29 +5,29 @@
 	export let form: ActionData;
 </script>
 
-<div class="flex flex-col w-full">
-	<h1 class="font-bold pl-20 pt-12 text-5xl">Edit {data.name}</h1>
-	<section class="w-full h-full">
-		<form method="post" class="w-1/4 h-2/3 mx-auto flex flex-col gap-6 items-center justify-center">
-			<div class="flex items-center w-full">
-				<label for="device-name" class="pr-5">Name</label>
+<div class="px-5 py-4 w-full md:px-28 md:py-4">
+	<h1 class="font-bold md:pl-20 pt-12 text-center md:text-start text-5xl">Edit {data.name}</h1>
+	<section class="w-full h-full flex items-center justify-center">
+		<form method="post" class="flex flex-col gap-6 justify-center">
+			<div class="pl-5">
+				<label for="device-name">Name</label>
 				<input
 					id="device-name"
 					name="name"
 					type="text"
 					placeholder="Enter the new Room name here"
 					value={data.name}
-					class="py-3 px-5 w-full rounded-full"
+					class="py-3 px-2 md:px-5 rounded-full mt-5 sm:ml-5"
 				/>
 			</div>
 			{#if form?.missing}
 				<p class="pt-2 pr-8">Name field is required</p>
 			{/if}
 
-			<div class="flex items-center w-full">
-				<label for="device-room" class="pr-5">Room</label>
+			<div class="sm:flex sm:items-center pl-5">
+				<label for="device-room">Room</label>
 				<select
-					class="flex py-3 rounded-full text-center w-full bg-white"
+					class="flex items-center py-3 mt-5 sm:mt-0 sm:ml-5 rounded-full text-center w-full bg-white"
 					id="device-room"
 					name="room"
 				>
