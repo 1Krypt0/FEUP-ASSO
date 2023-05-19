@@ -1,8 +1,11 @@
 package com.iota.core
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.iota.core.dto.device.Properties
 import com.iota.core.dto.device.RequiredProperties
 import com.iota.core.model.Action
+import com.iota.core.model.Device
+import com.iota.core.model.DeviceAction
 import jakarta.persistence.EntityManagerFactory
 import org.hibernate.SessionFactory
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -50,5 +53,34 @@ class ActionTests {
 
 		assertEquals(action.name, action2.name)
 		assertEquals(action.required, action2.required)
+	}
+
+	@Test
+	fun testSaveAndRetrieveDeviceAction() {
+		val deviceAction = DeviceAction();
+		deviceAction.displayName = "test"
+		deviceAction.description = "test"
+
+		val properties: Properties = mutableMapOf();
+		properties["min"] = "0"
+		properties["max"] = "100"
+		properties["step"] = "1"
+
+		deviceAction.properties = properties
+		deviceAction.status = "2"
+
+		val entityManager = entityManagerFactory.createEntityManager()
+		entityManager.transaction.begin()
+		entityManager.persist(deviceAction)
+		entityManager.transaction.commit()
+		entityManager.close()
+
+		val entityManager2 = entityManagerFactory.createEntityManager()
+		val deviceAction2 = entityManager2.find(DeviceAction::class.java, deviceAction.id)
+
+		assertEquals(deviceAction.displayName, deviceAction2.displayName)
+		assertEquals(deviceAction.description, deviceAction2.description)
+		assertEquals(deviceAction.properties, deviceAction2.properties)
+		assertEquals(deviceAction.status, deviceAction2.status)
 	}
 }

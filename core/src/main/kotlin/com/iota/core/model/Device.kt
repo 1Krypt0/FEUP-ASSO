@@ -50,6 +50,6 @@ class Device {
     @Enumerated
     var status: NetworkStatus? = null
 
-//    @OneToMany(mappedBy = "device")
-//    var actions: List<Action> = listOf()
+    @OneToMany(mappedBy = "device")
+    var deviceActions: Set<DeviceAction> = setOf()
 }

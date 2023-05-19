@@ -20,4 +20,7 @@ class Action {
     @Lob
     @Column(columnDefinition = "json")
     var required: RequiredProperties? = null
+
+    @OneToMany(mappedBy = "action")
+    var deviceActions: Set<DeviceAction> = setOf()
 }
