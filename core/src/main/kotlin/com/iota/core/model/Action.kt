@@ -1,8 +1,11 @@
 package com.iota.core.model
 
+import com.iota.core.dto.action.ActionGet
+import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.RequiredProperties
 import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotEmpty
 import org.hibernate.annotations.Type
 import org.jetbrains.annotations.NotNull
 import org.springframework.validation.annotation.Validated
@@ -14,13 +17,16 @@ class Action {
     @GeneratedValue
     var id: Long? = null
 
-    @NotNull
-    var name: String? = null
+    @NotEmpty
+    var name: String = ""
+
+    @NotEmpty
+    var type: String = ""
 
     @Type(JsonType::class)
     @Lob
     @Column(columnDefinition = "json")
-    var required: RequiredProperties? = null
+    var required: RequiredProperties = mutableListOf()
 
     @OneToMany(mappedBy = "action", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var deviceActions: Set<DeviceAction> = setOf()
@@ -35,8 +41,19 @@ class Action {
 
     override fun hashCode(): Int {
         var result = id?.hashCode() ?: 0
-        result = 31 * result + (name?.hashCode() ?: 0)
-        result = 31 * result + (required?.hashCode() ?: 0)
+        result = 31 * result + name.hashCode()
+        result = 31 * result + required.hashCode()
         return result
+    }
+
+    fun toActionGet() : ActionGet {
+        val actionGet = ActionGet()
+
+        actionGet.id = this.id!!
+        actionGet.name = this.name
+        actionGet.type = this.type
+        actionGet.required = this.required
+
+        return actionGet
     }
 }

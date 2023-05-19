@@ -18,12 +18,11 @@ class DeviceActionDto : EntityDto<DeviceAction> {
 
     var properties: Properties = mutableMapOf();
 
-    @NotNull
-    var status: String? = "";
+    @NotEmpty
+    var status: String = "";
 
     override fun create(): DeviceAction {
         val entity = DeviceAction()
-        entity.id = id
         entity.displayName = name
         entity.properties = properties
         entity.status = status

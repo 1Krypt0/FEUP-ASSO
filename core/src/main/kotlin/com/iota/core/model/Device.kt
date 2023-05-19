@@ -1,13 +1,8 @@
 package com.iota.core.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
-import jakarta.persistence.UniqueConstraint
+import com.iota.core.dto.device.DeviceGet
+import jakarta.persistence.*
+import jakarta.validation.constraints.NotEmpty
 import org.jetbrains.annotations.NotNull
 
 enum class NetworkStatus {
@@ -36,10 +31,10 @@ class Device {
     @NotNull
     var actionTopic: String = ""
 
-    @NotNull
+    @NotEmpty
     var name: String = ""
 
-    @NotNull
+    @NotEmpty
     var macAddress: String = ""
 
     @NotNull
@@ -50,7 +45,7 @@ class Device {
     @Enumerated
     var status: NetworkStatus? = null
 
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
     var deviceActions: Set<DeviceAction> = setOf()
 
     override fun equals(other: Any?): Boolean {
@@ -75,5 +70,20 @@ class Device {
         result = 31 * result + (type?.hashCode() ?: 0)
         result = 31 * result + (status?.hashCode() ?: 0)
         return result
+    }
+
+    fun toDeviceGet() : DeviceGet {
+        val deviceGet = DeviceGet()
+
+        deviceGet.id = this.id!!
+        deviceGet.name = this.name
+        deviceGet.macAddress = this.macAddress
+        deviceGet.type = this.type!!
+        deviceGet.status = this.status!!
+        deviceGet.deviceActions = this.deviceActions.map { it.toDeviceActionGet() }.toSet()
+        deviceGet.actionTopic = this.actionTopic
+        deviceGet.dataTopic = this.dataTopic
+
+        return deviceGet
     }
 }

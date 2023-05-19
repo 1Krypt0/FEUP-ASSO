@@ -1,6 +1,7 @@
 package com.iota.core.controller
 
 import com.iota.core.config.broker.BrokerConfig
+import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.model.Device
@@ -24,14 +25,16 @@ class DeviceController(
     private val broker = brokerConfig.broker()
 
     @GetMapping("")
-    fun list(@RequestParam(required = false) type: DeviceType?): List<Device> = service.findAll(type)
+    fun list(@RequestParam(required = false) type: DeviceType?): List<DeviceGet> {
+        return service.findAll(type).map { it.toDeviceGet() }
+    }
 
     @GetMapping("/{id}")
-    fun device(@PathVariable id: Long): Device {
+    fun device(@PathVariable id: Long): DeviceGet {
         val device = service.device(id)
         broker.subscribe(id, device.dataTopic) // TODO Remove this for a better fault tolerance
 
-        return device
+        return device.toDeviceGet()
     }
 
     @GetMapping("/{id}/status")
@@ -45,13 +48,13 @@ class DeviceController(
     }
 
     @PostMapping("/new")
-    fun newDevice(@Valid @RequestBody dto: DeviceDto): Device {
+    fun newDevice(@Valid @RequestBody dto: DeviceDto): DeviceGet {
         val device = service.new(dto)
 
         device.id?.let {
             broker.subscribe(it, device.dataTopic)
         }
 
-        return device
+        return device.toDeviceGet()
     }
 }

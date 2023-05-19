@@ -1,8 +1,10 @@
 package com.iota.core.model
 
+import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.dto.device.Properties
 import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotEmpty
 import org.hibernate.annotations.Type
 import org.jetbrains.annotations.NotNull
 import java.io.Serializable
@@ -22,15 +24,16 @@ class DeviceAction {
     @JoinColumn(name = "action_id")
     var action: Action? = null
 
-    @NotNull
-    var displayName: String? = null
-    var description: String? = null
+    @NotEmpty
+    var displayName: String = ""
+
+    var description: String = ""
     @Type(JsonType::class)
     @Lob
     @Column(columnDefinition = "json")
-    var properties: Properties? = null
-    @NotNull
-    var status: String? = null
+    var properties: Properties = mutableMapOf()
+    @NotEmpty
+    var status: String = ""
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,10 +48,23 @@ class DeviceAction {
 
     override fun hashCode(): Int {
         var result = id?.hashCode() ?: 0
-        result = 31 * result + (displayName?.hashCode() ?: 0)
-        result = 31 * result + (description?.hashCode() ?: 0)
-        result = 31 * result + (properties?.hashCode() ?: 0)
-        result = 31 * result + (status?.hashCode() ?: 0)
+        result = 31 * result + displayName.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + properties.hashCode()
+        result = 31 * result + status.hashCode()
         return result
+    }
+
+    fun toDeviceActionGet() : DeviceActionGet {
+        val deviceActionGet = DeviceActionGet()
+
+        deviceActionGet.id = this.id!!
+        deviceActionGet.action = this.action!!.toActionGet()
+        deviceActionGet.displayName = this.displayName
+        deviceActionGet.description = this.description
+        deviceActionGet.properties = this.properties
+        deviceActionGet.status = this.status
+
+        return deviceActionGet
     }
 }
