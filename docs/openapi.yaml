@@ -16,8 +16,6 @@ tags:
     description: Operations about actions
   - name: rooms
     description: Operations about rooms
-  - name: categories
-    description: Operations about categories
   - name: user
     description: Operations about user
 paths:
@@ -88,7 +86,16 @@ paths:
             type: integer
             format: int64
       requestBody:
-        $ref: '#/components/requestBodies/Room'
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
       responses:
         '200':
           description: Successful operation
@@ -115,32 +122,6 @@ paths:
       responses:
         '400':
           description: Invalid room ID
-  /categories/{category}:
-    get:
-      tags:
-        - categories
-      summary: Get devices of specific category
-      operationId: getDevicesByCategory
-      parameters:
-        - name: category
-          in: path
-          description: Category of devices to return
-          required: true
-          schema:
-            $ref: '#/components/schemas/Category'
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Device'          
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Category not found
   /devices:
     post:
       tags:
@@ -168,6 +149,33 @@ paths:
                   $ref: '#/components/schemas/Device'          
         '405':
           description: Invalid input
+  /devices/?category={category}:
+    get:
+      tags:
+        - devices
+      summary: Get devices of specific category
+      operationId: getDevicesByCategory
+      parameters:
+        - name: category
+          in: query
+          description: Category of devices to return
+          required: true
+          schema:
+            $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Category not found
+
   /devices/{deviceID}:
     get:
       tags:
@@ -199,7 +207,7 @@ paths:
     put:
       tags:
         - devices
-      summary: Update a device
+      summary: Update a device (its name and/or its room)
       description: ''
       operationId: updateDevice
       parameters:
@@ -211,7 +219,17 @@ paths:
             type: integer
             format: int64
       requestBody:
-        $ref: '#/components/requestBodies/Device'
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                room:
+                  type: integer
+                  format: int64
       responses:
         '200':
           description: Successful operation
@@ -384,7 +402,7 @@ paths:
     put:
       tags:
         - user
-      summary: Update a user
+      summary: Update a user (its username)
       description: ''
       operationId: updateUser
       parameters:
@@ -395,7 +413,16 @@ paths:
           schema:
             type: string
       requestBody:
-        $ref: '#/components/requestBodies/User'
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+              required:
+                - username
       responses:
         '200':
           description: Successful operation
