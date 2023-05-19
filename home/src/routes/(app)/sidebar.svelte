@@ -6,7 +6,7 @@
 
 	export let rooms: { name: string; id: number }[] = [];
 	export let visible = false;
-	export let categories: { name: string; id: number }[] = [];
+	export let categories: { name: string; id: string }[] = [];
 	const createRoomURL = '/rooms/create';
 
 	const iconDict: { [key: string]: ComponentType } = {
@@ -16,7 +16,11 @@
 	};
 </script>
 
-<aside class="{visible ? 'flex flex-col' : 'hidden'} w-1/5 px-4 bg-white">
+<aside
+	class="{visible
+		? 'flex flex-col absolute sm:static sm:h-full'
+		: 'hidden'} sm:w-1/3 z-10 sm:z-0 lg:w-1/5 w-full px-4 bg-white"
+>
 	{#if rooms.length > 0}
 		<h2 class="font-semibold pt-2 text-2xl">Rooms</h2>
 	{/if}
