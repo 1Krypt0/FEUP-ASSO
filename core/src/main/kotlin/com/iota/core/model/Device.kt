@@ -52,4 +52,28 @@ class Device {
 
     @OneToMany(mappedBy = "device")
     var deviceActions: Set<DeviceAction> = setOf()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Device) return false
+
+        if (id != other.id) return false
+        if (dataTopic != other.dataTopic) return false
+        if (actionTopic != other.actionTopic) return false
+        if (name != other.name) return false
+        if (macAddress != other.macAddress) return false
+        if (type != other.type) return false
+        return status == other.status
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + dataTopic.hashCode()
+        result = 31 * result + actionTopic.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + macAddress.hashCode()
+        result = 31 * result + (type?.hashCode() ?: 0)
+        result = 31 * result + (status?.hashCode() ?: 0)
+        return result
+    }
 }

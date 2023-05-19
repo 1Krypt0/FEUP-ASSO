@@ -31,4 +31,24 @@ class DeviceAction {
     var properties: Properties? = null
     @NotNull
     var status: String? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DeviceAction) return false
+
+        if (id != other.id) return false
+        if (displayName != other.displayName) return false
+        if (description != other.description) return false
+        if (properties != other.properties) return false
+        return status == other.status
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (displayName?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + (properties?.hashCode() ?: 0)
+        result = 31 * result + (status?.hashCode() ?: 0)
+        return result
+    }
 }

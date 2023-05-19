@@ -83,4 +83,53 @@ class ActionTests {
 		assertEquals(deviceAction.properties, deviceAction2.properties)
 		assertEquals(deviceAction.status, deviceAction2.status)
 	}
+
+	@Test
+	fun testSaveAndRetrieveManyToMany() {
+		val device = Device();
+		device.name = "test"
+
+		val action = Action();
+		action.name = "test"
+		val requiredProperties: RequiredProperties = mutableListOf();
+		requiredProperties.add("min");
+		requiredProperties.add("max");
+		requiredProperties.add("step");
+		action.required = requiredProperties;
+
+		val deviceAction = DeviceAction();
+		deviceAction.displayName = "test"
+		deviceAction.description = "test"
+
+		val properties: Properties = mutableMapOf();
+		properties["min"] = "0"
+		properties["max"] = "100"
+		properties["step"] = "1"
+
+		deviceAction.properties = properties
+		deviceAction.status = "2"
+
+		deviceAction.device = device
+		deviceAction.action = action
+
+		val entityManager = entityManagerFactory.createEntityManager()
+		entityManager.transaction.begin()
+		entityManager.persist(device)
+		entityManager.persist(action)
+		entityManager.persist(deviceAction)
+		entityManager.transaction.commit()
+		entityManager.close()
+
+		val entityManager2 = entityManagerFactory.createEntityManager()
+		val deviceAction2 = entityManager2.find(DeviceAction::class.java, deviceAction.id)
+
+		assertEquals(deviceAction.displayName, deviceAction2.displayName)
+		assertEquals(deviceAction.description, deviceAction2.description)
+		assertEquals(deviceAction.properties, deviceAction2.properties)
+		assertEquals(deviceAction.status, deviceAction2.status)
+		assertEquals(deviceAction.device, deviceAction2.device)
+		assertEquals(deviceAction.action, deviceAction2.action)
+		assertEquals(deviceAction, deviceAction2.action?.deviceActions?.first())
+		assertEquals(deviceAction, deviceAction2.device?.deviceActions?.first())
+	}
 }
