@@ -3,7 +3,7 @@
 	export let id: number;
 </script>
 
-<section class="flex flex-col drop-shadow-lg  bg-white rounded-3xl">
+<section class="flex flex-col drop-shadow-lg w-3/4 mx-auto bg-white rounded-3xl">
 	<div class="text-xl py-6 px-8 flex gap-6 items-center ">
 		<slot />
 		<p>{name}</p>
