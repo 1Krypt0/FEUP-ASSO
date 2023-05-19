@@ -5,6 +5,7 @@ import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
 import org.hibernate.annotations.Type
 import org.jetbrains.annotations.NotNull
+import org.springframework.validation.annotation.Validated
 
 @Entity
 @Table(name="action")
