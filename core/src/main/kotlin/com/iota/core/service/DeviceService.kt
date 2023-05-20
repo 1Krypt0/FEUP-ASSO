@@ -88,4 +88,11 @@ class DeviceService(
 
         return deviceRepository.findById(newDevice.id).get()
     }
+
+    fun delete(id: Long) {
+        // If the device is not found, then this will throw a DeviceNotFoundException
+        device(id)
+
+        deviceRepository.deleteById(id)
+    }
 }

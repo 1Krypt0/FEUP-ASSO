@@ -46,7 +46,7 @@ class Device {
     @Enumerated
     var status: NetworkStatus? = null
 
-    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     var deviceActions: Set<DeviceAction> = setOf()
 
     override fun equals(other: Any?): Boolean {

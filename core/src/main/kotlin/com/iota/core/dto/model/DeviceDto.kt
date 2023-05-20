@@ -22,9 +22,8 @@ class DeviceDto : EntityDto<Device> {
     var type: String = ""
 
     @NotNull
-    @Min(1)
     // TODO: Add room validation
-    var room: Int = 0
+    var room: Int? = null
 
     @Valid
     var actions: Set<DeviceActionDto> = setOf()

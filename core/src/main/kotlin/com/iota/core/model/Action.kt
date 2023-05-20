@@ -24,7 +24,7 @@ class Action {
     @Column(columnDefinition = "json")
     var required: RequiredProperties = mutableListOf()
 
-    @OneToMany(mappedBy = "action", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "action", fetch = FetchType.LAZY)
     var deviceActions: Set<DeviceAction> = setOf()
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
