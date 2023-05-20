@@ -34,6 +34,8 @@ class BrokerConfig (
             }
         }
 
+        _broker!!.subscribeDiscoverability()
+
         return _broker as Broker
     }
 }

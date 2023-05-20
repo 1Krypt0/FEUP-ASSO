@@ -8,14 +8,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-
-
-
 @ConfigurationPropertiesScan
 @SpringBootApplication
 class CoreApplication {
-
-
 	@Bean
 	fun corsConfigurer(): WebMvcConfigurer? {
 		return object : WebMvcConfigurer {

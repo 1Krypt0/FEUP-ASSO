@@ -29,7 +29,7 @@ class DeviceController(
     @GetMapping("/{id}")
     fun device(@PathVariable id: Long): Device {
         val device = service.device(id)
-        broker.subscribe(id, device.dataTopic) // TODO Remove this for a better fault tolerance
+        broker.subscribeDevice(id, device.dataTopic) // TODO Remove this for a better fault tolerance
 
         return device
     }
@@ -48,7 +48,7 @@ class DeviceController(
         val device = service.new(dto)
 
         device.id?.let {
-            broker.subscribe(it, device.dataTopic)
+            broker.subscribeDevice(it, device.dataTopic)
         }
 
         return device
