@@ -8,32 +8,31 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import java.util.*
-import kotlin.NoSuchElementException
 
 @Service
 class ActionService {
     @Autowired
     private lateinit var actionRepository: ActionRepository
 
-    fun new(dto: ActionDto) : Action {
+    fun new(dto: ActionDto): Action {
         val action: Action = dto.create()
 
         try {
             actionRepository.save(action)
         } catch (ex: DataIntegrityViolationException) {
-            throw ex;
+            throw ex
         }
 
         return action
     }
 
-    fun action(id: Long) : Action {
+    fun action(id: Long): Action {
         try {
             val action: Optional<Action> = actionRepository.findById(id)
 
             return action.get()
         } catch (ex: NoSuchElementException) {
-            throw ActionNotFoundException(ex.message, ex.cause, id);
+            throw ActionNotFoundException(ex.message, ex.cause, id)
         }
     }
 }

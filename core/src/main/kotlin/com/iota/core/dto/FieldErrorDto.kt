@@ -1,14 +1,12 @@
 package com.iota.core.dto
 
-import org.springframework.validation.FieldError
-
-class FieldErrorDto (
+class FieldErrorDto(
     val fieldName: String,
     val reason: String
 )
 
-class FieldErrorsDto (
+class FieldErrorsDto(
     val message: String,
 ) {
-    val fieldErrors: MutableList<FieldErrorDto> = ArrayList();
+    val fieldErrors: MutableList<FieldErrorDto> = ArrayList()
 }

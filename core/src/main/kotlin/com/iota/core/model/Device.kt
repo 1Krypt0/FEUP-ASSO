@@ -1,6 +1,5 @@
 package com.iota.core.model
 
-import com.iota.core.dto.device.DeviceGet
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 import org.jetbrains.annotations.NotNull
@@ -17,13 +16,15 @@ enum class DeviceType {
 }
 
 @Entity
-@Table(uniqueConstraints = [
-    UniqueConstraint(name = "UC_MAC", columnNames = ["macAddress"]),
-], name = "device")
+@Table(
+    uniqueConstraints = [
+        UniqueConstraint(name = "UC_MAC", columnNames = ["macAddress"]),
+    ], name = "device"
+)
 class Device {
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: Long = 0
 
     @NotNull
     var dataTopic: String = ""
@@ -62,7 +63,7 @@ class Device {
     }
 
     override fun hashCode(): Int {
-        var result = id?.hashCode() ?: 0
+        var result = id.hashCode()
         result = 31 * result + dataTopic.hashCode()
         result = 31 * result + actionTopic.hashCode()
         result = 31 * result + name.hashCode()

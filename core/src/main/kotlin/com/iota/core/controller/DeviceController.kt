@@ -4,17 +4,10 @@ import com.iota.core.config.broker.BrokerConfig
 import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
-import com.iota.core.model.Device
 import com.iota.core.model.DeviceType
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/devices")
@@ -51,7 +44,7 @@ class DeviceController(
     fun newDevice(@Valid @RequestBody dto: DeviceDto): DeviceGet {
         val device = service.new(dto)
 
-        device.id?.let {
+        device.id.let {
             broker.subscribe(it, device.dataTopic)
         }
 

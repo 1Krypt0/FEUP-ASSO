@@ -4,5 +4,5 @@ import jakarta.validation.constraints.NotNull
 
 class DeviceUpdate {
     @NotNull
-    val value: String? = null;
+    val value: String? = null
 }

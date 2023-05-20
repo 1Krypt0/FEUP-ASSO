@@ -1,20 +1,17 @@
 package com.iota.core.model
 
-import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.dto.device.Properties
 import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 import org.hibernate.annotations.Type
-import org.jetbrains.annotations.NotNull
-import java.io.Serializable
 
 @Entity
-@Table(name="device_action")
+@Table(name = "device_action")
 class DeviceAction {
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: Long = 0
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
@@ -28,10 +25,12 @@ class DeviceAction {
     var displayName: String = ""
 
     var description: String = ""
+
     @Type(JsonType::class)
     @Lob
     @Column(columnDefinition = "json")
     var properties: Properties = mutableMapOf()
+
     @NotEmpty
     var status: String = ""
 
@@ -47,7 +46,7 @@ class DeviceAction {
     }
 
     override fun hashCode(): Int {
-        var result = id?.hashCode() ?: 0
+        var result = id.hashCode()
         result = 31 * result + displayName.hashCode()
         result = 31 * result + description.hashCode()
         result = 31 * result + properties.hashCode()

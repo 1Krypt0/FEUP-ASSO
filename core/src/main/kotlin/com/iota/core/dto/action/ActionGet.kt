@@ -2,14 +2,10 @@ package com.iota.core.dto.action
 
 import com.iota.core.dto.device.RequiredProperties
 import com.iota.core.model.Action
-import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
 
-class ActionGet (action: Action) {
-    @NotNull
-    var id: Long? = null
+class ActionGet(action: Action) {
+    var id: Long = 0
     var type: String = ""
-    @NotEmpty
     var name: String = ""
     var required: RequiredProperties = mutableListOf()
 

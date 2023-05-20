@@ -3,14 +3,13 @@ package com.iota.core.config.broker
 import com.iota.core.queue.Broker
 import com.iota.core.queue.mqtt.MosquittoBroker
 import com.iota.core.repository.DeviceRepository
-import com.iota.core.service.DeviceService
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class BrokerConfig (
+class BrokerConfig(
     private val properties: BrokerConfigProperties,
     private val repository: DeviceRepository,
 ) {
@@ -20,7 +19,7 @@ class BrokerConfig (
         val client = MqttClient(properties.hostname, properties.port, memoryPersistence)
 
         val opts = MqttConnectOptions()
-        opts.isCleanSession = true;
+        opts.isCleanSession = true
         client.connect(opts)
 
         return MosquittoBroker(client, repository)

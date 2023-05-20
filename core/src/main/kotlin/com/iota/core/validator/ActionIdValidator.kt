@@ -16,6 +16,7 @@ annotation class ValidActionId(
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )
+
 class ActionIdValidator() : ConstraintValidator<ValidActionId, Long?> {
     @Autowired
     var actionRepository: ActionRepository? = null
@@ -25,14 +26,14 @@ class ActionIdValidator() : ConstraintValidator<ValidActionId, Long?> {
     }
 
     override fun isValid(id: Long?, context: ConstraintValidatorContext): Boolean {
-        return validate(id);
+        return validate(id)
     }
 
     fun validate(id: Long?): Boolean {
-        if(id == null) {
-            return false;
+        if (id == null) {
+            return false
         }
 
-        return actionRepository?.let {  actionRepository!!.findActionById(id).isPresent  } ?: false;
+        return actionRepository?.let { actionRepository!!.findActionById(id).isPresent } ?: false
     }
 }

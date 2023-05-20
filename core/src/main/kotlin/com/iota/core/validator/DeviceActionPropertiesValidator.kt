@@ -30,29 +30,29 @@ class DeviceActionPropertiesValidator() : ConstraintValidator<ValidDeviceActionP
     }
 
     override fun isValid(deviceAction: DeviceActionDto, context: ConstraintValidatorContext): Boolean {
-        return validate(deviceAction);
+        return validate(deviceAction)
     }
 
     fun validate(deviceAction: DeviceActionDto): Boolean {
-        if(deviceAction.id == null) {
-            return true;
-        }
-
-        val actionOptional: Optional<Action>? = actionRepository?.findActionById(deviceAction.id!!);
-        if(actionOptional == null || actionOptional.isEmpty) {
-            return true;
-        }
-        val action = actionOptional.get();
-
-
-        val requiredProperties = action.required;
-
-        if(requiredProperties.isNullOrEmpty()) {
+        if (deviceAction.id == null) {
             return true
-        } else if(deviceAction.properties.isEmpty()) {
+        }
+
+        val actionOptional: Optional<Action>? = actionRepository?.findActionById(deviceAction.id)
+        if (actionOptional == null || actionOptional.isEmpty) {
+            return true
+        }
+        val action = actionOptional.get()
+
+
+        val requiredProperties = action.required
+
+        if (requiredProperties.isEmpty()) {
+            return true
+        } else if (deviceAction.properties.isEmpty()) {
             return false
         }
 
-        return deviceAction.properties.keys.containsAll(requiredProperties);
+        return deviceAction.properties.keys.containsAll(requiredProperties)
     }
 }

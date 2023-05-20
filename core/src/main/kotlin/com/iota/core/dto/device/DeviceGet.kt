@@ -1,16 +1,11 @@
 package com.iota.core.dto.device
 
-import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.model.Device
-import com.iota.core.model.DeviceAction
 import com.iota.core.model.DeviceType
 import com.iota.core.model.NetworkStatus
-import jakarta.persistence.*
-import jakarta.validation.constraints.NotEmpty
-import org.jetbrains.annotations.NotNull
 
-class DeviceGet (device : Device) {
+class DeviceGet(device: Device) {
     var id: Long = 0
     var dataTopic: String = ""
     var actionTopic: String = ""
@@ -21,7 +16,7 @@ class DeviceGet (device : Device) {
     var deviceActions: Set<DeviceActionGetSimple> = setOf()
 
     init {
-        this.id = device.id!!
+        this.id = device.id
         this.dataTopic = device.dataTopic
         this.actionTopic = device.actionTopic
         this.name = device.name

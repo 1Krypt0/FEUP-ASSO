@@ -1,21 +1,17 @@
 package com.iota.core.model
 
-import com.iota.core.dto.action.ActionGet
-import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.RequiredProperties
 import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 import org.hibernate.annotations.Type
-import org.jetbrains.annotations.NotNull
-import org.springframework.validation.annotation.Validated
 
 @Entity
-@Table(name="action")
+@Table(name = "action")
 class Action {
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: Long = 0
 
     @NotEmpty
     var name: String = ""
@@ -40,7 +36,7 @@ class Action {
     }
 
     override fun hashCode(): Int {
-        var result = id?.hashCode() ?: 0
+        var result = id.hashCode()
         result = 31 * result + name.hashCode()
         result = 31 * result + required.hashCode()
         return result
