@@ -13,6 +13,9 @@ class DeviceAction {
     @GeneratedValue
     var id: Long = 0
 
+    @NotEmpty
+    var name = ""
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     var device: Device? = null
@@ -23,8 +26,6 @@ class DeviceAction {
 
     @NotEmpty
     var displayName: String = ""
-
-    var description: String = ""
 
     @Type(JsonType::class)
     @Lob
@@ -40,17 +41,17 @@ class DeviceAction {
 
         if (id != other.id) return false
         if (displayName != other.displayName) return false
-        if (description != other.description) return false
         if (properties != other.properties) return false
+        if (name != other.name) return false
         return status == other.status
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + displayName.hashCode()
-        result = 31 * result + description.hashCode()
         result = 31 * result + properties.hashCode()
         result = 31 * result + status.hashCode()
+        result = 31 * result + name.hashCode()
         return result
     }
 }

@@ -12,6 +12,7 @@ class DeviceGet(device: Device) {
     var name: String = ""
     var macAddress: String = ""
     var room: Int = 0
+    var added: Boolean = false
     var type: DeviceType = DeviceType.LIGHT
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
     var deviceActions: Set<DeviceActionGetSimple> = setOf()
@@ -24,6 +25,8 @@ class DeviceGet(device: Device) {
         this.macAddress = device.macAddress
         this.type = device.type!!
         this.status = device.status!!
+        this.room = device.room
+        this.added = device.added
         this.deviceActions = device.deviceActions.map { DeviceActionGetSimple(it) }.toSet()
     }
 }

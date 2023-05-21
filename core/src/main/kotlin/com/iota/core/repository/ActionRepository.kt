@@ -8,4 +8,5 @@ import java.util.*
 @Repository
 interface ActionRepository : CrudRepository<Action, Long> {
     fun findActionById(id: Long): Optional<Action>
+    fun findByName(name: String): Optional<Action>
 }

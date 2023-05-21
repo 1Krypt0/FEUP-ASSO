@@ -2,13 +2,11 @@ package com.iota.core.service
 
 import com.iota.core.config.broker.BrokerConfig
 import com.iota.core.dto.model.DeviceDto
+import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
-import com.iota.core.model.Action
-import com.iota.core.model.Device
-import com.iota.core.model.DeviceType
-import com.iota.core.model.NetworkStatus
+import com.iota.core.model.*
 import com.iota.core.repository.ActionRepository
 import com.iota.core.repository.DeviceActionRepository
 import com.iota.core.repository.DeviceRepository
@@ -72,10 +70,10 @@ class DeviceService(
             var realAction: Action? = null
 
             try {
-                val action: Optional<Action> = actionRepository.findById(deviceAction.id)
+                val action: Optional<Action> = actionRepository.findByName(deviceAction.actionName)
                 realAction = action.get()
             } catch (ex: NoSuchElementException) {
-                throw ActionNotFoundException(ex.message, ex.cause, deviceAction.id)
+                throw ActionNameNotFoundException(ex.message, ex.cause, deviceAction.actionName)
             }
 
             val realDeviceAction = deviceAction.create()
@@ -94,5 +92,11 @@ class DeviceService(
         device(id)
 
         deviceRepository.deleteById(id)
+    }
+
+    fun deviceActions(id: Long): Set<DeviceAction> {
+        val device = device(id)
+
+        return device.deviceActions
     }
 }

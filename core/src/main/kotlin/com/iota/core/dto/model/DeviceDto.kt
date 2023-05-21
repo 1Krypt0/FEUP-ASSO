@@ -21,10 +21,6 @@ class DeviceDto : EntityDto<Device> {
     @ValueOfEnum(enumClass = DeviceType::class)
     var type: String = ""
 
-    @NotNull
-    // TODO: Add room validation
-    var room: Int? = null
-
     @Valid
     var actions: Set<DeviceActionDto> = setOf()
 

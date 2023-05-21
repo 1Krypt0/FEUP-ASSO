@@ -38,6 +38,10 @@ class Device {
     @NotEmpty
     var macAddress: String = ""
 
+    var room: Int = 0
+
+    var added: Boolean = false
+
     @NotNull
     @Enumerated
     var type: DeviceType? = null
@@ -57,6 +61,8 @@ class Device {
         if (dataTopic != other.dataTopic) return false
         if (actionTopic != other.actionTopic) return false
         if (name != other.name) return false
+        if (room != other.room) return false
+        if (added != other.added) return false
         if (macAddress != other.macAddress) return false
         if (type != other.type) return false
         return status == other.status
@@ -67,6 +73,8 @@ class Device {
         result = 31 * result + dataTopic.hashCode()
         result = 31 * result + actionTopic.hashCode()
         result = 31 * result + name.hashCode()
+        result = 31 * result + room.hashCode()
+        result = 31 * result + added.hashCode()
         result = 31 * result + macAddress.hashCode()
         result = 31 * result + (type?.hashCode() ?: 0)
         result = 31 * result + (status?.hashCode() ?: 0)

@@ -34,7 +34,8 @@ class ActionTests {
 	@Test
 	fun testSaveAndRetrieveAction() {
 		val action = Action();
-		action.name = "test"
+		action.name = "test123"
+		action.type = "number"
 
 		val requiredProperties: RequiredProperties = mutableListOf();
 		requiredProperties.add("min");
@@ -58,8 +59,8 @@ class ActionTests {
 	@Test
 	fun testSaveAndRetrieveDeviceAction() {
 		val deviceAction = DeviceAction();
+		deviceAction.name = "name"
 		deviceAction.displayName = "test"
-		deviceAction.description = "test"
 
 		val properties: Properties = mutableMapOf();
 		properties["min"] = "0"
@@ -79,7 +80,6 @@ class ActionTests {
 		val deviceAction2 = entityManager2.find(DeviceAction::class.java, deviceAction.id)
 
 		assertEquals(deviceAction.displayName, deviceAction2.displayName)
-		assertEquals(deviceAction.description, deviceAction2.description)
 		assertEquals(deviceAction.properties, deviceAction2.properties)
 		assertEquals(deviceAction.status, deviceAction2.status)
 	}
@@ -88,9 +88,11 @@ class ActionTests {
 	fun testSaveAndRetrieveManyToMany() {
 		val device = Device();
 		device.name = "test"
+		device.macAddress = "123"
 
 		val action = Action();
 		action.name = "test"
+		action.type = "number"
 		val requiredProperties: RequiredProperties = mutableListOf();
 		requiredProperties.add("min");
 		requiredProperties.add("max");
@@ -99,7 +101,7 @@ class ActionTests {
 
 		val deviceAction = DeviceAction();
 		deviceAction.displayName = "test"
-		deviceAction.description = "test"
+		deviceAction.name = "name"
 
 		val properties: Properties = mutableMapOf();
 		properties["min"] = "0"
@@ -124,7 +126,6 @@ class ActionTests {
 		val deviceAction2 = entityManager2.find(DeviceAction::class.java, deviceAction.id)
 
 		assertEquals(deviceAction.displayName, deviceAction2.displayName)
-		assertEquals(deviceAction.description, deviceAction2.description)
 		assertEquals(deviceAction.properties, deviceAction2.properties)
 		assertEquals(deviceAction.status, deviceAction2.status)
 		assertEquals(deviceAction.device, deviceAction2.device)

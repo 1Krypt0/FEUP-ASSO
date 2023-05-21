@@ -34,11 +34,7 @@ class DeviceActionPropertiesValidator() : ConstraintValidator<ValidDeviceActionP
     }
 
     fun validate(deviceAction: DeviceActionDto): Boolean {
-        if (deviceAction.id == null) {
-            return true
-        }
-
-        val actionOptional: Optional<Action>? = actionRepository?.findActionById(deviceAction.id)
+        val actionOptional: Optional<Action>? = actionRepository?.findByName(deviceAction.actionName)
         if (actionOptional == null || actionOptional.isEmpty) {
             return true
         }

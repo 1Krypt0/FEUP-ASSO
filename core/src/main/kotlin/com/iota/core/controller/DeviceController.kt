@@ -1,10 +1,13 @@
 package com.iota.core.controller
 
 import com.iota.core.config.broker.BrokerConfig
+import com.iota.core.dto.action.ActionGet
+import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.dto.device.DeviceDeleted
 import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
+import com.iota.core.model.DeviceAction
 import com.iota.core.model.DeviceType
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
@@ -57,5 +60,10 @@ class DeviceController(
         service.delete(id)
 
         return DeviceDeleted(id)
+    }
+
+    @GetMapping("/{id}/actions")
+    fun deviceActions(@PathVariable id: Long): List<DeviceActionGet> {
+        return service.deviceActions(id).map { DeviceActionGet(it) }
     }
 }

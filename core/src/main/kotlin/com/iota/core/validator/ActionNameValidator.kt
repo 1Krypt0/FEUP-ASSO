@@ -10,14 +10,14 @@ import kotlin.reflect.KClass
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FIELD)
-@Constraint(validatedBy = [ActionIdValidator::class])
-annotation class ValidActionId(
-    val message: String = "Invalid device action ID",
+@Constraint(validatedBy = [ActionNameValidator::class])
+annotation class ValidActionName(
+    val message: String = "Device action name is not valid",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )
 
-class ActionIdValidator() : ConstraintValidator<ValidActionId, Long?> {
+class ActionNameValidator() : ConstraintValidator<ValidActionName, String> {
     @Autowired
     var actionRepository: ActionRepository? = null
 
@@ -25,15 +25,11 @@ class ActionIdValidator() : ConstraintValidator<ValidActionId, Long?> {
         this.actionRepository = actionRepository
     }
 
-    override fun isValid(id: Long?, context: ConstraintValidatorContext): Boolean {
-        return validate(id)
+    override fun isValid(name: String, context: ConstraintValidatorContext): Boolean {
+        return validate(name)
     }
 
-    fun validate(id: Long?): Boolean {
-        if (id == null) {
-            return false
-        }
-
-        return actionRepository?.let { actionRepository!!.findActionById(id).isPresent } ?: false
+    fun validate(name: String): Boolean {
+        return actionRepository?.let { actionRepository!!.findByName(name).isPresent } ?: false
     }
 }

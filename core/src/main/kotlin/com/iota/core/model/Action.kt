@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotEmpty
 import org.hibernate.annotations.Type
 
 @Entity
-@Table(name = "action")
+@Table(name = "action", uniqueConstraints = [
+    UniqueConstraint(name = "UC_ACTION_NAME", columnNames = ["name"]),
+],)
 class Action {
     @Id
     @GeneratedValue

@@ -3,6 +3,7 @@ package com.iota.core.exception
 import com.iota.core.dto.ErrorDto
 import com.iota.core.dto.FieldErrorDto
 import com.iota.core.dto.FieldErrorsDto
+import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
@@ -63,6 +64,16 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         headers.contentType = MediaType.APPLICATION_JSON
 
         val error = ErrorDto("action %d was not found".format(ex.id))
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ActionNameNotFoundException::class)
+    @ResponseBody
+    protected fun handleActionNameNotFound(ex: ActionNameNotFoundException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("action with name %d was not found".format(ex.name))
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
     }
 
