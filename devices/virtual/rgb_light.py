@@ -20,7 +20,7 @@ DISCOVERABILITY = "discoverability-" + MAC_ADDRESS
 STATE = 0
 
 value = "15,90,130"
-value_intensity = "255"
+value_intensity = "150"
 
 def on_connect(client, userdata, flags, return_code):
     if return_code != 0:
@@ -65,7 +65,7 @@ config = json.dumps(config_dic)
 
 
 import pygame
- 
+
 # activate the pygame library .
 pygame.init()
 X = 600
@@ -91,6 +91,14 @@ surface1.set_alpha(int(value_intensity))
 # paint screen one time
 pygame.display.flip()
 
+def parse_data():
+    o = [
+        {"id": "1", "status": value},
+        {"id": "2", "status": value_intensity},
+    ]
+
+    return json.dumps(o)
+
 try:
     while True:
         time.sleep(1)
@@ -99,7 +107,7 @@ try:
             err = client.publish("discoverability", config)
             print(err)
         else:
-            client.publish(str(VALUE), value)
+            client.publish(str(VALUE), parse_data())
             scrn.fill((255,255, 255))
             print("Sent", value)
             color = tuple(map(int, value.split(",")))

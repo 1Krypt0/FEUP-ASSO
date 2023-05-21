@@ -5,13 +5,12 @@ import com.iota.core.model.DeviceAction
 import com.iota.core.model.discoverability.DiscoverableDeviceAction
 import com.iota.core.validator.ValidActionName
 import com.iota.core.validator.ValidDeviceActionProperties
-import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
 
 @ValidDeviceActionProperties
 class DeviceActionDto : EntityDto<DeviceAction> {
     constructor(deviceAction: DiscoverableDeviceAction) {
+        deviceId = deviceAction.id
         name = deviceAction.name
         actionName = deviceAction.deviceAction
         displayName = deviceAction.name
@@ -21,6 +20,9 @@ class DeviceActionDto : EntityDto<DeviceAction> {
 
     @NotEmpty
     var name: String = ""
+
+    @NotEmpty
+    var deviceId: String = ""
 
     @NotEmpty
     @ValidActionName
@@ -40,6 +42,7 @@ class DeviceActionDto : EntityDto<DeviceAction> {
         entity.properties = properties
         entity.status = status
         entity.name = name
+        entity.idDevice = deviceId
 
         return entity
     }

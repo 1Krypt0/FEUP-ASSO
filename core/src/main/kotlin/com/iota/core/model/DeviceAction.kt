@@ -16,6 +16,9 @@ class DeviceAction {
     @NotEmpty
     var name = ""
 
+    @NotEmpty
+    var idDevice = ""
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     var device: Device? = null

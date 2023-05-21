@@ -13,7 +13,7 @@ class DeviceGet(device: Device) {
     var macAddress: String = ""
     var room: Int = 0
     var added: Boolean = false
-    var type: DeviceType = DeviceType.LIGHT
+    var type: DeviceType? = DeviceType.LIGHT
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
     var deviceActions: Set<DeviceActionGetSimple> = setOf()
 
@@ -23,7 +23,7 @@ class DeviceGet(device: Device) {
         this.actionTopic = device.actionTopic
         this.name = device.name
         this.macAddress = device.macAddress
-        this.type = device.type!!
+        this.type = device.type
         this.status = device.status!!
         this.room = device.room
         this.added = device.added
