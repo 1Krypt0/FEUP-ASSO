@@ -3,16 +3,10 @@ package com.iota.core.model.discoverability
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class ActionType {
-    BOOL,
-    INT,
-    STRING,
-    INT_ARRAY,
-}
-
-@Serializable
-data class DiscoverableAction(
+data class DiscoverableDeviceAction(
     val id: String,
+    val deviceAction: String,
     val name: String,
-    val type: ActionType,
+    val properties: Map<String, String>?,
+    val status: String,
 )

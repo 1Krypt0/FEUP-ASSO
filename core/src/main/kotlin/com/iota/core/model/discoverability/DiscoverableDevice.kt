@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class DiscoverableDevice(
     val mac: String,
     val name: String,
-    val actions: List<DiscoverableAction>
+    val actions: List<DiscoverableDeviceAction>
 )

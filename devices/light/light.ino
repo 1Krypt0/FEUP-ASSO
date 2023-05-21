@@ -95,10 +95,11 @@ void callback(char* topic, byte* payload, unsigned int length)
   }
 }
 
-String configs = "{\"mac\":\"mac-address\",\"name\":\"Iota Light 1.0\",\"actions\":[{\"id\":\"toggle\",\"name\":\"Toggle\",\"type\":\"BOOL\"}]}";
+String configs = "{\"mac\":\"<mac-address>\",\"name\":\"Iota Light 1.0\",\"status\":\"<status>\",\"actions\":[{\"id\":\"1\",\"actionId\":\"toggle\",\"name\":\"Toggle\"}]}";
 
 void setupSettings() {
-  configs.replace("mac-address", macAddress);
+  configs.replace("<mac-address>", macAddress);
+  configs.replace("<status>", String(value));
 }
 
 void setup() {

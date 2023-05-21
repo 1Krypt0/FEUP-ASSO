@@ -16,7 +16,6 @@ class DiscoverabilityHandler (
     val broker: Broker
     ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
-        println(topic)
         message?.payload?.let {
             val value = Json.decodeFromString<DiscoverableDevice>(String(it))
 
@@ -40,4 +39,3 @@ class DiscoverabilityHandler (
         }
     }
 }
-
