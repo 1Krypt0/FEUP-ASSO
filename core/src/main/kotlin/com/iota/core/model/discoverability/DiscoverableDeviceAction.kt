@@ -7,6 +7,7 @@ data class DiscoverableDeviceAction(
     val id: String,
     val deviceAction: String,
     val name: String,
-    val properties: Map<String, String>?,
+    val displayName: String,
+    val properties: Map<String, String>? = null,
     val status: String,
 )

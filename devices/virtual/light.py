@@ -49,7 +49,7 @@ client.on_message=on_message
 client.connect(broker_hostname, port)
 client.loop_start()
 
-config = "{\"mac\":\"<mac-address>\",\"name\":\"Virtual Iota Light 1.0\",\"actions\":[{\"id\":\"1\",\"deviceAction\":\"toggle\",\"name\":\"Toggle\", \"status\":\"<status>\"}]}"
+config = "{\"mac\":\"<mac-address>\",\"name\":\"Virtual Iota Light 1.0\",\"actions\":[{\"id\":\"1\",\"deviceAction\":\"toggle\", \"displayName\": \"Toggle\",\"name\":\"toggle\", \"status\":\"<status>\"}]}"
 config = config.replace("<mac-address>", MAC_ADDRESS)
 config = config.replace("<status>", value)
 
@@ -67,13 +67,13 @@ scrn = pygame.display.set_mode((X, Y))
  
 # set the pygame window name
 pygame.display.set_caption('image')
- 
+
 # create a surface object, image is drawn on it.
 imp = pygame.image.load("lamp.jpg").convert()
- 
+
 # Using blit to copy content from one surface to other
 scrn.blit(imp, (0, 0))
- 
+
 # paint screen one time
 pygame.display.flip()
 

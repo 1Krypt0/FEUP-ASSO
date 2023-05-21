@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
 import sys
+import json
 
 if len(sys.argv) != 2:
     print("Invalid number of arguments, please provide a mac address for the device", sys.argv)
@@ -50,9 +51,17 @@ client.on_message=on_message
 client.connect(broker_hostname, port)
 client.loop_start()
 
-config = "{\"mac\":\"<mac-address>\",\"name\":\"Virtual Iota Light 1.0\",\"actions\":[{\"id\":\"1\",\"deviceAction\":\"toggle\",\"name\":\"Toggle\", \"status\":\"<status>\"}]}"
-config = config.replace("<mac-address>", MAC_ADDRESS)
-config = config.replace("<status>", value)
+config_dic = {
+    "mac":MAC_ADDRESS,
+    "name":"Virtual Iota Colorful 1.0",
+    "actions":[
+        {"id":"1","deviceAction":"toggle","name":"toggle","displayName": "Toggle", "status": value},
+        {"id":"2", "deviceAction": "range", "name": "intensity", "displayName": "Intensity", "status": value_intensity, "properties": {
+            "min": "0", "max": "100", "step": "1"
+        }}
+    ]}
+
+config = json.dumps(config_dic)
 
 
 import pygame

@@ -2,6 +2,7 @@ package com.iota.core.dto.model
 
 import com.iota.core.dto.device.Properties
 import com.iota.core.model.DeviceAction
+import com.iota.core.model.discoverability.DiscoverableDeviceAction
 import com.iota.core.validator.ValidActionName
 import com.iota.core.validator.ValidDeviceActionProperties
 import jakarta.validation.constraints.Min
@@ -10,6 +11,14 @@ import jakarta.validation.constraints.NotNull
 
 @ValidDeviceActionProperties
 class DeviceActionDto : EntityDto<DeviceAction> {
+    constructor(deviceAction: DiscoverableDeviceAction) {
+        name = deviceAction.name
+        actionName = deviceAction.deviceAction
+        displayName = deviceAction.name
+        properties = deviceAction.properties?.toMutableMap() ?: mutableMapOf()
+        status = deviceAction.status
+    }
+
     @NotEmpty
     var name: String = ""
 
