@@ -27,15 +27,16 @@ paths:
       description: Add a new room
       operationId: addRoom
       requestBody:
-        description: Create a new room
+        required: true
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Room'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Room'
-        required: true
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
       responses:
         '200':
           description: Successful operation
