@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
 class IndexController {
     @GetMapping("/")
-    fun healthCheck() = mapOf("online" to true);
+    fun healthCheck() = mapOf("online" to true)
 }

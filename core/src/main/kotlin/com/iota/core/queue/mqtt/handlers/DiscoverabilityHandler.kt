@@ -27,15 +27,15 @@ class DiscoverabilityHandler (
                 return
             }
 
-            val entity = Device()
-            entity.name = value.name
-            entity.macAddress = value.mac
-            entity.type = DeviceType.LIGHT // TODO Change this
-            entity.dataTopic = "DATA-" + value.mac
-            entity.actionTopic = "ACTION-" + value.mac
-            entity.status = NetworkStatus.CONNECTED
-
-            deviceRepository.save(entity)
+//            val entity = Device()
+//            entity.name = value.name
+//            entity.macAddress = value.mac
+//            entity.type = DeviceType.LIGHT // TODO Change this
+//            entity.dataTopic = "DATA-" + value.mac
+//            entity.actionTopic = "ACTION-" + value.mac
+//            entity.status = NetworkStatus.CONNECTED
+//
+//            deviceRepository.save(entity)
         }
     }
 }

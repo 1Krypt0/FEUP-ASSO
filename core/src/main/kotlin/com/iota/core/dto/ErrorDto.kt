@@ -1,5 +1,5 @@
 package com.iota.core.dto
 
-class ErrorDto (
+class ErrorDto(
     val message: String
 )

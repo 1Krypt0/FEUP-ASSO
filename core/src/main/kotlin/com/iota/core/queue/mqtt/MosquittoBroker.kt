@@ -10,7 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 class MosquittoBroker(
     private val client: MqttClient,
     private val repository: DeviceRepository
-): Broker {
+) : Broker {
 
     private var subscriptions: HashSet<String> = HashSet()
     override fun subscribeDiscoverability() {
