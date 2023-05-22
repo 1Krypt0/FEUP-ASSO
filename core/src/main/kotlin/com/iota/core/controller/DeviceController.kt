@@ -53,7 +53,7 @@ class DeviceController(
             val statusUpdate = StatusUpdate(actionId, update.value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
             broker.addToTopic(device.actionTopic, json)
-        } ?: kotlin.run {
+        } ?: run {
             throw ActionNotFoundException(null, null, actionId.toLong())
         }
     }
