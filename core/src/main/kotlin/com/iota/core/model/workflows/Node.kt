@@ -129,11 +129,23 @@ class OperatorNode : Node() {
 class ActionNode : Node() {
     @NotNull
     @OneToOne
-    private val deviceAction: DeviceAction? = null
+    val deviceAction: DeviceAction? = null
+
+
+    @Column(name = "action_value")
+    @NotNull
+    @NotEmpty
+    var value: String = ""
 
     override fun update(incoming: String, repositoriesHolder: NodeRepositoriesHolder) {
+        val predecessors = repositoriesHolder.operatorNodeRepository.findPredecessorsByNode(this)
+        val validConditions = predecessors.count { it.conditionMet }
+        if (validConditions < predecessors.size) {
+            return
+        }
+
         deviceAction?.let {
-            val statusUpdate = StatusUpdate(deviceAction.idDevice, incoming)
+            val statusUpdate = StatusUpdate(deviceAction.idDevice, value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
             deviceAction.device?.actionTopic?.let { it1 -> repositoriesHolder.broker.addToTopic(it1, json) }
         }

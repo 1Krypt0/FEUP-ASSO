@@ -1,10 +1,13 @@
 package com.iota.core.model.workflows
 
+import com.iota.core.model.DeviceAction
+import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.queue.Broker
 import com.iota.core.repository.ConditionNodeRepository
 import com.iota.core.repository.EventNodeRepository
 import com.iota.core.repository.NodeRepositoriesHolder
 import com.iota.core.repository.OperatorNodeRepository
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -134,7 +137,5 @@ class NodeTest{
         eventNode2.update("101", holder)
         assertTrue(secondNode.conditionMet)
         assertTrue(mergeNode.conditionMet)
-
-
     }
 }
