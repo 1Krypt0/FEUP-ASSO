@@ -14,7 +14,6 @@ class DeviceHandler(
     val actionRepository: DeviceActionRepository
 ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
-        println(topic)
         val device = deviceRepository.findById(deviceId).get()
         message?.payload?.let {
             val value = Json.decodeFromString<DeviceStatusUpdate>(String(it))
