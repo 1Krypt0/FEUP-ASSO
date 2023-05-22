@@ -11,7 +11,7 @@ class DeviceGet(device: Device) {
     var actionTopic: String = ""
     var name: String = ""
     var macAddress: String = ""
-    var room: Int = 0
+    var room: Long? = null
     var added: Boolean = false
     var type: DeviceType = DeviceType.LIGHT
     var status: NetworkStatus = NetworkStatus.DISCONNECTED

@@ -38,7 +38,7 @@ class Device {
     @NotEmpty
     var macAddress: String = ""
 
-    var room: Int = 0
+    var room: Long? = null
 
     var added: Boolean = false
 

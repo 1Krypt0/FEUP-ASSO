@@ -7,6 +7,7 @@ import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
+import com.iota.core.exception.room.RoomNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -54,6 +55,16 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         headers.contentType = MediaType.APPLICATION_JSON
 
         val error = ErrorDto("device %d was not found".format(ex.id))
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RoomNotFoundException::class)
+    @ResponseBody
+    protected fun handleRoomNotFound(ex: RoomNotFoundException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("room %d was not found".format(ex.id))
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
     }
 

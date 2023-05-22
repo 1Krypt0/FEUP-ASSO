@@ -8,5 +8,5 @@ class DeviceUpdate {
     @NotEmpty
     val name: String? = null
     @Min(1)
-    val room: Int? = null
+    val room: Long? = null
 }
