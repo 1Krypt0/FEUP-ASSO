@@ -130,15 +130,29 @@ paths:
       summary: Add a new device
       operationId: addDevice
       requestBody:
-        description: Create a new device
+        required: true
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Device'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Device'
-        required: true
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                displayName:
+                  type: string
+                  description: Device's original name
+                customName:
+                  type: string
+                  description: Device's custom name, defined by the user
+                roomID:
+                  type: integer
+                  format: int64
+              required:
+                - id
+                - displayName
+                - customName
+                - roomID
       responses:
         '200':
           description: Successful operation
@@ -147,7 +161,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Device'          
+                  $ref: '#/components/schemas/Room'          
         '405':
           description: Invalid input
   /devices/?category={category}:
@@ -176,7 +190,6 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Category not found
-
   /devices/{deviceID}:
     get:
       tags:
@@ -226,7 +239,7 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                customName:
                   type: string
                 room:
                   type: integer
@@ -291,15 +304,16 @@ paths:
       summary: Perform action on device
       operationId: performAction
       requestBody:
-        description: Performed action with updated status
+        required: true
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DeviceAction'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DeviceAction'
-        required: true
+              type: object
+              properties:
+                status:
+                  type: string
+              required:
+                - status
       responses:
         '200':
           description: Successful operation
@@ -309,148 +323,6 @@ paths:
                 $ref: '#/components/schemas/Device'          
         '405':
           description: Invalid input
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - username
-                - password
-              properties:
-                email:
-                  type: string
-                username:
-                  type: string
-                password:
-                  type: string
-      responses:
-        default:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'          
-  /user/login:
-    get:
-      tags:
-        - user
-      summary: Logs user into the system
-      description: ''
-      operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The username for login
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful operation.
-        '400':
-          description: Invalid username/password supplied.
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ''
-      operationId: logoutUser
-      parameters: []
-      responses:
-        default:
-          description: Successful operation.
-  /user/{username}:
-    get:
-      tags:
-        - user
-      summary: Get user by username
-      description: ''
-      operationId: getUserByUsername
-      parameters:
-        - name: username
-          in: path
-          description: ''
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User' 
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
-    put:
-      tags:
-        - user
-      summary: Update a user (its username)
-      description: ''
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: Username of the user to be updated
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-              required:
-                - username
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'  
-        '405':
-          description: Invalid input
-    delete:
-      tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user
-      operationId: deleteUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
 components:
   schemas:
     Category:
@@ -502,9 +374,12 @@ components:
           example: 123
         category:
           $ref: '#/components/schemas/Category'
-        name:
+        displayName:
           type: string
-          example: Light
+          example: Default name
+        customName:
+          type: string
+          example: My custom name
         room:
           type: integer
           format: int64
@@ -526,50 +401,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Device'
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        email:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-          format: password
-        rooms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Room'
-    ApiResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        type:
-          type: string
-        message:
-          type: string
-    
-  requestBodies:
-    User:
-      description: User object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
-    Device:
-      description: Device object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Device'
-    Room:
-      description: Room object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Room'
