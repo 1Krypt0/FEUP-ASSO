@@ -15,14 +15,14 @@ export async function createDevice(device: Device) {
 			return data;
 		})
 		.catch((error) => {
-			console.log('Error creating device', error);
+			console.error('Error creating device', error);
 			return { error };
 		});
 
 	return data;
 }
 
-export async function updateDeviceValue(id:string, value:string) {
+export async function updateDeviceValue(id: string, value: string) {
 	const data = await fetch(`${PUBLIC_URL}/devices/${id}/value`, {
 		method: 'POST',
 		headers: {
@@ -30,7 +30,7 @@ export async function updateDeviceValue(id:string, value:string) {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			value:value
+			value: value
 		})
 	})
 		.then((response) => response.json())
@@ -38,7 +38,7 @@ export async function updateDeviceValue(id:string, value:string) {
 			return data;
 		})
 		.catch((error) => {
-			console.log('Error updating device value', error);
+			console.error('Error updating device value', error);
 			return { error };
 		});
 
@@ -52,7 +52,7 @@ export async function getDevices(type: string): Promise<Device[]> {
 			return data;
 		})
 		.catch((error) => {
-			console.log(`Error fetching devices of type ${type}`, error);
+			console.error(`Error fetching devices of type ${type}`, error);
 			return [];
 		});
 
@@ -66,7 +66,7 @@ export async function getDevice(id: string): Promise<Device> {
 			return data;
 		})
 		.catch((error) => {
-			console.log(`Error fetching device with ID ${id}`, error);
+			console.error(`Error fetching device with ID ${id}`, error);
 			return {};
 		});
 

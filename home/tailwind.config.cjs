@@ -6,21 +6,15 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				lights: {
-					50: '#fffbeb',
-					400: '#fbbf24',
-					500: '#f59e0b'
-				},
-				media: {
-					50: '#ecfeff',
-					400: '#22d3ee',
-					500: '#06b6d4'
-				},
-				climate: {
-					50: '#f0fdf4',
-					400: '#4ade80',
-					500: '#22c55e'
-				}
+				light: '#f4f4f4',
+				primary: '#17a2b8',
+				secondary: '#6c757d',
+				accent: '#ffcc80',
+				danger: '#dc3545',
+				success: '#28a745'
+			},
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif']
 			}
 		}
 	},

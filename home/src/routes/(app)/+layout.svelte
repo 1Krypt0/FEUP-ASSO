@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
-	import Sidebar from '$lib/components/sidebar.svelte';
-	import type { LayoutServerData } from './$types';
+	import Header from './header.svelte';
+	import Sidebar from './sidebar.svelte';
 	import '../../app.css';
 	import { onMount } from 'svelte';
 	import { pwaInfo } from 'virtual:pwa-info';
+	import type { LayoutServerData } from './$types';
 
 	export let data: LayoutServerData;
 
@@ -16,11 +16,8 @@
 			const { registerSW } = await import('virtual:pwa-register');
 			registerSW({
 				immediate: true,
-				onRegistered(r) {
-					console.log(`SW registered: ${r}`);
-				},
 				onRegisterError(error) {
-					console.log(`SW registration error: ${error}`);
+					console.error(`SW registration error: ${error}`);
 				}
 			});
 		}
@@ -36,12 +33,8 @@
 <div class:dark={darkMode} class="flex flex-col min-h-screen h-screen">
 	<Header bind:darkMode bind:sidebarVisible />
 
-	<main
-		class="flex h-full overflow-y-scroll bg-right-bottom bg-contain bg-no-repeat bg-fixed {data
-			.colors[data.page][50]}"
-		style:background-image={data.bg_img}
-	>
-		<Sidebar visible={sidebarVisible} colors={data.colors} />
+	<main class="flex h-full bg-light">
+		<Sidebar visible={sidebarVisible} rooms={data.rooms} />
 		<slot />
 	</main>
 </div>

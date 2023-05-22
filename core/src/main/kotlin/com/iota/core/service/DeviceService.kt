@@ -20,7 +20,6 @@ class DeviceService(
     private val deviceRepository: DeviceRepository,
     private val deviceActionRepository: DeviceActionRepository,
     private val actionRepository: ActionRepository,
-    private val brokerConfig: BrokerConfig
 ) {
     fun findAll(type: DeviceType?): List<Device> {
         return if (type == null) {

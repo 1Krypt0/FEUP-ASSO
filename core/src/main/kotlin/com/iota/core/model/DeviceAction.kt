@@ -1,6 +1,7 @@
 package com.iota.core.model
 
 import com.iota.core.dto.device.Properties
+import com.iota.core.exception.device.InvalidActionException
 import com.vladmihalcea.hibernate.type.json.JsonType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
@@ -15,6 +16,9 @@ class DeviceAction {
 
     @NotEmpty
     var name = ""
+
+    @NotEmpty
+    var idDevice = ""
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
@@ -53,5 +57,32 @@ class DeviceAction {
         result = 31 * result + status.hashCode()
         result = 31 * result + name.hashCode()
         return result
+    }
+
+    private fun validateBool(value: String) {
+        if (value == "1" || value == "0") return
+
+        throw InvalidActionException(value)
+    }
+
+    private fun validateNumber(value: String) {
+        var number = value.toFloat()
+        properties["min"]?.let {min ->
+            if(number < min.toString().toFloat()) {
+                throw InvalidActionException(value)
+            }
+        }
+        properties["max"]?.let {max ->
+            if(number > max.toString().toFloat()) {
+                throw InvalidActionException(value)
+            }
+        }
+    }
+
+    fun validate(value: String) {
+        when(action?.type) {
+            "bool" -> validateBool(value)
+            "number" -> validateNumber(value)
+        }
     }
 }

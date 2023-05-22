@@ -12,14 +12,13 @@
 
 <section class="flex items-center gap-4">
 	<!-- TODO: Complete with dynamic username -->
-	<p class="text-lg font-extrabold hidden sm:block">Sample User</p>
+	<p class="text-lg font-semibold hidden sm:block">Bessie Cooper</p>
 
 	<!-- TODO: Complete with dynamic profile pic -->
 	<img class="w-12 h-12" alt="user profile" src={svelte_logo} />
 
 	<Dropdown />
 
-	<!-- TODO: Change to sm:block when implemented -->
 	<button on:click={toggleDarkMode} class="hidden sm:block">
 		{#if darkMode}
 			<SunIcon class="h-6 w-6" />

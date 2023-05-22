@@ -2,5 +2,5 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (() => {
-	throw redirect(303, 'lights');
+	throw redirect(303, 'room');
 }) satisfies PageServerLoad;
