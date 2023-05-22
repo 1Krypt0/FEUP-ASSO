@@ -1,11 +1,10 @@
 package com.iota.core.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 
 @Entity
+@Table(name = "room")
 class Room {
     @Id
     @GeneratedValue
@@ -13,4 +12,7 @@ class Room {
 
     @NotEmpty
     var name: String = ""
+
+    @OneToMany(mappedBy = "room")
+    var devices: Set<Device> = setOf()
 }

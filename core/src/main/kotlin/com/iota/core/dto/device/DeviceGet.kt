@@ -25,7 +25,7 @@ class DeviceGet(device: Device) {
         this.macAddress = device.macAddress
         this.type = device.type!!
         this.status = device.status!!
-        this.room = device.room
+        this.room = device.room?.id
         this.added = device.added
         this.deviceActions = device.deviceActions.map { DeviceActionGetSimple(it) }.toSet()
     }
