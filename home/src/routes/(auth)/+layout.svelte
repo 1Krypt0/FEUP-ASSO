@@ -4,7 +4,7 @@
 
 <div class="h-screen">
 	<main
-		class="flex h-full bg-orange-100 bg-[url('/bg-default.svg')] bg-right-bottom bg-contain bg-no-repeat"
+		class="flex h-full bg-light"
 	>
 		<slot />
 	</main>
