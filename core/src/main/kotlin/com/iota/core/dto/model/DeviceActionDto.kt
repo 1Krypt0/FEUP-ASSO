@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotEmpty
 
 @ValidDeviceActionProperties
 class DeviceActionDto : EntityDto<DeviceAction> {
+    constructor()
+
     constructor(deviceAction: DiscoverableDeviceAction) {
         deviceId = deviceAction.id
         name = deviceAction.name
