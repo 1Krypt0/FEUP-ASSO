@@ -9,6 +9,7 @@ open class DeviceActionGetSimple(deviceAction: DeviceAction) {
     var displayName: String = ""
     var properties: Properties = mutableMapOf()
     var status: String = ""
+    var actionName: String? = null
 
     init {
         this.id = deviceAction.id
@@ -16,6 +17,7 @@ open class DeviceActionGetSimple(deviceAction: DeviceAction) {
         this.properties = deviceAction.properties
         this.status = deviceAction.status
         this.name = deviceAction.name
+        this.actionName = deviceAction.action?.name
     }
 }
 
@@ -24,5 +26,6 @@ class DeviceActionGet(deviceAction: DeviceAction) : DeviceActionGetSimple(device
 
     init {
         this.action = ActionGet(deviceAction.action!!)
+        this.actionName = null
     }
 }
