@@ -1,10 +1,7 @@
 package com.iota.core.controller
 
-import com.iota.core.dto.action.ActionGet
-import com.iota.core.dto.model.ActionDto
 import com.iota.core.dto.model.RoomDto
 import com.iota.core.dto.room.RoomGet
-import com.iota.core.service.ActionService
 import com.iota.core.service.RoomService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*

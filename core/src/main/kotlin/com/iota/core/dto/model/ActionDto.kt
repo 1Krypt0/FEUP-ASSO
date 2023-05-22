@@ -11,12 +11,15 @@ class ActionDto : EntityDto<Action> {
     @NotEmpty
     var type: String = ""
 
+    var updatable: Boolean = true
+
     var required: RequiredProperties = mutableListOf()
 
     override fun create(): Action {
         val entity = Action()
         entity.name = name
         entity.type = type
+        entity.updatable = updatable
         entity.required = required
 
         return entity

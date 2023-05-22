@@ -3,10 +3,7 @@ package com.iota.core.exception
 import com.iota.core.dto.ErrorDto
 import com.iota.core.dto.FieldErrorDto
 import com.iota.core.dto.FieldErrorsDto
-import com.iota.core.exception.device.ActionNameNotFoundException
-import com.iota.core.exception.device.ActionNotFoundException
-import com.iota.core.exception.device.DeviceNotFoundException
-import com.iota.core.exception.device.MACAlreadyRegistered
+import com.iota.core.exception.device.*
 import com.iota.core.exception.room.RoomNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -76,6 +73,26 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 
         val error = ErrorDto("action %d was not found".format(ex.id))
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidActionException::class)
+    @ResponseBody
+    protected fun handleActionNotFound(ex: InvalidActionException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("action does not allow ${ex.value}")
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(422), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ActionNotUpdatableException::class)
+    @ResponseBody
+    protected fun handleActionNotFound(ex: ActionNotUpdatableException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("action does not allow updates")
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(422), request)
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(ActionNameNotFoundException::class)

@@ -1,9 +1,7 @@
 package com.iota.core.service
 
-import com.iota.core.config.broker.BrokerConfig
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNameNotFoundException
-import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
 import com.iota.core.model.*
@@ -20,7 +18,6 @@ class DeviceService(
     private val deviceRepository: DeviceRepository,
     private val deviceActionRepository: DeviceActionRepository,
     private val actionRepository: ActionRepository,
-    private val brokerConfig: BrokerConfig
 ) {
     fun findAll(type: DeviceType?): List<Device> {
         return if (type == null) {
