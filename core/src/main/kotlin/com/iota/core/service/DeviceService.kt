@@ -109,7 +109,6 @@ class DeviceService(
             device.room = room
         }
         dto.type?.let { device.type = DeviceType.valueOf(it) }
-
         return deviceRepository.save(device)
     }
 }

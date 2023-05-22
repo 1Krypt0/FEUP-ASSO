@@ -1,6 +1,7 @@
 package com.iota.core.controller
 
 import com.iota.core.dto.model.RoomDto
+import com.iota.core.dto.room.RoomDeleted
 import com.iota.core.dto.room.RoomGet
 import com.iota.core.dto.room.RoomUpdate
 import com.iota.core.service.RoomService
@@ -30,5 +31,12 @@ class RoomController(
     @PutMapping("/{id}")
     fun updateRoom(@PathVariable id: Long, @Valid @RequestBody dto: RoomUpdate): RoomGet {
         return RoomGet(service.update(id, dto))
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteRoom(@PathVariable id: Long): RoomDeleted {
+        service.delete(id)
+
+        return RoomDeleted(id)
     }
 }
