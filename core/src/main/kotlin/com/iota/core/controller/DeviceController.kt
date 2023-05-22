@@ -8,6 +8,7 @@ import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceStatusUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNotFoundException
+import com.iota.core.exception.device.ActionNotUpdatableException
 import com.iota.core.model.DeviceType
 import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
@@ -43,8 +44,11 @@ class DeviceController(
     fun updateDeviceValue(@PathVariable id: Long, @PathVariable actionId: String, @RequestBody update: DeviceStatusUpdate) {
         val device = service.device(id)
         val action = device.deviceActions.find { it.idDevice == actionId }
-        action?.let {
-            it.validate(update.value)
+        action?.let { deviceAction ->
+            if(deviceAction.action?.updatable != true) {
+                throw ActionNotUpdatableException()
+            }
+            deviceAction.validate(update.value)
 
             val statusUpdate = StatusUpdate(actionId, update.value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)

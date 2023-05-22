@@ -16,11 +16,12 @@ class DatabaseSeeder(
     private fun seedActions() {
         addAction("toggle", "bool",)
         addAction("boolean", "bool",)
-        addAction("range", "number", mutableListOf("min", "max", "step"))
+        addAction("range", "number", true, mutableListOf("min", "max", "step"))
         addAction("rgb", "number")
+        addAction("readonly-number", "number", false)
     }
 
-    private fun addAction(name: String, type: String, required: RequiredProperties? = null) {
+    private fun addAction(name: String, type: String, updatable: Boolean = true, required: RequiredProperties? = null) {
         if (actionRepository.findByName(name).isPresent) {
             println("Already stored $name")
             return
@@ -28,6 +29,7 @@ class DatabaseSeeder(
         val action = Action()
         action.name = name
         action.type = type
+        action.updatable = updatable
         required?.let { action.required = it }
         actionRepository.save(action)
         println("Stored ${action.name}")

@@ -5,6 +5,7 @@ import com.iota.core.dto.FieldErrorDto
 import com.iota.core.dto.FieldErrorsDto
 import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.ActionNotFoundException
+import com.iota.core.exception.device.ActionNotUpdatableException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.InvalidActionException
 import com.iota.core.exception.device.MACAlreadyRegistered
@@ -75,6 +76,16 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         headers.contentType = MediaType.APPLICATION_JSON
 
         val error = ErrorDto("action does not allow ${ex.value}")
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(422), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ActionNotUpdatableException::class)
+    @ResponseBody
+    protected fun handleActionNotFound(ex: ActionNotUpdatableException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("action does not allow updates")
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(422), request)
     }
 
