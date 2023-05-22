@@ -35,6 +35,7 @@ class DeviceDto() : EntityDto<Device> {
         val entity = Device()
         entity.name = name
         entity.macAddress = macAddress
+        entity.type = DeviceType.valueOf(type)
 
         return entity
     }

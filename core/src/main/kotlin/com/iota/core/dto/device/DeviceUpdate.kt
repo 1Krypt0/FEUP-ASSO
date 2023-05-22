@@ -1,6 +1,8 @@
 package com.iota.core.dto.device
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.iota.core.model.DeviceType
+import com.iota.core.validator.ValueOfEnum
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
@@ -12,4 +14,7 @@ class DeviceUpdate {
 
     @Min(1)
     val room: Long? = null
+
+    @ValueOfEnum(enumClass = DeviceType::class)
+    var type: String? = null
 }

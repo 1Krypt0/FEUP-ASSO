@@ -1,5 +1,6 @@
 package com.iota.core.service
 
+import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
@@ -8,6 +9,7 @@ import com.iota.core.model.*
 import com.iota.core.repository.ActionRepository
 import com.iota.core.repository.DeviceActionRepository
 import com.iota.core.repository.DeviceRepository
+import com.iota.core.repository.RoomRepository
 import jakarta.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
@@ -18,6 +20,7 @@ class DeviceService(
     private val deviceRepository: DeviceRepository,
     private val deviceActionRepository: DeviceActionRepository,
     private val actionRepository: ActionRepository,
+    private val roomService: RoomService,
 ) {
     fun findAll(type: DeviceType?): List<Device> {
         return if (type == null) {
@@ -95,5 +98,18 @@ class DeviceService(
         val device = device(id)
 
         return device.deviceActions
+    }
+
+    fun update(id: Long, dto: DeviceUpdate): Device {
+        val device = device(id)
+
+        dto.name?.let { device.name = it }
+        dto.room?.let {
+            val room = roomService.room(it)
+            device.room = room
+        }
+        dto.type?.let { device.type = DeviceType.valueOf(it) }
+
+        return deviceRepository.save(device)
     }
 }

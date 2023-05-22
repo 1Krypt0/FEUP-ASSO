@@ -6,6 +6,7 @@ import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.dto.device.DeviceDeleted
 import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceStatusUpdate
+import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.ActionNotUpdatableException
@@ -83,5 +84,10 @@ class DeviceController(
     @GetMapping("/{id}/actions")
     fun deviceActions(@PathVariable id: Long): List<DeviceActionGet> {
         return service.deviceActions(id).map { DeviceActionGet(it) }
+    }
+
+    @PutMapping("/{id}")
+    fun updateDevice(@PathVariable id: Long, @Valid @RequestBody dto: DeviceUpdate): DeviceGet {
+        return DeviceGet(service.update(id, dto))
     }
 }
