@@ -41,9 +41,14 @@ class DeviceController(
     @PostMapping("/{id}/value/{actionId}")
     fun updateDeviceValue(@PathVariable id: Long, @PathVariable actionId: String, @RequestBody update: DeviceStatusUpdate) {
         val device = service.device(id)
-        val statusUpdate = StatusUpdate(actionId, update.value)
-        val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
-        broker.addToTopic(device.actionTopic, json)
+        val action = device.deviceActions.find { it.idDevice == actionId }
+        action?.let {
+            it.validate(update.value)
+
+            val statusUpdate = StatusUpdate(actionId, update.value)
+            val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
+            broker.addToTopic(device.actionTopic, json)
+        }
     }
 
     @PostMapping("/new")
