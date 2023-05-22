@@ -8,8 +8,8 @@ import com.iota.core.validator.ValueOfEnum
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotEmpty
 
-class DeviceDto : EntityDto<Device> {
-    constructor(value: DiscoverableDevice) {
+class DeviceDto() : EntityDto<Device> {
+    constructor(value: DiscoverableDevice) : this() {
         name = value.name
         macAddress = value.mac
         actions = value.actions.map {

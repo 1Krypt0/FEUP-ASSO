@@ -1,6 +1,7 @@
 package com.iota.core.service
 
 import com.iota.core.dto.model.RoomDto
+import com.iota.core.dto.room.RoomUpdate
 import com.iota.core.exception.room.RoomNotFoundException
 import com.iota.core.model.Room
 import com.iota.core.repository.RoomRepository
@@ -34,5 +35,25 @@ class RoomService {
         } catch (ex: NoSuchElementException) {
             throw RoomNotFoundException(ex.message, ex.cause, id)
         }
+    }
+
+    fun findAll(): MutableIterable<Room> {
+        return roomRepository.findAll()
+    }
+
+    fun update(id: Long, dto: RoomUpdate): Room {
+        val room: Room = room(id)
+
+        if (dto.name != null) {
+            room.name = dto.name!!
+        }
+
+        try {
+            roomRepository.save(room)
+        } catch (ex: DataIntegrityViolationException) {
+            throw ex
+        }
+
+        return room
     }
 }

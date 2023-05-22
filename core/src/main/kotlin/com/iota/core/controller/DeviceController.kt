@@ -24,7 +24,7 @@ class DeviceController(
 ) {
     private val broker = brokerConfig.broker()
 
-    @GetMapping("")
+    @GetMapping("/")
     fun list(@RequestParam(required = false) type: DeviceType?): List<DeviceGet> {
         return service.findAll(type).map { DeviceGet(it) }
     }

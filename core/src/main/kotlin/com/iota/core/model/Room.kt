@@ -13,6 +13,6 @@ class Room {
     @NotEmpty
     var name: String = ""
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     var devices: Set<Device> = setOf()
 }
