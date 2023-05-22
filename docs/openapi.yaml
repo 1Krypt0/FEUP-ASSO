@@ -2,12 +2,7 @@ openapi: 3.0.3
 info:
   title: Iota
   description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  
     You can find out more about Swagger at [https://swagger.io](https://swagger.io).
-    
-    Some useful links:
-    - [Iota repository](https://github.com/FEUP-MEIC-ASSO-2023/G1)
-    - [The source API definition for Iota](https://github.com/FEUP-MEIC-ASSO-2023/G1/tree/dev/docs/openapi.yaml)
   version: 1.0.0
 tags:
   - name: devices
