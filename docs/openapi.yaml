@@ -190,6 +190,33 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Category not found
+  /devices/?room={roomID}:
+    get:
+      tags:
+        - devices
+      summary: Get devices of specific room
+      operationId: getDevicesByRoom
+      parameters:
+        - name: roomID
+          in: query
+          description: Room ID of devices to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Category not found
   /devices/{deviceID}:
     get:
       tags:
