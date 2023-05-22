@@ -248,17 +248,18 @@
 									</div>
 								{/if}
 
-								{#if workflow.eventNodes.length < 2 || workflow.eventNodes.length - 1 == eventNodeIndex}
-									<button
-										type="button"
-										class="text-center text-white font-bold rounded-full bg-primary mt-5"
-										on:click={addEventNode}><PlusIcon /></button
-									>
-								{:else}
+								{#if workflow.eventNodes.length > 1}
 									<button
 										type="button"
 										class="text-center text-white font-bold rounded-full bg-primary mt-5"
 										on:click={() => removeEventNode(eventNodeIndex)}><MinusIcon /></button
+									>
+								{/if}
+								{#if workflow.eventNodes.length === 1 || (workflow.eventNodes.length > 1 && workflow.eventNodes.length - 1 == eventNodeIndex)}
+									<button
+										type="button"
+										class="text-center text-white font-bold rounded-full bg-primary mt-5"
+										on:click={addEventNode}><PlusIcon /></button
 									>
 								{/if}
 							</section>
@@ -299,18 +300,19 @@
 											</div>
 										{/if}
 
-										{#if eventNode.conditionNodes.length < 2 || eventNode.conditionNodes.length - 1 == conditionNodeIndex}
-											<button
-												type="button"
-												class="text-center text-white font-bold rounded-full bg-primary mt-5"
-												on:click={() => addConditionNode(eventNodeIndex)}><PlusIcon /></button
-											>
-										{:else}
+										{#if eventNode.conditionNodes.length > 1}
 											<button
 												type="button"
 												class="text-center text-white font-bold rounded-full bg-primary mt-5"
 												on:click={() => removeConditionNode(eventNodeIndex, conditionNodeIndex)}
 												><MinusIcon /></button
+											>
+										{/if}
+										{#if eventNode.conditionNodes.length === 1 || (eventNode.conditionNodes.length > 1 && eventNode.conditionNodes.length - 1 == conditionNodeIndex)}
+											<button
+												type="button"
+												class="text-center text-white font-bold rounded-full bg-primary mt-5"
+												on:click={() => addConditionNode(eventNodeIndex)}><PlusIcon /></button
 											>
 										{/if}
 									</section>
