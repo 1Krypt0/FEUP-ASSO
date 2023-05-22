@@ -198,7 +198,7 @@
 						name="name"
 						type="text"
 						placeholder="Enter the new workflow name here"
-						class="py-3 px-2 md:px-5 rounded-full mt-5  sm:ml-5"
+						class="p-2 md:px-5 sm:ml-5 rounded-full"
 					/>
 				</div>
 				{#if errors.name}
@@ -218,10 +218,10 @@
 						<section class="flex flex-col mb-4">
 							<section class="flex items-center gap-6">
 								<!-- event node device -->
-								<div class="sm:flex sm:items-center pl-5">
+								<div class="sm:flex sm:items-center pl-5 pt-5">
 									<label for="workflow-event-node-device-{eventNodeIndex}">Device</label>
 									<select
-										class="flex p-3 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+										class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 										id="workflow-event-node-device-{eventNodeIndex}"
 										name="event-node-device"
 										bind:value={eventNode.device}
@@ -233,10 +233,10 @@
 								</div>
 								<!-- event node action -->
 								{#if eventNode.device != ''}
-									<div class="sm:flex sm:items-center pl-5">
+									<div class="sm:flex sm:items-center pl-5 pt-5">
 										<label for="workflow-event-node-action-{eventNodeIndex}">Action</label>
 										<select
-											class="flex p-3 mt-5 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+											class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 											id="workflow-event-node-action-{eventNodeIndex}"
 											name="event-node-action"
 											bind:value={eventNode.action}
@@ -251,13 +251,13 @@
 								{#if workflow.eventNodes.length < 2 || workflow.eventNodes.length - 1 == eventNodeIndex}
 									<button
 										type="button"
-										class="text-center text-white font-bold rounded-full bg-primary"
+										class="text-center text-white font-bold rounded-full bg-primary mt-5"
 										on:click={addEventNode}><PlusIcon /></button
 									>
 								{:else}
 									<button
 										type="button"
-										class="text-center text-white font-bold rounded-full bg-primary"
+										class="text-center text-white font-bold rounded-full bg-primary mt-5"
 										on:click={() => removeEventNode(eventNodeIndex)}><MinusIcon /></button
 									>
 								{/if}
@@ -266,13 +266,13 @@
 								{#each eventNode.conditionNodes as conditionNode, conditionNodeIndex}
 									<section class="flex items-center gap-6 ml-24 max-h-56 md:max-h-72 lg:max-h-96">
 										<!-- condition node condition -->
-										<div class="sm:flex sm:items-center pl-5">
+										<div class="sm:flex sm:items-center pl-5 pt-5">
 											<label
 												for="workflow-condition-node-condition-{eventNodeIndex}-{conditionNodeIndex}"
 												>Condition</label
 											>
 											<select
-												class="flex p-3 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+												class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 												id="workflow-condition-node-condition-{eventNodeIndex}-{conditionNodeIndex}"
 												name="condition-node-condition"
 												bind:value={conditionNode.condition}
@@ -284,7 +284,7 @@
 										</div>
 										<!-- condition node value -->
 										{#if conditionNode.condition != ''}
-											<div class="sm:flex sm:items-center pl-5">
+											<div class="sm:flex sm:items-center pl-5 pt-5">
 												<label
 													for="workflow-condition-node-value-{eventNodeIndex}-{conditionNodeIndex}"
 													>Value</label
@@ -294,7 +294,7 @@
 													id="workflow-condition-node-value-{eventNodeIndex}-{conditionNodeIndex}"
 													name="condition-node-value"
 													type="text"
-													class="py-3 px-2 md:px-5 rounded-full mt-5  sm:ml-5"
+													class="p-2 md:px-5 sm:ml-5 rounded-full"
 												/>
 											</div>
 										{/if}
@@ -302,13 +302,13 @@
 										{#if eventNode.conditionNodes.length < 2 || eventNode.conditionNodes.length - 1 == conditionNodeIndex}
 											<button
 												type="button"
-												class="text-center text-white font-bold rounded-full bg-primary"
+												class="text-center text-white font-bold rounded-full bg-primary mt-5"
 												on:click={() => addConditionNode(eventNodeIndex)}><PlusIcon /></button
 											>
 										{:else}
 											<button
 												type="button"
-												class="text-center text-white font-bold rounded-full bg-primary"
+												class="text-center text-white font-bold rounded-full bg-primary mt-5"
 												on:click={() => removeConditionNode(eventNodeIndex, conditionNodeIndex)}
 												><MinusIcon /></button
 											>
@@ -317,13 +317,13 @@
 									<section class="flex items-center gap-6 ml-24 max-h-56 md:max-h-72 lg:max-h-96">
 										<!-- condition node operation -->
 										{#if eventNode.conditionNodes.length > 1 && conditionNodeIndex < eventNode.conditionNodes.length - 1}
-											<div class="sm:flex sm:items-center pl-5">
+											<div class="sm:flex sm:items-center pl-5 pt-5">
 												<label
 													for="workflow-condition-node-operation-{eventNodeIndex}-{conditionNodeIndex}"
 													>Operation</label
 												>
 												<select
-													class="flex p-3 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+													class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 													id="workflow-condition-node-operation-{eventNodeIndex}-{conditionNodeIndex}"
 													name="condition-node-operation"
 													bind:value={conditionNode.operation}
@@ -340,10 +340,10 @@
 							<section class="flex items-center gap-6">
 								<!-- event node operation -->
 								{#if workflow.eventNodes.length > 1 && eventNodeIndex < workflow.eventNodes.length - 1}
-									<div class="sm:flex sm:items-center pl-5">
+									<div class="sm:flex sm:items-center pl-5 pt-5">
 										<label for="workflow-event-node-operation-{eventNodeIndex}">Operation</label>
 										<select
-											class="flex p-3 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+											class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 											id="workflow-event-node-operation-{eventNodeIndex}"
 											name="event-node-operation"
 											bind:value={eventNode.operation}
@@ -378,10 +378,10 @@
 				</div>
 			{:else if step === 2}
 				<section class="flex flex-col items-center gap-6 max-h-56 md:max-h-72 lg:max-h-96 py-6">
-					<div class="sm:flex sm:items-center pl-5">
+					<div class="sm:flex sm:items-center pl-5 pt-5">
 						<label for="workflow-target-device">Device</label>
 						<select
-							class="flex p-3 mt-5 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+							class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 							id="workflow-target-device"
 							name="target-device"
 							bind:value={workflow.actionNode.device}
@@ -393,10 +393,10 @@
 					</div>
 
 					{#if workflow.actionNode.device != ''}
-						<div class="sm:flex sm:items-center pl-5">
+						<div class="sm:flex sm:items-center pl-5 pt-5">
 							<label for="workflow-target-action">Action</label>
 							<select
-								class="flex p-3 mt-5 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
+								class="flex p-2 sm:ml-5 rounded-full text-center bg-white"
 								id="workflow-target-action"
 								name="target-action"
 								bind:value={workflow.actionNode.action}
@@ -416,7 +416,7 @@
 								id="workflow-target-value"
 								name="target-value"
 								type="text"
-								class="py-3 px-2 md:px-5 rounded-full mt-5  sm:ml-5"
+								class="p-2 md:px-5 sm:ml-5 rounded-full"
 							/>
 						</div>
 					{/if}
