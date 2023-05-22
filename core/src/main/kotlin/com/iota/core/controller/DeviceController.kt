@@ -1,16 +1,17 @@
 package com.iota.core.controller
 
 import com.iota.core.config.broker.BrokerConfig
-import com.iota.core.dto.action.ActionGet
 import com.iota.core.dto.action.DeviceActionGet
+import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.dto.device.DeviceDeleted
 import com.iota.core.dto.device.DeviceGet
-import com.iota.core.dto.device.DeviceUpdate
+import com.iota.core.dto.device.DeviceStatusUpdate
 import com.iota.core.dto.model.DeviceDto
-import com.iota.core.model.DeviceAction
 import com.iota.core.model.DeviceType
+import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
+import kotlinx.serialization.json.Json
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -35,14 +36,15 @@ class DeviceController(
     }
 
     @GetMapping("/{id}/status")
-    fun deviceStatus(@PathVariable id: Long) = mapOf("status" to service.device(id).status)
+    fun deviceStatus(@PathVariable id: Long) = service.device(id).deviceActions.map { DeviceActionGetSimple(it) }
 
-//    @PostMapping("/{id}/value")
-//    fun updateDeviceValue(@PathVariable id: Long, @Valid @RequestBody deviceUpdate: DeviceUpdate) {
-//        val device = service.device(id)
-//        // TODO
-////        broker.addToTopic(device.actionTopic, deviceUpdate.value ?: "")
-//    }
+    @PostMapping("/{id}/value/{actionId}")
+    fun updateDeviceValue(@PathVariable id: Long, @PathVariable actionId: String, @RequestBody update: DeviceStatusUpdate) {
+        val device = service.device(id)
+        val statusUpdate = StatusUpdate(actionId, update.value)
+        val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
+        broker.addToTopic(device.actionTopic, json)
+    }
 
     @PostMapping("/new")
     fun newDevice(@Valid @RequestBody dto: DeviceDto): DeviceGet {

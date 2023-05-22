@@ -19,7 +19,7 @@ DISCOVERABILITY = "discoverability-" + MAC_ADDRESS
 
 STATE = 0
 
-value = "15,90,130"
+value = "7ec0ee"
 value_intensity = "150"
 
 def on_connect(client, userdata, flags, return_code):
@@ -33,14 +33,19 @@ def on_connect(client, userdata, flags, return_code):
 
 def on_message(client, userdata, message):
     global value
+    global value_intensity
     global STATE
     print(message.topic, DISCOVERABILITY)
     if (message.topic == DISCOVERABILITY):
         STATE = 1
     else:
-        parsed = str(message.payload.decode("utf-8"))
+        parsed = json.loads(str(message.payload.decode("utf-8")))
         print("Received message: ", parsed)
-        value = parsed
+        if parsed["id"] == "1":
+            value = parsed["status"]
+        elif parsed["id"] == "2":
+            value_intensity = parsed["status"]
+        # value = parsed
 
 
 client = mqtt.Client(MAC_ADDRESS)
@@ -109,9 +114,8 @@ try:
         else:
             client.publish(str(VALUE), parse_data())
             scrn.fill((255,255, 255))
-            print("Sent", value)
-            color = tuple(map(int, value.split(",")))
-            print(color)
+            print("Sent", parse_data())
+            color = pygame.Color(f"#{value}")
             pygame.draw.circle(surface1,color,(305, 276), 78)
             surface1.set_alpha(int(value_intensity))
             scrn.blit(imp, (0, 0))

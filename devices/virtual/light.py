@@ -1,3 +1,4 @@
+import json
 import paho.mqtt.client as mqtt
 import time
 import sys
@@ -36,9 +37,10 @@ def on_message(client, userdata, message):
     if (message.topic == DISCOVERABILITY):
         STATE = 1
     else:
-        parsed = str(message.payload.decode("utf-8"))
+        parsed = json.loads(str(message.payload.decode("utf-8")))
         print("Received message: ", parsed)
-        value = parsed
+        if parsed["id"] == "1":
+            value = parsed["status"]
 
 
 client = mqtt.Client(MAC_ADDRESS)
@@ -53,6 +55,12 @@ config = "{\"mac\":\"<mac-address>\",\"name\":\"Virtual Iota Light 1.0\",\"actio
 config = config.replace("<mac-address>", MAC_ADDRESS)
 config = config.replace("<status>", value)
 
+def parse_data():
+    o = [
+        {"id": "1", "status": value},
+    ]
+
+    return json.dumps(o)
 
 import pygame
  
@@ -85,8 +93,8 @@ try:
             err = client.publish("discoverability", config)
             print(err)
         else:
-            client.publish(str(VALUE), value)
-            print("Sent", value)
+            client.publish(str(VALUE), parse_data())
+            print("Sent", parse_data())
             pygame.draw.circle(scrn,(255, 255, (1 - int(value))*255),(305, 276), 78)
             pygame.display.update()
 
