@@ -11,7 +11,8 @@ interface Device {
 
 export const load = (async ({ params, parent }) => {
 	const parentData = await parent();
-	//const device = await getDevice(params.id);
+
+	// TODO: If the category is not found, redirect to 404
 
 	let divisionName;
 	let isRoom;

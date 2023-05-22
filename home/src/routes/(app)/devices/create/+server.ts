@@ -8,6 +8,8 @@ export const POST = (async ({ request }) => {
 	const categoryID = data['categoryID'];
 	const deviceName = data['selectedName'];
 
+	// TODO: Check received fields and update backend
+
 	console.log(
 		`Name: ${name}, Room: ${roomID}, Category: ${categoryID}, Device Name: ${deviceName}`
 	);

@@ -6,14 +6,13 @@
 	export let data: PageData;
 
 	const roomID = Number.parseInt($page.url.searchParams.get('roomID') ?? '-1');
-	const categoryID = $page.url.searchParams.get('category') ?? '';
 
 	let step = 0;
 	let formData = {
-		name: '',
+		displayName: '',
 		roomID: roomID,
-		categoryID: categoryID,
-		selectedName: ''
+		customName: '',
+		deviceID: -1
 	};
 
 	async function submit() {
@@ -36,11 +35,23 @@
 			on:submit|preventDefault={submit}
 			class="flex flex-col justify-center gap-6"
 		>
-			{#if step === 0}
+			{#if step === 1}
 				<div class="pl-5">
-					<label for="device-name">Name</label>
+					<label for="device-name">Device Name</label>
 					<input
-						bind:value={formData.name}
+						bind:value={formData.displayName}
+						id="display-name"
+						name="name"
+						type="text"
+						class="py-3 px-2 md:px-5 rounded-full mt-5  sm:ml-5"
+						disabled
+					/>
+				</div>
+
+				<div class="pl-5">
+					<label for="device-name">Custom Name</label>
+					<input
+						bind:value={formData.customName}
 						id="device-name"
 						name="name"
 						type="text"
@@ -52,7 +63,7 @@
 				<div class="sm:flex sm:items-center pl-5">
 					<label for="device-room">Room</label>
 					<select
-						class="flex py-3 mt-5 sm:ml-5 sm:mt-0 rounded-full text-center w-full bg-white"
+						class="flex py-3 mt-5 sm:ml-5 sm:mt-5 rounded-full text-center w-full bg-white"
 						id="device-room"
 						name="room"
 						bind:value={formData.roomID}
@@ -63,25 +74,12 @@
 					</select>
 				</div>
 
-				<div class="sm:flex sm:items-center pl-5">
-					<label for="device-category">Category</label>
-					<select
-						class="flex py-3 mt-5 sm:ml-5 sm:mt-0 rounded-full text-center w-full bg-white"
-						id="device-category"
-						name="category"
-						bind:value={formData.categoryID}
-					>
-						{#each data.categories as category}
-							<option value={category.id}>{category.name}</option>
-						{/each}
-					</select>
-				</div>
 				<button
-					type="button"
-					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
-					on:click={() => step++}>Search</button
+					type="submit"
+					class="self-end px-8 mx-5 text-center text-white font-bold my-6 py-3 rounded-full bg-primary"
+					>Create</button
 				>
-			{:else if step === 1}
+			{:else if step === 0}
 				<h2 class="font-bold text-center md:text-start text-3xl">Search Results</h2>
 
 				<section
@@ -91,16 +89,20 @@
 						<button
 							type="button"
 							class="bg-white px-5 drop-shadow-lg rounded-full text-center text-lg py-3 w-full focus:bg-accent focus:text-white"
-							on:click={() => (formData.selectedName = result.name)}
+							on:click={() => {
+								formData.displayName = result.name;
+								formData.deviceID = result.id;
+							}}
 						>
 							{result.name}
 						</button>
 					{/each}
 				</section>
+
 				<button
-					type="submit"
-					class="self-end px-8 mx-5 text-center text-white font-bold my-6 py-3 rounded-full bg-primary"
-					>Create</button
+					type="button"
+					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
+					on:click={() => step++}>Continue</button
 				>
 			{/if}
 		</form>

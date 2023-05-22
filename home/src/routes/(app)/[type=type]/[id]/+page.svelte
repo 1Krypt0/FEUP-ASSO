@@ -8,16 +8,8 @@
 	const id = $page.params.id;
 
 	const queryParams = new URLSearchParams();
-	switch ($page.params.type) {
-		case 'rooms':
-			queryParams.set('roomID', id);
-			break;
-
-		case 'categories':
-			queryParams.set('category', id);
-			break;
-		default:
-			break;
+	if ($page.params.type === 'rooms') {
+		queryParams.set('roomID', id);
 	}
 </script>
 
