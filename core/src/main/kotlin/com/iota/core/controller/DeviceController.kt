@@ -7,6 +7,7 @@ import com.iota.core.dto.device.DeviceDeleted
 import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceStatusUpdate
 import com.iota.core.dto.model.DeviceDto
+import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.model.DeviceType
 import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
@@ -48,6 +49,8 @@ class DeviceController(
             val statusUpdate = StatusUpdate(actionId, update.value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
             broker.addToTopic(device.actionTopic, json)
+        } ?: kotlin.run {
+            throw ActionNotFoundException(null, null, actionId.toLong())
         }
     }
 
