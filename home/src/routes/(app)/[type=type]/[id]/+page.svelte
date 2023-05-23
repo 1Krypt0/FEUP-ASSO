@@ -15,7 +15,7 @@
 
 <section class="px-5 w-full py-4 md:px-28 md:py-4">
 	<span class="flex w-full items-center justify-between pt-10">
-		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.divisionName}</h1>
+		<h1 class="text-lights-400 text-4xl md:text-6xl font-bold">{data.name}</h1>
 		<span class="flex items-center gap-6">
 			<a href="/devices/create?{queryParams.toString()}"><PlusIcon /></a>
 			{#if data.isRoom && Number.parseInt($page.params.id) > 0}
@@ -26,14 +26,14 @@
 	<section
 		class="flex flex-col items-center sm:grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-16 py-12"
 	>
-		{#each data.divisionDevices as device}
-			{#if device.category === 'lights'}
+		{#each data.devices as device}
+			{#if device.type === 'LIGHT'}
 				<DeviceCard name={device.name} id={device.id}><SunIcon class="stroke-accent" /></DeviceCard>
-			{:else if device.category === 'media'}
+			{:else if device.type === 'MEDIA'}
 				<DeviceCard name={device.name} id={device.id}
 					><MonitorIcon class="stroke-accent" /></DeviceCard
 				>
-			{:else if device.category === 'climate'}
+			{:else if device.type === 'CLIMATE'}
 				<DeviceCard name={device.name} id={device.id}
 					><DropletIcon class="stroke-accent" /></DeviceCard
 				>

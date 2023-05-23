@@ -10,7 +10,7 @@
 	const createRoomURL = '/rooms/create';
 
 	const iconDict: { [key: string]: ComponentType } = {
-		lights: SunIcon,
+		light: SunIcon,
 		media: MonitorIcon,
 		climate: DropletIcon
 	};

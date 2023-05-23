@@ -7,10 +7,11 @@ export const load = (async () => {
 	const roomRes = await fetch(`${BASE_URL}/rooms/`);
 	const rooms: Room[] = await roomRes.json();
 
+	// TODO: Change to data fetching
 	const categories = [
 		{
 			name: 'Lights',
-			id: 'lights'
+			id: 'light'
 		},
 		{
 			name: 'Media',
