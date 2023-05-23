@@ -35,7 +35,7 @@ class DeviceController(
     @GetMapping("/{id}")
     fun device(@PathVariable id: Long): DeviceGet {
         val device = service.device(id)
-        broker.subscribeDevice(id, device.dataTopic) // TODO Remove this for a better fault tolerance
+        broker.subscribeDevice(id, device.dataTopic)
 
         return DeviceGet(device)
     }
@@ -60,7 +60,7 @@ class DeviceController(
             val statusUpdate = StatusUpdate(actionId, update.value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
             broker.addToTopic(device.actionTopic, json)
-        } ?: kotlin.run {
+        } ?: run {
             throw ActionNotFoundException(null, null, actionId.toLong())
         }
     }

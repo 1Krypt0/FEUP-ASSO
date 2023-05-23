@@ -1,19 +1,22 @@
-export type Device = {
+type Action = {
 	id: number;
-	name: string;
-	displayName: string;
-	macAddress: string;
-	added: boolean;
-	room: number;
-	category: number;
-	status: 'CONNECTED' | 'DISCONNECTED';
-	actions: DeviceAction[]
+	type: string;
+	required: string[] | undefined;
 };
 
-export type DeviceAction = {
+type DeviceAction = {
 	id: number;
+	action: Action;
 	name: string;
-	actionName: string;
-	properties: Record<string, string | number>
-	status: string;
+	properties: object | undefined;
+	state: string;
+};
+
+export type Device = {
+	id: number;
+	category: string;
+	name: string;
+	displayName: string;
+	room: number;
+	actions: DeviceAction[];
 };

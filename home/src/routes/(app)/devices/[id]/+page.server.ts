@@ -23,7 +23,7 @@ export const load = (async ({params}) => {
 
 	// TODO: Change to data fetching when available
 	const res = await fetch(`${BASE_URL}/devices/${params.id}`);
-	const device: Device = await res.json();
+	const device: any = await res.json();
 
 	console.log(device);
 		
