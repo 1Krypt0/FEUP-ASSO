@@ -35,7 +35,7 @@ class DatabaseSeeder(
     }
 
     @EventListener
-    public fun seed(event: ContextRefreshedEvent) {
+    fun seed(event: ContextRefreshedEvent) {
         seedActions()
     }
 }

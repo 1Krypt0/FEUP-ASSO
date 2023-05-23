@@ -9,7 +9,6 @@ import com.iota.core.model.*
 import com.iota.core.repository.ActionRepository
 import com.iota.core.repository.DeviceActionRepository
 import com.iota.core.repository.DeviceRepository
-import com.iota.core.repository.RoomRepository
 import jakarta.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
@@ -24,9 +23,9 @@ class DeviceService(
 ) {
     fun findAll(category: DeviceType?, room: Long?): List<Device> {
         if (category != null && room != null) {
-            return deviceRepository.findAllByTypeAndRoomId(type, room).toList()
+            return deviceRepository.findAllByTypeAndRoomId(category, room).toList()
         } else if (category != null) {
-            return deviceRepository.findAllByType(type).toList()
+            return deviceRepository.findAllByType(category).toList()
         } else if (room != null) {
             return deviceRepository.findAllByRoomId(room).toList()
         }

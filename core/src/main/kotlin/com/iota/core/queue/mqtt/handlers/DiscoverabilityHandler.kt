@@ -18,7 +18,7 @@ class DiscoverabilityHandler(
 ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
         message?.payload?.let {
-            val value: DiscoverableDevice;
+            val value: DiscoverableDevice
             try {
                 value = Json.decodeFromString(String(it))
             } catch (err: SerializationException) {

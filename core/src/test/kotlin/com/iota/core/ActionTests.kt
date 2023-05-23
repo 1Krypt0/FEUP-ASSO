@@ -7,15 +7,11 @@ import com.iota.core.model.Action
 import com.iota.core.model.Device
 import com.iota.core.model.DeviceAction
 import jakarta.persistence.EntityManagerFactory
-import org.hibernate.SessionFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 @SpringJUnitConfig
@@ -26,24 +22,24 @@ class ActionTests {
 	private lateinit var entityManagerFactory: EntityManagerFactory
 	private lateinit var objectMapper: ObjectMapper
 
-	@BeforeEach()
+	@BeforeEach
 	fun setup() {
 		objectMapper = ObjectMapper()
 	}
 
 	@Test
 	fun testSaveAndRetrieveAction() {
-		val action = Action();
-		action.name = "test123"
+		val action = Action()
+        action.name = "test123"
 		action.type = "number"
 
-		val requiredProperties: RequiredProperties = mutableListOf();
-		requiredProperties.add("min");
-		requiredProperties.add("max");
-		requiredProperties.add("step");
-		action.required = requiredProperties;
+		val requiredProperties: RequiredProperties = mutableListOf()
+        requiredProperties.add("min")
+        requiredProperties.add("max")
+        requiredProperties.add("step")
+        action.required = requiredProperties
 
-		val entityManager = entityManagerFactory.createEntityManager()
+        val entityManager = entityManagerFactory.createEntityManager()
 		entityManager.transaction.begin()
 		entityManager.persist(action)
 		entityManager.transaction.commit()
@@ -58,12 +54,12 @@ class ActionTests {
 
 	@Test
 	fun testSaveAndRetrieveDeviceAction() {
-		val deviceAction = DeviceAction();
-		deviceAction.name = "name"
+		val deviceAction = DeviceAction()
+        deviceAction.name = "name"
 		deviceAction.displayName = "test"
 
-		val properties: Properties = mutableMapOf();
-		properties["min"] = "0"
+		val properties: Properties = mutableMapOf()
+        properties["min"] = "0"
 		properties["max"] = "100"
 		properties["step"] = "1"
 
@@ -86,25 +82,25 @@ class ActionTests {
 
 	@Test
 	fun testSaveAndRetrieveManyToMany() {
-		val device = Device();
-		device.name = "test"
+		val device = Device()
+        device.name = "test"
 		device.macAddress = "123"
 
-		val action = Action();
-		action.name = "test"
+		val action = Action()
+        action.name = "test"
 		action.type = "number"
-		val requiredProperties: RequiredProperties = mutableListOf();
-		requiredProperties.add("min");
-		requiredProperties.add("max");
-		requiredProperties.add("step");
-		action.required = requiredProperties;
+		val requiredProperties: RequiredProperties = mutableListOf()
+        requiredProperties.add("min")
+        requiredProperties.add("max")
+        requiredProperties.add("step")
+        action.required = requiredProperties
 
-		val deviceAction = DeviceAction();
-		deviceAction.displayName = "test"
+        val deviceAction = DeviceAction()
+        deviceAction.displayName = "test"
 		deviceAction.name = "name"
 
-		val properties: Properties = mutableMapOf();
-		properties["min"] = "0"
+		val properties: Properties = mutableMapOf()
+        properties["min"] = "0"
 		properties["max"] = "100"
 		properties["step"] = "1"
 

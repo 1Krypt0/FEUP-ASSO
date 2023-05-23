@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/devices")
 class DeviceController(
     private val service: DeviceService,
-    private val brokerConfig: BrokerConfig
+    brokerConfig: BrokerConfig
 ) {
     private val broker = brokerConfig.broker()
 
     @GetMapping("/")
-    fun list(@RequestParam(required = false) category: DeviceType?, @RequestParam(required = false) room: Long?): List<DeviceGet> {
+    fun list(
+        @RequestParam(required = false) category: DeviceType?,
+        @RequestParam(required = false) room: Long?
+    ): List<DeviceGet> {
         return service.findAll(category, room).map { DeviceGet(it) }
     }
 

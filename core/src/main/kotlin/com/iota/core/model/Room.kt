@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotEmpty
 class Room {
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: Long = 0
 
     @NotEmpty
     var name: String = ""

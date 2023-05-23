@@ -1,5 +1,6 @@
 package com.iota.core.dto.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.iota.core.dto.device.RequiredProperties
 import com.iota.core.model.Action
 import jakarta.validation.constraints.NotEmpty
