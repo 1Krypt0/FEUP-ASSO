@@ -21,6 +21,9 @@
 			{#if form?.missing}
 				<p class="pt-2 pr-8">Name field is required</p>
 			{/if}
+			{#if form?.error}
+				<p class="pt-2 pr-8">{form.description}</p>
+			{/if}
 			<button
 				type="submit"
 				class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
