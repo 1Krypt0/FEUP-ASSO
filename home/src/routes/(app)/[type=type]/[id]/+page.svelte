@@ -28,17 +28,21 @@
 	>
 		{#each data.devices as device}
 			{#if device.type === 'LIGHT'}
-				<DeviceCard name={device.name} id={device.id}><SunIcon class="stroke-accent" /></DeviceCard>
+				<DeviceCard name={device.displayName} id={device.id}
+					><SunIcon class="stroke-accent" /></DeviceCard
+				>
 			{:else if device.type === 'MEDIA'}
-				<DeviceCard name={device.name} id={device.id}
+				<DeviceCard name={device.displayName} id={device.id}
 					><MonitorIcon class="stroke-accent" /></DeviceCard
 				>
 			{:else if device.type === 'CLIMATE'}
-				<DeviceCard name={device.name} id={device.id}
+				<DeviceCard name={device.displayName} id={device.id}
 					><DropletIcon class="stroke-accent" /></DeviceCard
 				>
 			{:else}
-				<DeviceCard name={device.name} id={device.id}><SunIcon class="stroke-accent" /></DeviceCard>
+				<DeviceCard name={device.displayName} id={device.id}
+					><SunIcon class="stroke-accent" /></DeviceCard
+				>
 			{/if}
 		{/each}
 	</section>

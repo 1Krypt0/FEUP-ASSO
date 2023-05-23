@@ -4,8 +4,8 @@ export type Device = {
 	displayName: string;
 	macAddress: string;
 	added: boolean;
-	roomID: number;
-	categoryID: number;
+	room: number;
+	category: number;
 	status: 'CONNECTED' | 'DISCONNECTED';
 	type: 'LIGHT' | 'MEDIA' | 'CLIMATE';
 };

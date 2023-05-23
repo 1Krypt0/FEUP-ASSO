@@ -13,7 +13,7 @@ export const load = (async ({ params }) => {
 	const data: Device = await res.json();
 
 	const name = data.displayName;
-	const roomID = data.roomID;
+	const roomID = data.room;
 
 	return {
 		deviceID,
