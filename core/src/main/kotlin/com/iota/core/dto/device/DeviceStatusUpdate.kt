@@ -1,5 +1,5 @@
 package com.iota.core.dto.device
 
-class DeviceStatusUpdate (
+class DeviceStatusUpdate(
     val value: String
 )

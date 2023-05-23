@@ -10,22 +10,21 @@ import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
 class DeviceHandler(
-    val deviceId: Long,
-    val deviceRepository: DeviceRepository,
-    val actionRepository: DeviceActionRepository
+    private val deviceId: Long,
+    private val deviceRepository: DeviceRepository,
+    private val actionRepository: DeviceActionRepository
 ) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
         val device = deviceRepository.findById(deviceId).get()
         message?.payload?.let {
-            val value : DeviceStatusUpdate
+            val value: DeviceStatusUpdate
             try {
                 value = Json.decodeFromString(String(it))
-            }
-            catch (err: SerializationException) {
+            } catch (err: SerializationException) {
                 println("Could not parse device config $err")
                 return
             }
-            value.forEach {update ->
+            value.forEach { update ->
                 device.deviceActions.find { a -> a.idDevice == update.id }?.let { action ->
                     action.status = update.status
                     actionRepository.save(action)

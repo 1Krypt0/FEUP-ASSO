@@ -6,10 +6,10 @@ import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.dto.device.DeviceDeleted
 import com.iota.core.dto.device.DeviceGet
 import com.iota.core.dto.device.DeviceStatusUpdate
+import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.ActionNotUpdatableException
-import com.iota.core.model.DeviceType
 import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/devices")
 class DeviceController(
     private val service: DeviceService,
-    private val brokerConfig: BrokerConfig
+    brokerConfig: BrokerConfig
 ) {
     private val broker = brokerConfig.broker()
 
-    @GetMapping("")
-    fun list(@RequestParam(required = false) type: DeviceType?): List<DeviceGet> {
-        return service.findAll(type).map { DeviceGet(it) }
+    @GetMapping("/")
+    fun list(
+        @RequestParam(required = false) category: Long?,
+        @RequestParam(required = false) room: Long?
+    ): List<DeviceGet> {
+        return service.findAll(category, room).map { DeviceGet(it) }
     }
 
     @GetMapping("/{id}")
@@ -41,11 +44,15 @@ class DeviceController(
     fun deviceStatus(@PathVariable id: Long) = service.device(id).deviceActions.map { DeviceActionGetSimple(it) }
 
     @PostMapping("/{id}/value/{actionId}")
-    fun updateDeviceValue(@PathVariable id: Long, @PathVariable actionId: String, @RequestBody update: DeviceStatusUpdate) {
+    fun updateDeviceValue(
+        @PathVariable id: Long,
+        @PathVariable actionId: String,
+        @RequestBody update: DeviceStatusUpdate
+    ) {
         val device = service.device(id)
         val action = device.deviceActions.find { it.idDevice == actionId }
         action?.let { deviceAction ->
-            if(deviceAction.action?.updatable != true) {
+            if (deviceAction.action?.updatable != true) {
                 throw ActionNotUpdatableException()
             }
             deviceAction.validate(update.value)
@@ -79,5 +86,10 @@ class DeviceController(
     @GetMapping("/{id}/actions")
     fun deviceActions(@PathVariable id: Long): List<DeviceActionGet> {
         return service.deviceActions(id).map { DeviceActionGet(it) }
+    }
+
+    @PutMapping("/{id}")
+    fun updateDevice(@PathVariable id: Long, @Valid @RequestBody dto: DeviceUpdate): DeviceGet {
+        return DeviceGet(service.update(id, dto))
     }
 }

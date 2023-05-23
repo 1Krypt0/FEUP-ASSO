@@ -66,21 +66,21 @@ class DeviceAction {
     }
 
     private fun validateNumber(value: String) {
-        var number = value.toFloat()
-        properties["min"]?.let {min ->
-            if(number < min.toString().toFloat()) {
+        val number = value.toFloat()
+        properties["min"]?.let { min ->
+            if (number < min.toString().toFloat()) {
                 throw InvalidActionException(value)
             }
         }
-        properties["max"]?.let {max ->
-            if(number > max.toString().toFloat()) {
+        properties["max"]?.let { max ->
+            if (number > max.toString().toFloat()) {
                 throw InvalidActionException(value)
             }
         }
     }
 
     fun validate(value: String) {
-        when(action?.type) {
+        when (action?.type) {
             "bool" -> validateBool(value)
             "number" -> validateNumber(value)
         }

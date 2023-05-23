@@ -4,5 +4,4 @@ class InvalidActionException(
     val value: String,
 ) : Exception()
 
-class ActionNotUpdatableException(
-) : Exception()
+class ActionNotUpdatableException : Exception()

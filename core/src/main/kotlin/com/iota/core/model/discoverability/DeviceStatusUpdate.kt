@@ -3,7 +3,7 @@ package com.iota.core.model.discoverability
 import kotlinx.serialization.Serializable
 
 @Serializable
-class StatusUpdate (
+class StatusUpdate(
     val id: String,
     val status: String
 )

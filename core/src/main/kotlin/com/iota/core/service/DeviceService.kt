@@ -1,12 +1,14 @@
 package com.iota.core.service
 
-import com.iota.core.config.broker.BrokerConfig
+import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNameNotFoundException
-import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
-import com.iota.core.model.*
+import com.iota.core.model.Action
+import com.iota.core.model.Device
+import com.iota.core.model.DeviceAction
+import com.iota.core.model.NetworkStatus
 import com.iota.core.repository.ActionRepository
 import com.iota.core.repository.DeviceActionRepository
 import com.iota.core.repository.DeviceRepository
@@ -20,13 +22,21 @@ class DeviceService(
     private val deviceRepository: DeviceRepository,
     private val deviceActionRepository: DeviceActionRepository,
     private val actionRepository: ActionRepository,
+    private val roomService: RoomService,
+    private val categoryService: CategoryService,
 ) {
-    fun findAll(type: DeviceType?): List<Device> {
-        return if (type == null) {
-            deviceRepository.findAll().toList()
-        } else {
-            deviceRepository.findAllByType(type).toList()
+    fun findAll(category: Long?, room: Long?): List<Device> {
+        if (category != null && room != null) {
+            return deviceRepository.findAllByCategoryIdAndRoomId(category, room).toList()
+        } else if (category != null) {
+            return deviceRepository.findAllByCategoryId(category).toList()
+        } else if (room != null) {
+            if (room.toInt() == 0) return deviceRepository.findAllByRoomIdIsNull().toList()
+
+            return deviceRepository.findAllByRoomId(room).toList()
         }
+
+        return deviceRepository.findAll().toList()
     }
 
     fun device(id: Long): Device {
@@ -44,6 +54,11 @@ class DeviceService(
         device.dataTopic = "DATA-" + device.macAddress
         device.actionTopic = "ACTION-" + device.macAddress
         device.status = NetworkStatus.CONNECTED
+
+        if (dto.category != null) {
+            val category = categoryService.category(dto.category!!)
+            device.category = category
+        }
 
         try {
             return saveDevice(device, dto)
@@ -97,5 +112,22 @@ class DeviceService(
         val device = device(id)
 
         return device.deviceActions
+    }
+
+    fun update(id: Long, dto: DeviceUpdate): Device {
+        val device = device(id)
+
+        dto.name?.let { device.name = it }
+        dto.room?.let {
+            val room = roomService.room(it)
+            device.room = room
+        }
+
+        dto.displayName?.let { device.displayName = it }
+
+        device.added = true;
+
+
+        return deviceRepository.save(device)
     }
 }

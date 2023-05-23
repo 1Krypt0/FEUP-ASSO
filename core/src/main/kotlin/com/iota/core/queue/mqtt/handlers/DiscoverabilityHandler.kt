@@ -11,18 +11,17 @@ import kotlinx.serialization.json.Json
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
-class DiscoverabilityHandler (
+class DiscoverabilityHandler(
     private val deviceService: DeviceService,
     private val deviceRepository: DeviceRepository,
     private val broker: Broker
-    ) : IMqttMessageListener {
+) : IMqttMessageListener {
     override fun messageArrived(topic: String?, message: MqttMessage?) {
         message?.payload?.let {
-            val value: DiscoverableDevice;
+            val value: DiscoverableDevice
             try {
                 value = Json.decodeFromString(String(it))
-            }
-            catch (err: SerializationException) {
+            } catch (err: SerializationException) {
                 println("Could not parse device config $err")
                 return
             }
@@ -34,13 +33,20 @@ class DiscoverabilityHandler (
                 return
             }
 
-            val dto = DeviceDto(value)
-            val newDevice = deviceService.new(dto)
+            print("adding new device ${value.name}\n")
+            try {
+                val dto = DeviceDto(value)
+                val newDevice = deviceService.new(dto)
 
-            newDevice.id.let {id -> broker.subscribeDevice(id, newDevice.dataTopic) }
-            deviceRepository.save(newDevice)
+                newDevice.id.let { id -> broker.subscribeDevice(id, newDevice.dataTopic) }
+                deviceRepository.save(newDevice)
 
-            println("Added new device ${newDevice.name}")
+                println("Added new device ${newDevice.name}")
+            } catch (err: Exception) {
+                println("Could not create device $err")
+                err.printStackTrace()
+                return
+            }
         }
     }
 }
