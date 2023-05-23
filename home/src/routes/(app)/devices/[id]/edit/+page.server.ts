@@ -1,5 +1,4 @@
-import type { Device } from '$lib/types/device';
-import { redirect, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 const BASE_URL = 'http://localhost:8080';
@@ -14,9 +13,6 @@ export const load = (async ({ params }) => {
 
 	const name = data.displayName;
 	const roomID = data.room;
-
-	console.log('DATA');
-	console.log(data);
 
 	return {
 		deviceID,
@@ -40,10 +36,6 @@ export const actions = {
 			}),
 			headers: headers
 		});
-
-		const resData = await res.json();
-		console.log('RES');
-		console.log(resData);
 
 		if (res.ok) {
 			throw redirect(302, `/devices/${params.id}`);

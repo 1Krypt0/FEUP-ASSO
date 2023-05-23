@@ -14,9 +14,6 @@ export const load = (async ({ params, parent }) => {
 	const res = await fetch(`${BASE_URL}/devices/?${field}=${params.id}`);
 	const devices: Device[] = await res.json();
 
-	console.log('DEVICES');
-	console.log(devices);
-
 	if (params.type === 'categories') {
 		name = parentData.categories.find((elem) => elem.id === Number.parseInt(params.id))?.name || '';
 		isRoom = false;
