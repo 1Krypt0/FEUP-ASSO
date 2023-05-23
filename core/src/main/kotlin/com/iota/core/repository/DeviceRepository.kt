@@ -11,5 +11,6 @@ interface DeviceRepository : CrudRepository<Device, Long> {
     fun findAllByCategoryId(category: Long): Iterable<Device>
     fun findAllByCategoryIdAndRoomId(type: Long, roomId: Long): MutableIterable<Device>
     fun findAllByRoomIsNull(): Iterable<Device>
+    fun findAllByRoomIdIsNull(): Iterable<Device>
     fun findDeviceByMacAddress(macAddress: String): Optional<Device>
 }

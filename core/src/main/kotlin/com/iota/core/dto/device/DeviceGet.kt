@@ -25,7 +25,7 @@ class DeviceGet(device: Device) {
     init {
         this.id = device.id
         this.name = device.name
-        this.displayName = device.displayName
+        this.displayName = device.displayName ?: device.name
         this.macAddress = device.macAddress
         this.category = device.category?.id
         this.status = device.status!!

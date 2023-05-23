@@ -44,10 +44,9 @@ class DiscoverabilityHandler(
                 println("Added new device ${newDevice.name}")
             } catch (err: Exception) {
                 println("Could not create device $err")
+                err.printStackTrace()
                 return
             }
-
-
         }
     }
 }

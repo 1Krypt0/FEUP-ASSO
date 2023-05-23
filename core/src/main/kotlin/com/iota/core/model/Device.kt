@@ -29,8 +29,7 @@ class Device {
     @NotEmpty
     var name: String = ""
 
-    @NotEmpty
-    var displayName: String = ""
+    var displayName: String? = ""
 
     @NotEmpty
     var macAddress: String = ""
