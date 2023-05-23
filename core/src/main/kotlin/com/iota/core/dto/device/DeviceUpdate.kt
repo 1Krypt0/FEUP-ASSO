@@ -14,7 +14,4 @@ class DeviceUpdate {
 
     @Min(1)
     val room: Long? = null
-
-    @ValueOfEnum(enumClass = DeviceType::class)
-    var type: String? = null
 }

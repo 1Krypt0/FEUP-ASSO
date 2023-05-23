@@ -108,7 +108,9 @@ class DeviceService(
             val room = roomService.room(it)
             device.room = room
         }
-        dto.type?.let { device.type = DeviceType.valueOf(it) }
+
+        device.added = true;
+
         return deviceRepository.save(device)
     }
 }
