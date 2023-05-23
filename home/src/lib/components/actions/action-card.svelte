@@ -96,7 +96,7 @@
             {device.name}
         </div>
         <div>
-            <a href="/room/1"><XIcon /></a> <!-- TODO: get roomID -->
+            <a href="/rooms/1"><XIcon /></a> <!-- TODO: get roomID -->
         </div>
     </div>
     <div class="flex-row flex justify-center gap-4 py-6">
