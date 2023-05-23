@@ -43,7 +43,6 @@ class Device {
 
     var added: Boolean = false
 
-    @NotNull
     @Enumerated
     var type: DeviceType? = null
 

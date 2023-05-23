@@ -24,9 +24,7 @@ class DeviceDto() : EntityDto<Device> {
     @UniqueMAC
     var macAddress: String = ""
 
-    @NotEmpty
-    @ValueOfEnum(enumClass = DeviceType::class)
-    var type: String = ""
+    var type: String? = null
 
     @Valid
     var actions: Set<DeviceActionDto> = setOf()
@@ -35,7 +33,10 @@ class DeviceDto() : EntityDto<Device> {
         val entity = Device()
         entity.name = name
         entity.macAddress = macAddress
-        entity.type = DeviceType.valueOf(type)
+
+        if(type != null) {
+            entity.type = DeviceType.valueOf(type!!)
+        }
 
         return entity
     }
