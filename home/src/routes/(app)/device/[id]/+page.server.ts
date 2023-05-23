@@ -58,19 +58,49 @@ export const load = (async ({ params, parent }) => {
             }
         },
         {
-            "id": 3,
-            "name": "toggle",
-            "displayName": "toggle",
-            "properties": {},
-            "status": "7ec0ee",
-            "action": {
-                "id": 1,
-                "type": "bool",
-                "name": "toggle",
-                "updatable": true,
+            "id": 52,
+			"name": "toggle",
+			"displayName": "toggle",
+			"properties": {},
+			"status": "0",
+			"action": {
+				"id": 1,
+				"type": "bool",
+				"name": "toggle",
+				"updatable": true,
+				"required": []
             }
-        }
-    ]
+        },
+		{
+			"id": 3,
+			"name": "rgb",
+			"displayName": "colour",
+			"properties": {},
+			"status": "7ec0ee",
+			"action": {
+				"id": 1,
+				"type": "number",
+				"name": "rgb",
+				"updatable": true,
+				"required": []
+			}
+		},
+		{
+			"id": 2,
+			"name": "temperature",
+			"displayName": "temperature",
+			"properties": {},
+			"status": "10.0",
+			"action": {
+				"id": 5,
+				"type": "number",
+				"name": "readonly-number",
+				"updatable": false,
+				"required": []
+			}
+		}
+	]
+		
 }
 		
 	return { device };
