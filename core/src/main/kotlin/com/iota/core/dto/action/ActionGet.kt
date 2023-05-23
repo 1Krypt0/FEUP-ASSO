@@ -8,8 +8,10 @@ class ActionGet(action: Action) {
     var id: Long = 0
     var type: String = ""
     var name: String = ""
+
     @JsonProperty("updatable")
     private var updatable: Boolean = true
+
     @JsonProperty("required")
     private var required: RequiredProperties = mutableListOf()
 

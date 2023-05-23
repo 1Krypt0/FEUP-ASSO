@@ -8,13 +8,16 @@ import com.iota.core.model.NetworkStatus
 class DeviceGet(device: Device) {
     var id: Long = 0
     var name: String = ""
+
     @JsonProperty("macAddress")
     private var macAddress: String = ""
     var room: Long? = null
+
     @JsonProperty("added")
     private var added: Boolean = false
     var category: Long? = null
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
+
     @JsonProperty("actions")
     private var deviceActions: Set<DeviceActionGetSimple> = setOf()
 

@@ -15,7 +15,7 @@ open class CategoryGetSimple(category: Category) {
     }
 }
 
-class CategoryGet(category: Category) : CategoryGetSimple(category){
+class CategoryGet(category: Category) : CategoryGetSimple(category) {
     var devices: Set<DeviceGet> = setOf()
 
     init {

@@ -5,7 +5,10 @@ import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNameNotFoundException
 import com.iota.core.exception.device.DeviceNotFoundException
 import com.iota.core.exception.device.MACAlreadyRegistered
-import com.iota.core.model.*
+import com.iota.core.model.Action
+import com.iota.core.model.Device
+import com.iota.core.model.DeviceAction
+import com.iota.core.model.NetworkStatus
 import com.iota.core.repository.ActionRepository
 import com.iota.core.repository.DeviceActionRepository
 import com.iota.core.repository.DeviceRepository

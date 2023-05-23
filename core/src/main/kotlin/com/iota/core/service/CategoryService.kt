@@ -15,6 +15,7 @@ import java.util.*
 class CategoryService {
     @Autowired
     private lateinit var categoryRepository: CategoryRepository
+
     @Autowired
     private lateinit var deviceRepository: DeviceRepository
 
