@@ -26,7 +26,9 @@
 
 <div class="flex justify-center items-center w-full">
 	<form on:submit|preventDefault={handleSubmit} class="flex flex-col sm:items-end">
-		<h1 class="text-4xl font-bold pb-8">Login to your Home</h1>
+		<h1 class="text-4xl font-bold pb-8">
+			<span>Login to your </span><span class="text-primary">Home</span>
+		</h1>
 
 		<formgroup class="py-2 flex flex-col sm:flex-row sm:items-center">
 			<label class="sm:mr-4" for="email">Email</label>
@@ -56,11 +58,20 @@
 			<p class="text-xs text-red-600 font-semibold">{$errors.password}</p>
 		{/if}
 
-		<div class="mt-4">
-			<span>Do not have an account yet? <a href="/register" class="font-bold mr-4">Register</a></span>
-			<button
-				type="submit"
-				class="bg-orange-300 text-white font-bold rounded-full py-2 px-4 hover:bg-orange-400"
+		<div class="mt-2">
+			<a href="/recoverPassword" class="underline text-gray-400 hover:text-gray-500"
+				>Forgot your password?</a
+			>
+		</div>
+
+		<div class="mt-12">
+			<span
+				>Do not have an account yet? <a
+					href="/register"
+					class="underline text-gray-400 hover:text-gray-500 mr-4">Register</a
+				></span
+			>
+			<button type="submit" class="bg-primary text-white font-bold rounded-full py-3 px-8"
 				>Login</button
 			>
 		</div>

@@ -4,5 +4,4 @@ class DeviceNotFoundException(
     override val message: String?,
     override val cause: Throwable?,
     val id: Long,
-) : Exception(message, cause) {
-}
+) : Exception(message, cause)

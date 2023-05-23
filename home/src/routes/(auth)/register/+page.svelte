@@ -34,7 +34,9 @@
 
 <div class="flex justify-center items-center w-full">
 	<form on:submit|preventDefault={handleSubmit} class="flex flex-col sm:items-end">
-		<h1 class="text-4xl font-bold pb-8">Create your Home</h1>
+		<h1 class="text-4xl font-bold pb-8">
+			<span>Create your </span><span class="text-primary">Home</span>
+		</h1>
 
 		<formgroup class="py-2 flex flex-col sm:flex-row sm:items-center">
 			<label class="sm:mr-4" for="username">Username</label>
@@ -91,12 +93,15 @@
 		{#if $errors.confirmPassword}
 			<p class="text-xs text-red-600 font-semibold">{$errors.confirmPassword}</p>
 		{/if}
-		
+
 		<div class="mt-4">
-			<span>Already have an account? <a href="/login" class="font-bold mr-4">Login</a></span>
-			<button
-				type="submit"
-				class="bg-orange-300 text-white font-bold rounded-full py-2 px-4 hover:bg-orange-400"
+			<span
+				>Already have an account? <a
+					href="/login"
+					class="underline text-gray-400 hover:text-gray-500 mr-4">Login</a
+				></span
+			>
+			<button type="submit" class="bg-primary text-white font-bold rounded-full py-3 px-8"
 				>Register</button
 			>
 		</div>

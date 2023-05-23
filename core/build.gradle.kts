@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 	kotlin("plugin.jpa") version "1.7.22"
+	kotlin("plugin.serialization") version "1.8.21"
 }
 
 group = "com.iota"
@@ -26,7 +27,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 	runtimeOnly("com.h2database:h2")
+	implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.withType<KotlinCompile> {

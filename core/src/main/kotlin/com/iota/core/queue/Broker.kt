@@ -1,7 +1,9 @@
 package com.iota.core.queue
 
 interface Broker {
-    fun subscribe(deviceId: Long, topic: String)
+    fun subscribeDiscoverability()
+
+    fun subscribeDevice(deviceId: Long, topic: String)
 
     fun unsubscribe(topic: String)
 
