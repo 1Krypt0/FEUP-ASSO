@@ -79,4 +79,8 @@ class ActionNode : Node() {
 }
 
 @Entity
-class EventNode : Node()
+class EventNode : Node() {
+    @NotNull
+    @OneToOne
+    val deviceAction: DeviceAction? = null
+}
