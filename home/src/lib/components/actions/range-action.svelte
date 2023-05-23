@@ -1,6 +1,5 @@
 <script lang="ts">
     import RangeSlider from "svelte-range-slider-pips";
-	let theme = "default";
     export let device_type:string;
     export let value:number;
     export let max:number;
