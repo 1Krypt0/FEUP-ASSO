@@ -31,6 +31,7 @@ class DeviceService(
         } else if (category != null) {
             return deviceRepository.findAllByCategoryId(category).toList()
         } else if (room != null) {
+            if (room.toInt() == 0) return deviceRepository.findAllByRoomIsNull().toList()
             return deviceRepository.findAllByRoomId(room).toList()
         }
 
