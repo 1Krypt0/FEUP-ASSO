@@ -16,5 +16,7 @@
             <a href="/room/{roomID}"><XIcon /></a>
         </div>
     </div>
-    <RangeAction value={60} min={0} max={100} step={1}></RangeAction>
+    <div class="h-full flex-col flex justify-center">
+        <RangeAction value={60} min={0} max={100} step={1} device_type="light"></RangeAction>
+    </div>
 </section>
