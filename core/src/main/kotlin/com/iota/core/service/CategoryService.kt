@@ -1,5 +1,6 @@
 package com.iota.core.service
 
+import com.iota.core.dto.category.CategoryUpdate
 import com.iota.core.dto.model.CategoryDto
 import com.iota.core.exception.category.CategoryNotFoundException
 import com.iota.core.model.Category
@@ -41,5 +42,31 @@ class CategoryService {
 
     fun categories(): MutableIterable<Category> {
         return categoryRepository.findAll()
+    }
+
+    fun update(id: Long, dto: CategoryUpdate): Category {
+        val category: Category = category(id)
+
+        if (dto.name != null) {
+            category.name = dto.name!!
+        }
+
+        if (dto.icon != null) {
+            category.icon = dto.icon!!
+        }
+
+        try {
+            categoryRepository.save(category)
+        } catch (ex: DataIntegrityViolationException) {
+            throw ex
+        }
+
+        return category
+    }
+
+    fun delete(id: Long) {
+        val category: Category = category(id)
+
+        categoryRepository.delete(category)
     }
 }
