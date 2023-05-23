@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DropletIcon, PercentIcon, PowerIcon, XIcon } from 'svelte-feather-icons';
+	import { DropletIcon, PercentIcon, PowerIcon, ThermometerIcon, XIcon } from 'svelte-feather-icons';
 	import RangeAction from './range-action.svelte';
 	import ColorPickerAction from './color-picker-action.svelte';
     import SvelteTooltip from 'svelte-tooltip';
@@ -10,16 +10,24 @@
     let setIntensity = true;
     let setColour = false;
     let turnedOn = false;
+    let checkTemperature = false;
     function intensityToBeSet() {
         setIntensity = true;
         setColour = false;
+        checkTemperature = false;
     }
     function colourToBeSet() {
         setIntensity = false;
         setColour = true;
+        checkTemperature = false;
     }
     function toBeTurnedOn() {
         turnedOn = !turnedOn;
+    }
+    function TemperatureToBeChecked() {
+        checkTemperature = true;
+        setIntensity = false;
+        setColour = false;
     }
 </script>
 
@@ -49,12 +57,21 @@
         <SvelteTooltip tip="set colour" bottom >
             <button on:click={colourToBeSet} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
         </SvelteTooltip>
+        <SvelteTooltip tip="check temperature" bottom >
+            <button on:click={TemperatureToBeChecked} class={`rounded-full p-1 ${checkTemperature ? "bg-accent" : "bg-light"}`}><ThermometerIcon/></button>
+        </SvelteTooltip>
     </div>
     <div class="h-full flex-col flex justify-center">
         {#if setIntensity}
             <RangeAction value={60} min={0} max={100} step={1} device_type="light"></RangeAction>
-        {:else}
+        {/if}
+        {#if setColour}
             <ColorPickerAction hex="#8c2d19"></ColorPickerAction>
+        {/if}
+        {#if checkTemperature}
+            <div class="text-2xl flex-row flex justify-center">
+                15ºC
+            </div>
         {/if}
     </div>
 </section>
