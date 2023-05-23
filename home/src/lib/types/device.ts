@@ -1,12 +1,11 @@
 export type Device = {
 	id: number;
-	dataTopic: string;
-	displayName: string;
-	actionTopic: string;
 	name: string;
+	displayName: string;
 	macAddress: string;
+	added: boolean;
 	roomID: number;
-	currentValue: string;
+	categoryID: number;
 	status: 'CONNECTED' | 'DISCONNECTED';
 	type: 'LIGHT' | 'MEDIA' | 'CLIMATE';
 };

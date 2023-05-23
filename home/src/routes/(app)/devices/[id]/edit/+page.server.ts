@@ -1,3 +1,4 @@
+import type { Device } from '$lib/types/device';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -9,10 +10,10 @@ headers.append('Content-Type', 'application/json');
 export const load = (async ({ params }) => {
 	const deviceID = params.id;
 	const res = await fetch(`${BASE_URL}/devices/${deviceID}`);
-	const data = await res.json();
+	const data: Device = await res.json();
 
 	const name = data.displayName;
-	const roomID = data.room;
+	const roomID = data.roomID;
 
 	return {
 		deviceID,

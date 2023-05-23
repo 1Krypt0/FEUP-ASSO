@@ -43,8 +43,5 @@ export const actions = {
 		} else {
 			return fail(405, { error: true, description: 'Invalid input' });
 		}
-
-		//TODO: Change to update actual room name
-		return true;
 	}
 } satisfies Actions;
