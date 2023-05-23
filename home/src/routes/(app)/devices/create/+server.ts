@@ -8,7 +8,7 @@ headers.append('Content-Type', 'application/json');
 export const POST = (async ({ request }) => {
 	const data = await request.json();
 
-	const customName = data['customName'];
+	const name = data['name'];
 	const roomID = data['roomID'];
 	const deviceID = data['deviceID'];
 	const displayName = data['displayName'];
@@ -16,7 +16,7 @@ export const POST = (async ({ request }) => {
 	const res = await fetch(`${BASE_URL}/devices/${deviceID}`, {
 		method: 'PUT',
 		body: JSON.stringify({
-			name: customName,
+			name,
 			room: roomID,
 			displayName
 		}),

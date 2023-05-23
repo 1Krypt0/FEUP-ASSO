@@ -1,10 +1,23 @@
+import type { Device } from '$lib/types/device';
 import { redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load = (({ params }) => {
+const BASE_URL = 'http://localhost:8080';
+
+const headers = new Headers();
+headers.append('Content-Type', 'application/json');
+
+export const load = (async ({ params }) => {
 	const deviceID = params.id;
-	const name = 'Dummy Name';
-	const roomID = 1;
+	const res = await fetch(`${BASE_URL}/devices/${deviceID}`);
+	const data = await res.json();
+
+	const name = data.displayName;
+	const roomID = data.room;
+
+	console.log('DATA');
+	console.log(data);
+
 	return {
 		deviceID,
 		name,
@@ -19,10 +32,25 @@ export const actions = {
 		const newName = data.get('name');
 		const newRoom = data.get('room');
 
-		console.log(`New Name: ${newName}, New Room: ${newRoom}`);
+		const res = await fetch(`${BASE_URL}/devices/${params.id}`, {
+			method: 'PUT',
+			body: JSON.stringify({
+				displayName: newName,
+				room: newRoom
+			}),
+			headers: headers
+		});
+
+		const resData = await res.json();
+		console.log('RES');
+		console.log(resData);
+
+		if (res.ok) {
+			throw redirect(302, `/devices/${params.id}`);
+		} else {
+			return fail(405, { error: true, description: 'Invalid input' });
+		}
 
 		// TODO: Update the data on the server with the new names
-
-		throw redirect(302, `/devices/${params.id}`);
 	}
 } satisfies Actions;

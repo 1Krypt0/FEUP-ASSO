@@ -11,7 +11,7 @@
 	let formData = {
 		displayName: '',
 		roomID: roomID,
-		customName: '',
+		name: '',
 		deviceID: -1
 	};
 
@@ -58,7 +58,7 @@
 							type="button"
 							class="bg-white px-5 drop-shadow-lg rounded-full text-center text-lg py-3 w-full focus:bg-accent focus:text-white"
 							on:click={() => {
-								formData.displayName = result.name;
+								formData.name = result.name;
 								formData.deviceID = result.id;
 							}}
 						>
@@ -70,14 +70,14 @@
 				<button
 					type="button"
 					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
-					disabled={formData.displayName === ''}
+					disabled={formData.name === ''}
 					on:click={() => step++}>Continue</button
 				>
 			{:else if step === 1}
 				<div class="pl-5">
 					<label for="device-name">Device Name</label>
 					<input
-						bind:value={formData.displayName}
+						bind:value={formData.name}
 						id="display-name"
 						name="name"
 						type="text"
@@ -89,7 +89,7 @@
 				<div class="pl-5">
 					<label for="device-name">Custom Name</label>
 					<input
-						bind:value={formData.customName}
+						bind:value={formData.displayName}
 						id="device-name"
 						name="name"
 						type="text"
