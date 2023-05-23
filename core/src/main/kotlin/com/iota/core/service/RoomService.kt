@@ -15,6 +15,7 @@ import java.util.*
 class RoomService {
     @Autowired
     private lateinit var roomRepository: RoomRepository
+
     @Autowired
     private lateinit var deviceRepository: DeviceRepository
 
@@ -64,7 +65,7 @@ class RoomService {
         val room: Room = room(id)
 
         try {
-            val devices = room.devices;
+            val devices = room.devices
 
             for (device in devices) {
                 device.room = null

@@ -1,8 +1,8 @@
 package com.iota.core.repository
 
-import com.iota.core.model.Room
+import com.iota.core.model.Category
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface RoomRepository : CrudRepository<Room, Long>
+interface CategoryRepository : CrudRepository<Category, Long>

@@ -3,6 +3,7 @@ package com.iota.core.exception
 import com.iota.core.dto.ErrorDto
 import com.iota.core.dto.FieldErrorDto
 import com.iota.core.dto.FieldErrorsDto
+import com.iota.core.exception.category.CategoryNotFoundException
 import com.iota.core.exception.device.*
 import com.iota.core.exception.room.RoomNotFoundException
 import org.slf4j.Logger
@@ -62,6 +63,16 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         headers.contentType = MediaType.APPLICATION_JSON
 
         val error = ErrorDto("room %d was not found".format(ex.id))
+        return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(CategoryNotFoundException::class)
+    @ResponseBody
+    protected fun handleRoomNotFound(ex: CategoryNotFoundException, request: WebRequest): ResponseEntity<Any>? {
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val error = ErrorDto("category %d was not found".format(ex.id))
         return handleExceptionInternal(ex, error, headers, HttpStatusCode.valueOf(404), request)
     }
 
