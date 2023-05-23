@@ -1,5 +1,6 @@
 package com.iota.core.dto.category
 
+import com.iota.core.dto.device.DeviceGet
 import com.iota.core.model.Category
 
 open class CategoryGetSimple(category: Category) {
@@ -15,5 +16,9 @@ open class CategoryGetSimple(category: Category) {
 }
 
 class CategoryGet(category: Category) : CategoryGetSimple(category){
+    var devices: Set<DeviceGet> = setOf()
 
+    init {
+        this.devices = category.devices.map { DeviceGet(it) }.toSet()
+    }
 }

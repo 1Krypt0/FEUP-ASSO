@@ -10,7 +10,6 @@ import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.ActionNotUpdatableException
-import com.iota.core.model.DeviceType
 import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
@@ -27,7 +26,7 @@ class DeviceController(
 
     @GetMapping("/")
     fun list(
-        @RequestParam(required = false) category: DeviceType?,
+        @RequestParam(required = false) category: Long?,
         @RequestParam(required = false) room: Long?
     ): List<DeviceGet> {
         return service.findAll(category, room).map { DeviceGet(it) }

@@ -1,9 +1,6 @@
 package com.iota.core.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 
 @Entity
@@ -17,4 +14,7 @@ class Category {
     var name: String = ""
 
     var icon: String = ""
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    var devices: Set<Device> = setOf()
 }

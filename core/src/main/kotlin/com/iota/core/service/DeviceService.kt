@@ -20,12 +20,13 @@ class DeviceService(
     private val deviceActionRepository: DeviceActionRepository,
     private val actionRepository: ActionRepository,
     private val roomService: RoomService,
+    private val categoryService: CategoryService,
 ) {
-    fun findAll(category: DeviceType?, room: Long?): List<Device> {
+    fun findAll(category: Long?, room: Long?): List<Device> {
         if (category != null && room != null) {
-            return deviceRepository.findAllByTypeAndRoomId(category, room).toList()
+            return deviceRepository.findAllByCategoryIdAndRoomId(category, room).toList()
         } else if (category != null) {
-            return deviceRepository.findAllByType(category).toList()
+            return deviceRepository.findAllByCategoryId(category).toList()
         } else if (room != null) {
             return deviceRepository.findAllByRoomId(room).toList()
         }
@@ -48,6 +49,11 @@ class DeviceService(
         device.dataTopic = "DATA-" + device.macAddress
         device.actionTopic = "ACTION-" + device.macAddress
         device.status = NetworkStatus.CONNECTED
+
+        if (dto.category != null) {
+            val category = categoryService.category(dto.category!!)
+            device.category = category
+        }
 
         try {
             return saveDevice(device, dto)
@@ -111,7 +117,7 @@ class DeviceService(
             val room = roomService.room(it)
             device.room = room
         }
-        dto.type?.let { device.type = DeviceType.valueOf(it) }
+
         return deviceRepository.save(device)
     }
 }

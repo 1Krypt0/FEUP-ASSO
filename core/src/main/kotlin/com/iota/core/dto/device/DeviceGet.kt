@@ -3,7 +3,6 @@ package com.iota.core.dto.device
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.model.Device
-import com.iota.core.model.DeviceType
 import com.iota.core.model.NetworkStatus
 
 class DeviceGet(device: Device) {
@@ -14,7 +13,7 @@ class DeviceGet(device: Device) {
     var room: Long? = null
     @JsonProperty("added")
     private var added: Boolean = false
-    var type: DeviceType? = DeviceType.LIGHT
+    var category: Long? = null
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
     @JsonProperty("actions")
     private var deviceActions: Set<DeviceActionGetSimple> = setOf()
@@ -23,7 +22,7 @@ class DeviceGet(device: Device) {
         this.id = device.id
         this.name = device.name
         this.macAddress = device.macAddress
-        this.type = device.type
+        this.category = device.category?.id
         this.status = device.status!!
         this.room = device.room?.id
         this.added = device.added

@@ -67,6 +67,17 @@ class CategoryService {
     fun delete(id: Long) {
         val category: Category = category(id)
 
-        categoryRepository.delete(category)
+        try {
+            val devices = deviceRepository.findAllByCategoryId(category.id)
+
+            devices.forEach {
+                it.category = null
+                deviceRepository.save(it)
+            }
+
+            categoryRepository.delete(category)
+        } catch (ex: DataIntegrityViolationException) {
+            throw ex
+        }
     }
 }
