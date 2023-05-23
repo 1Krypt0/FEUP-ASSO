@@ -2,8 +2,6 @@ package com.iota.core.validator
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
-import org.hibernate.mapping.Value
-import org.slf4j.LoggerFactory
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
