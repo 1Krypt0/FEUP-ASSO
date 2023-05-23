@@ -1,6 +1,7 @@
 package com.iota.core.repository
 
 import com.iota.core.model.DeviceAction
+import com.iota.core.model.workflows.ActionNode
 import com.iota.core.model.workflows.ConditionNode
 import com.iota.core.model.workflows.EventNode
 import com.iota.core.model.workflows.Node
@@ -26,5 +27,8 @@ interface OperatorNodeRepository : NodeRepository<OperatorNode>
 
 @Repository
 interface EventNodeRepository : NodeRepository<EventNode> {
-    fun findByDeviceAction(deviceAction: DeviceAction) : EventNode?
+    fun findByDeviceAction(deviceAction: DeviceAction) : List<EventNode>?
 }
+
+@Repository
+interface ActionNodeRepository : NodeRepository<ActionNode>

@@ -46,10 +46,8 @@ class NodeVisitor (
             else -> false
         }
 
-        if (conditionMet) {
-            node.conditionMet = true
-            conditionNodeRepository.save(node)
-        }
+        node.conditionMet = conditionMet
+        conditionNodeRepository.save(node)
 
         propagate(
             node,
@@ -69,6 +67,8 @@ class NodeVisitor (
                     operatorNodeRepository.save(node)
                     "1"
                 } else {
+                    node.conditionMet = false
+                    operatorNodeRepository.save(node)
                     "0"
                 }
             }
@@ -79,6 +79,8 @@ class NodeVisitor (
                     operatorNodeRepository.save(node)
                     "1"
                 } else {
+                    node.conditionMet = false
+                    operatorNodeRepository.save(node)
                     "0"
                 }
             }
@@ -98,9 +100,9 @@ class NodeVisitor (
         }
 
         node.deviceAction?.let {
-            val statusUpdate = StatusUpdate(node.deviceAction.idDevice, node.value)
+            val statusUpdate = StatusUpdate(node.deviceAction!!.idDevice, node.value)
             val json = Json.encodeToString(StatusUpdate.serializer(), statusUpdate)
-            node.deviceAction.device?.actionTopic?.let { topic -> broker.addToTopic(topic, json) }
+            node.deviceAction!!.device?.actionTopic?.let { topic -> broker.addToTopic(topic, json) }
         }
     }
 }

@@ -39,11 +39,12 @@ class DeviceHandler(
                     action.status = update.status
                     actionRepository.save(action)
 
-                    val node = eventNodeRepository.findByDeviceAction(action)
-
-                    node?.let {
-                        val visitor = NodeVisitor(conditionNodeRepository, operatorNodeRepository, eventNodeRepository, broker)
-                        visitor.update(node, update.status)
+                    val nodes = eventNodeRepository.findByDeviceAction(action)
+                    nodes?.let {
+                        nodes.forEach { node ->
+                            val visitor = NodeVisitor(conditionNodeRepository, operatorNodeRepository, eventNodeRepository, broker)
+                            visitor.update(node, update.status)
+                        }
                     }
                 }
             }

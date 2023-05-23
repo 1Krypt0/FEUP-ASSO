@@ -27,7 +27,7 @@ abstract class Node {
     @NotNull
     var blockNumber: Int = 0
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     var successors: MutableSet<Node> = mutableSetOf()
 
     var conditionMet: Boolean = false
@@ -69,7 +69,7 @@ class OperatorNode : Node() {
 class ActionNode : Node() {
     @NotNull
     @OneToOne
-    val deviceAction: DeviceAction? = null
+    var deviceAction: DeviceAction? = null
 
 
     @Column(name = "action_value")
@@ -82,5 +82,5 @@ class ActionNode : Node() {
 class EventNode : Node() {
     @NotNull
     @OneToOne
-    val deviceAction: DeviceAction? = null
+    var deviceAction: DeviceAction? = null
 }
