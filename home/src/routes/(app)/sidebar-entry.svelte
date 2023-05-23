@@ -4,19 +4,20 @@
 
 	export let name = '';
 	export let isRoom = true;
-	export let id: number | string = 0;
+	export let id: number = 0;
 	export let icon: ComponentType | null = null;
 
-	const types = ['rooms', 'categories'];
-
 	$: route = $page.url.pathname.split('/');
+
+	$: highlight =
+		(isRoom && route.at(1) === 'rooms' && Number.parseInt(route.at(2) || '0') === id) ||
+		(!isRoom && route.at(1) === 'categories' && Number.parseInt(route.at(2) || '0') === id);
 </script>
 
 <div class="flex my-4">
 	<a
 		href={isRoom ? `/rooms/${id}` : `/categories/${id}`}
-		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {types.includes(route[1]) &&
-		route[2] === `${id}`
+		class="flex w-full p-4 text-black rounded-[15px] cursor-pointer {highlight
 			? 'bg-accent text-white'
 			: ''}"
 	>
