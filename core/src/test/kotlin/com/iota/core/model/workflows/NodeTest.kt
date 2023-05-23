@@ -5,8 +5,8 @@ import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.queue.Broker
 import com.iota.core.repository.ConditionNodeRepository
 import com.iota.core.repository.EventNodeRepository
-import com.iota.core.repository.NodeRepositoriesHolder
 import com.iota.core.repository.OperatorNodeRepository
+import com.iota.core.service.NodeVisitor
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -91,7 +91,7 @@ class NodeTest{
     fun testUpdates() {
         val broker = Mockito.mock(Broker::class.java)
 
-        val holder = NodeRepositoriesHolder(
+        val visitor = NodeVisitor(
             conditionNodeRepository,
             operatorNodeRepository,
             eventNodeRepository,
@@ -126,15 +126,15 @@ class NodeTest{
         eventNodeRepository.save(eventNode2)
 
 
-        eventNode.update("0", holder)
+        visitor.update(eventNode,"0")
         assertFalse(firstNode.conditionMet)
 
-        eventNode.update("1", holder)
+        visitor.update(eventNode,"1")
         assertTrue(firstNode.conditionMet)
 
         assertFalse(mergeNode.conditionMet)
 
-        eventNode2.update("101", holder)
+        visitor.update(eventNode2, "101")
         assertTrue(secondNode.conditionMet)
         assertTrue(mergeNode.conditionMet)
     }

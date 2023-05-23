@@ -12,13 +12,6 @@ import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
-class NodeRepositoriesHolder (
-    val conditionNodeRepository: ConditionNodeRepository,
-    val operatorNodeRepository: OperatorNodeRepository,
-    val eventNodeRepository: EventNodeRepository,
-    val broker: Broker
-)
-
 @NoRepositoryBean
 interface NodeRepository<T : Node> : CrudRepository<T, Long> {
     @Query("select n from Node n where :node in elements(n.successors) ")
