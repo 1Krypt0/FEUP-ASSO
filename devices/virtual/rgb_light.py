@@ -19,8 +19,9 @@ DISCOVERABILITY = "discoverability-" + MAC_ADDRESS
 
 STATE = 0
 
-value = "7ec0ee"
+value = "0"
 value_intensity = "150"
+value_rgb = "8c2d19"
 
 def on_connect(client, userdata, flags, return_code):
     if return_code != 0:
@@ -34,6 +35,7 @@ def on_connect(client, userdata, flags, return_code):
 def on_message(client, userdata, message):
     global value
     global value_intensity
+    global value_rgb
     global STATE
     print(message.topic, DISCOVERABILITY)
     if (message.topic == DISCOVERABILITY):
@@ -45,6 +47,8 @@ def on_message(client, userdata, message):
             value = parsed["status"]
         elif parsed["id"] == "2":
             value_intensity = parsed["status"]
+        elif parsed["id"] == "3":
+            value_rgb = parsed["status"]
         # value = parsed
 
 
@@ -63,7 +67,8 @@ config_dic = {
         {"id":"1","deviceAction":"toggle","name":"toggle","displayName": "Toggle", "status": value},
         {"id":"2", "deviceAction": "range", "name": "intensity", "displayName": "Intensity", "status": value_intensity, "properties": {
             "min": "0", "max": "100", "step": "1"
-        }}
+        }},
+        {"id": "3", "deviceAction": "rgb", "name": "color", "displayName": "Color", "status": value_rgb}
     ]}
 
 config = json.dumps(config_dic)
@@ -100,6 +105,7 @@ def parse_data():
     o = [
         {"id": "1", "status": value},
         {"id": "2", "status": value_intensity},
+        {"id": "3", "status": value_rgb}
     ]
 
     return json.dumps(o)
@@ -115,7 +121,7 @@ try:
             client.publish(str(VALUE), parse_data())
             scrn.fill((255,255, 255))
             print("Sent", parse_data())
-            color = pygame.Color(f"#{value}")
+            color = pygame.Color(f"#{value_rgb}")
             pygame.draw.circle(surface1,color,(305, 276), 78)
             surface1.set_alpha(int(value_intensity))
             scrn.blit(imp, (0, 0))
