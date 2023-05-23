@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Share2Icon } from 'svelte-feather-icons';
 
+	export let id: string;
 	export let name: string;
-	export let id: number;
 </script>
 
 <section class="flex flex-col drop-shadow-lg bg-white rounded-3xl">
@@ -16,4 +16,3 @@
 		>See more</a
 	>
 </section>
-
