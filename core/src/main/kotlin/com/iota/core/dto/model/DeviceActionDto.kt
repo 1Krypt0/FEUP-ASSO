@@ -8,6 +8,7 @@ import com.iota.core.validator.ValidDeviceActionProperties
 import jakarta.validation.constraints.NotEmpty
 
 @ValidDeviceActionProperties
+
 class DeviceActionDto() : EntityDto<DeviceAction> {
     constructor(deviceAction: DiscoverableDeviceAction) : this() {
         deviceId = deviceAction.id

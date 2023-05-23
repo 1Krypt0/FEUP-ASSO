@@ -1,8 +1,8 @@
 package com.iota.core.dto.device
 
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.iota.core.dto.action.DeviceActionGetSimple
+import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.model.Device
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.iota.core.model.NetworkStatus
 
 class DeviceGet(device: Device) {
@@ -20,7 +20,7 @@ class DeviceGet(device: Device) {
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
 
     @JsonProperty("actions")
-    private var deviceActions: Set<DeviceActionGetSimple> = setOf()
+    private var deviceActions: Set<DeviceActionGet> = setOf()
 
     init {
         this.id = device.id
@@ -31,6 +31,6 @@ class DeviceGet(device: Device) {
         this.status = device.status!!
         this.room = device.room?.id
         this.added = device.added
-        this.deviceActions = device.deviceActions.map { DeviceActionGetSimple(it) }.toSet()
+        this.deviceActions = device.deviceActions.map { DeviceActionGet(it) }.toSet()
     }
 }

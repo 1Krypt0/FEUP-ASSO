@@ -2,6 +2,7 @@ package com.iota.core
 
 import com.iota.core.dto.model.DeviceActionDto
 import com.iota.core.model.Action
+import com.iota.core.model.discoverability.DiscoverableDeviceAction
 import com.iota.core.repository.ActionRepository
 import com.iota.core.validator.ActionNameValidator
 import com.iota.core.validator.DeviceActionPropertiesValidator

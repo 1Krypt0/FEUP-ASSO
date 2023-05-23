@@ -5,9 +5,8 @@
 #include <Esp.h>
 #include <ArduinoJson.h>
 
-
 WiFiManager wifiManager;
-WiFiManagerParameter custom_mqtt_server("server", "mqtt server", "192.168.1.74", 40);
+WiFiManagerParameter custom_mqtt_server("server", "mqtt server", "192.168.1.117", 40);
 
 
 #define MQTT_PORT 1883
@@ -69,12 +68,15 @@ void reconnect() {
 
 void connect() {
   // wifiManager.setTimeout(180);
+  wifiManager.resetSettings();
   wifiManager.addParameter(&custom_mqtt_server);
   macAddress = WiFi.macAddress();
   wifiManager.autoConnect(macAddress.c_str());
   String mqttAddress = custom_mqtt_server.getValue();
+  mqttAddress.trim();
   mqqtHost.fromString(mqttAddress);
   Serial.println(mqttAddress);
+  Serial.println(mqqtHost.toString());
 
   client.setClient(wifiClient);
   client.setServer(mqqtHost, MQTT_PORT);
@@ -91,15 +93,26 @@ void callback(char* topic, byte* payload, unsigned int length)
     state = ACTIVE;    
   } else {
     payload[length] = '\0';
-    value = String((char*) payload).toInt();
+    String json = String((char*) payload);
+
+    StaticJsonDocument<200> doc;
+    deserializeJson(doc, json);
+
+    String id = doc["id"];
+    String status = doc["status"];
+
+    if (id.compareTo("1")) return;    
+
+    value = status.toInt();
+
   }
 }
 
-String configs = "{\"mac\":\"<mac-address>\",\"name\":\"Iota Light 1.0\",\"status\":\"<status>\",\"actions\":[{\"id\":\"1\",\"actionId\":\"toggle\",\"name\":\"Toggle\"}]}";
+String configs = "{\"mac\":\"<mac-address>\",\"name\":\"Iota Light 1.0\",\"actions\":[{\"id\":\"1\",\"deviceAction\":\"toggle\",\"name\":\"toggle\",\"displayName\":\"Toggle\",\"status\":\"<value>\"}]}";
 
 void setupSettings() {
   configs.replace("<mac-address>", macAddress);
-  configs.replace("<status>", String(value));
+  configs.replace("<value>", String(value));
 }
 
 void setup() {
@@ -124,8 +137,9 @@ void handleWaiting() {
 void handleActive() {
   digitalWrite(LED_BUILTIN, 1 - value);
   Serial.printf("Set light %d\n", value);
-
-  uint16_t packet = client.publish(readTopic.c_str(), String(value).c_str());
+  String value_to_send = "[{\"id\":\"1\",\"status\":\"<value>\"}]";
+  value_to_send.replace("<value>", String(value));
+  uint16_t packet = client.publish(readTopic.c_str(), value_to_send.c_str());
   Serial.printf("Publishing on topic %s at QoS 1, packetId: %i", readTopic.c_str(), packet);
   Serial.printf("Message: %d \n", value);
 }
@@ -133,7 +147,6 @@ void handleActive() {
 
 void loop() {
   // Serial.println("Loooo");
-  client.loop();
   // ESP.wdtFeed();
   long now = millis();
   if (now - lastMsg > PUBLISH_INTERVAL) {
@@ -153,4 +166,6 @@ void loop() {
 
 
   }
+  client.loop();
+  
 }
