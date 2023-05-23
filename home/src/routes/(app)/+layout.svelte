@@ -33,8 +33,8 @@
 <div class:dark={darkMode} class="flex flex-col min-h-screen h-screen">
 	<Header bind:darkMode bind:sidebarVisible />
 
-	<main class="flex h-full bg-light">
-		<Sidebar visible={sidebarVisible} rooms={data.rooms} />
+	<main class="flex flex-col sm:flex-row overflow-auto h-full w-full bg-light">
+		<Sidebar visible={sidebarVisible} rooms={data.rooms} categories={data.categories} />
 		<slot />
 	</main>
 </div>

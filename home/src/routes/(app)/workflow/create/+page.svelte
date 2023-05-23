@@ -1,62 +1,71 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { error } from '@sveltejs/kit';
-	import Avatar from '../../avatar.svelte';
+	import type { Device } from '$lib/types/device';
+	import type { Workflow } from '$lib/types/workflow';
+	import { Condition } from '$lib/types/condition';
+	import { Operation } from '$lib/types/operation';
 	import { PlusIcon, MinusIcon } from 'svelte-feather-icons';
 
 	let step = 0;
 
-	let CONDITIONS = ['EQ', 'GT', 'LT', 'GTE', 'LTE', 'NEQ'];
+	let CONDITIONS = ['EQ', 'GT', 'LT'];
 	let OPERATIONS = ['AND', 'OR'];
 	let STEPS = ['Name your workflow > ', 'Build your workflow > ', 'Define its action'];
 
-	let devices: any[] = [
+	let devices: Device[] = [
 		{
-			id: 123,
-			category: 'Light',
-			displayName: 'Default name',
-			customName: 'My custom name',
-			room: 0,
+			id: 1,
+			category: 'light',
+			name: 'Light',
+			displayName: 'My Light',
+			room: 1,
 			actions: [
 				{
-					id: 'bool',
-					name: 'Turn On/Off',
-					status: '0'
+					id: 1,
+					action: {
+						id: 1,
+						type: 'bool',
+						required: undefined
+					},
+					name: 'Turn on/off',
+					properties: undefined,
+					state: '0'
 				},
 				{
-					id: 'range',
-					name: 'Brightness',
-					properties: {
-						min: 0,
-						max: 100,
-						step: 0
+					id: 2,
+					action: {
+						id: 2,
+						type: 'range',
+						required: ['min', 'max', 'step']
 					},
-					status: '20'
+					name: 'Brightness',
+					properties: { min: 0, max: 100, step: 1 },
+					state: '0'
 				}
 			]
 		}
 	];
 
-	let workflow = {
+	let workflow: Workflow = {
+		id: 0,
 		name: '',
+		active: false,
 		eventNodes: [
 			{
-				device: '',
-				action: '',
+				device: 0,
+				action: 0,
 				conditionNodes: [
 					{
-						condition: '',
+						condition: Condition.NULL,
 						value: '',
-						operation: ''
+						operation: Operation.NULL
 					}
 				],
-				operation: ''
+				operation: Operation.NULL
 			}
 		],
 		actionNode: {
-			device: '',
-			action: '',
+			device: 0,
+			action: 0,
 			value: ''
 		}
 	};
@@ -75,12 +84,12 @@
 			action: '',
 			conditionNodes: [
 				{
-					condition: '',
+					condition: Condition.NULL,
 					value: '',
-					operation: ''
+					operation: Operation.NULL
 				}
 			],
-			operation: ''
+			operation: Operation.NULL
 		});
 		workflow = { ...workflow };
 		console.log(workflow);
@@ -93,9 +102,9 @@
 
 	function addConditionNode(eventNodeIndex: number) {
 		workflow.eventNodes[eventNodeIndex].conditionNodes.push({
-			condition: '',
+			condition: Condition.NULL,
 			value: '',
-			operation: ''
+			operation: Operation.NULL
 		});
 		workflow = { ...workflow };
 	}
@@ -129,16 +138,16 @@
 			if (
 				eventNode.device === '' ||
 				eventNode.action === '' ||
-				(eventNodeIndex < workflow.eventNodes.length - 1 && eventNode.operation === '')
+				(eventNodeIndex < workflow.eventNodes.length - 1 && eventNode.operation === Operation.NULL)
 			)
 				errors.events = defaultErrorMessage;
 
 			for (const conditionNode of eventNode.conditionNodes) {
 				if (
-					conditionNode.condition === '' ||
+					conditionNode.condition === Condition.NULL ||
 					conditionNode.value === '' ||
 					(conditionNodeIndex < eventNode.conditionNodes.length - 1 &&
-						conditionNode.operation === '')
+						conditionNode.operation === Operation.NULL)
 				)
 					errors.events = defaultErrorMessage;
 
@@ -227,7 +236,7 @@
 										bind:value={eventNode.device}
 									>
 										{#each devices as device}
-											<option value={device.id}>{device.customName}</option>
+											<option value={device.id}>{device.displayName}</option>
 										{/each}
 									</select>
 								</div>
@@ -284,7 +293,7 @@
 											</select>
 										</div>
 										<!-- condition node value -->
-										{#if conditionNode.condition != ''}
+										{#if conditionNode.condition != Condition.NULL}
 											<div class="sm:flex sm:items-center pl-5 pt-5">
 												<label
 													for="workflow-condition-node-value-{eventNodeIndex}-{conditionNodeIndex}"
@@ -389,7 +398,7 @@
 							bind:value={workflow.actionNode.device}
 						>
 							{#each devices as device}
-								<option value={device.id}>{device.customName}</option>
+								<option value={device.id}>{device.displayName}</option>
 							{/each}
 						</select>
 					</div>

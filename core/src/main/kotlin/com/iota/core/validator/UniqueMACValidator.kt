@@ -11,10 +11,10 @@ class UniqueMACValidator : ConstraintValidator<UniqueMAC, String?> {
     var deviceRepository: DeviceRepository? = null
 
     override fun isValid(mac: String?, context: ConstraintValidatorContext): Boolean {
-        if(mac == null) {
-            return false;
+        if (mac == null) {
+            return false
         }
 
-        return deviceRepository?.let {  deviceRepository!!.findDeviceByMacAddress(mac).isEmpty  } ?: false;
+        return deviceRepository?.let { deviceRepository!!.findDeviceByMacAddress(mac).isEmpty } ?: false
     }
 }

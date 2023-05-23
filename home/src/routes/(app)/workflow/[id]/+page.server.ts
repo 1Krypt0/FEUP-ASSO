@@ -55,8 +55,8 @@ export const load = (async ({ params, parent }) => {
 		{
 			id: 1,
 			category: 'light',
-			displayName: 'Light',
-			customName: 'My Light',
+			name: 'Light',
+			displayName: 'My Light',
 			room: 1,
 			actions: [
 				{
@@ -88,7 +88,7 @@ export const load = (async ({ params, parent }) => {
 	// map workflow devices and actions to corresponding names
 	for (let eventNode of workflow.eventNodes) {
 		const device = devices.find((device) => device.id === eventNode.device);
-		eventNode.device = device ? device.customName : '';
+		eventNode.device = device ? device.displayName : '';
 
 		if (device === undefined) continue;
 		const action = device.actions.find((action) => action.id === eventNode.action);
@@ -96,7 +96,7 @@ export const load = (async ({ params, parent }) => {
 	}
 
 	const actionDevice = devices.find((device) => device.id === workflow.actionNode.device);
-	workflow.actionNode.device = actionDevice ? actionDevice.customName : '';
+	workflow.actionNode.device = actionDevice ? actionDevice.displayName : '';
 
 	if (actionDevice !== undefined) {
 		const actionAction = actionDevice.actions.find(

@@ -15,8 +15,8 @@ type DeviceAction = {
 export type Device = {
 	id: number;
 	category: string;
+	name: string;
 	displayName: string;
-	customName: string;
 	room: number;
 	actions: DeviceAction[];
 };
