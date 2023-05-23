@@ -9,6 +9,7 @@
     
     let setIntensity = true;
     let setColour = false;
+    let turnedOn = false;
     function intensityToBeSet() {
         setIntensity = true;
         setColour = false;
@@ -16,6 +17,9 @@
     function colourToBeSet() {
         setIntensity = false;
         setColour = true;
+    }
+    function toBeTurnedOn() {
+        turnedOn = !turnedOn;
     }
 </script>
 
@@ -30,7 +34,15 @@
         </div>
     </div>
     <div class="flex-row flex justify-center gap-4 py-6">
-        <button><PowerIcon/></button>
+        {#if turnedOn}
+            <SvelteTooltip tip="turn off" bottom >
+                <button on:click={toBeTurnedOn} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
+            </SvelteTooltip>
+        {:else}
+            <SvelteTooltip tip="turn on" bottom >
+                <button on:click={toBeTurnedOn} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
+            </SvelteTooltip>
+        {/if}
         <SvelteTooltip tip="set intensity" bottom >
             <button on:click={intensityToBeSet} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
         </SvelteTooltip>
