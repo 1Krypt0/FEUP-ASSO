@@ -1,3 +1,4 @@
+import type { Category } from '$lib/types/category';
 import type { Room } from '$lib/types/room';
 import type { LayoutServerLoad } from './$types';
 
@@ -7,21 +8,8 @@ export const load = (async () => {
 	const roomRes = await fetch(`${BASE_URL}/rooms/`);
 	const rooms: Room[] = await roomRes.json();
 
-	// TODO: Change to data fetching
-	const categories = [
-		{
-			name: 'Lights',
-			id: 'light'
-		},
-		{
-			name: 'Media',
-			id: 'media'
-		},
-		{
-			name: 'Climate',
-			id: 'climate'
-		}
-	];
+	const categoriesRes = await fetch(`${BASE_URL}/categories/`);
+	const categories: Category[] = await categoriesRes.json();
 
 	return {
 		rooms,

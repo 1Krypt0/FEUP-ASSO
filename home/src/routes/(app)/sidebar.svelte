@@ -3,16 +3,18 @@
 	import { page } from '$app/stores';
 	import type { ComponentType } from 'svelte';
 	import { DropletIcon, MonitorIcon, SunIcon } from 'svelte-feather-icons';
+	import type { Room } from '$lib/types/room';
+	import type { Category } from '$lib/types/category';
 
-	export let rooms: { name: string; id: number }[] = [];
+	export let rooms: Room[] = [];
 	export let visible = false;
-	export let categories: { name: string; id: string }[] = [];
+	export let categories: Category[] = [];
 	const createRoomURL = '/rooms/create';
 
 	const iconDict: { [key: string]: ComponentType } = {
-		light: SunIcon,
-		media: MonitorIcon,
-		climate: DropletIcon
+		Light: SunIcon,
+		Media: MonitorIcon,
+		Climate: DropletIcon
 	};
 </script>
 
@@ -42,7 +44,7 @@
 			<SidebarEntry
 				name={category.name}
 				id={category.id}
-				icon={iconDict[category.id]}
+				icon={iconDict[category.name]}
 				isRoom={false}
 			/>
 		{/each}
