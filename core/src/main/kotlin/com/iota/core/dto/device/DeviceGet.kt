@@ -1,7 +1,9 @@
 package com.iota.core.dto.device
 
+import com.iota.core.dto.action.DeviceActionGet
 import com.iota.core.dto.action.DeviceActionGetSimple
 import com.iota.core.model.Device
+import com.iota.core.model.DeviceAction
 import com.iota.core.model.DeviceType
 import com.iota.core.model.NetworkStatus
 
@@ -15,7 +17,7 @@ class DeviceGet(device: Device) {
     var added: Boolean = false
     var type: DeviceType? = DeviceType.LIGHT
     var status: NetworkStatus = NetworkStatus.DISCONNECTED
-    var deviceActions: Set<DeviceActionGetSimple> = setOf()
+    var deviceActions: Set<DeviceActionGet> = setOf()
 
     init {
         this.id = device.id
@@ -27,6 +29,6 @@ class DeviceGet(device: Device) {
         this.status = device.status!!
         this.room = device.room
         this.added = device.added
-        this.deviceActions = device.deviceActions.map { DeviceActionGetSimple(it) }.toSet()
+        this.deviceActions = device.deviceActions.map { DeviceActionGet(it) }.toSet()
     }
 }
