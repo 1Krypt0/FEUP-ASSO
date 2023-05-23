@@ -6,5 +6,5 @@ import type { PageData } from './$types';
 </script>
 
 <div class="flex-col flex items-center justify-center w-full">
-	<ActionCard name={data.device.name} roomID={data.device.room}><SunIcon class="stroke-accent" /></ActionCard>
+	<ActionCard device={data.device}><SunIcon class="stroke-accent" /></ActionCard>
 </div>
