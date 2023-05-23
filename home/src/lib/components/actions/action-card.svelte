@@ -3,8 +3,9 @@
 	import RangeAction from './range-action.svelte';
 	import ColorPickerAction from './color-picker-action.svelte';
     import SvelteTooltip from 'svelte-tooltip';
+	import type { Device } from '$lib/types/device';
 
-	export let device: any;
+	export let device: Device;
     console.log("device", device);
     
     let setIntensity = false;
@@ -16,19 +17,51 @@
     let step: number;
     let hex : string;
     let temperature : string;
+    let intensity: number[] = [0];
+    let intensityID: number = -1;
+    let colorID: number = -1;
 
-    function intensityToBeSet() {
+    const BASE_URL = 'http://localhost:8080';
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    async function updateData(actionID: string, value: string) {
+        const res = await fetch(`${BASE_URL}/devices/${device.id}/value/${actionID}`, {
+            method: "POST",
+            body: JSON.stringify({
+                value
+            }),
+            headers: headers
+        });
+    }
+
+    function intensityToBeSet(id: number) {
         setIntensity = !setIntensity;
         setColour = false;
         checkTemperature = false;
+        intensityID = id;
     }
-    function colourToBeSet() {
+    function sendIntensity(event) {
+        const inten: number = event.detail.value[0]
+        updateData(intensityID.toString(), inten.toString());
+    }
+
+    function sendColor(event) {
+        const color: string = event.detail.hex;
+        console.log(color);
+        updateData(colorID, color.slice(1))
+    }
+
+    function colourToBeSet(id: number) {
         setIntensity = false;
         setColour = !setColour;
         checkTemperature = false;
+        colorID = id;
+        
     }
-    function toBeTurnedOn() {
+    function toBeTurnedOn(id: number, status: string) {
         turnedOn = !turnedOn;
+        updateData(id.toString(), status);
     }
     function TemperatureToBeChecked() {
         checkTemperature = !checkTemperature;
@@ -36,16 +69,16 @@
         setColour = false;
     }
 
-    device.deviceActions.forEach(action => {
+    device.actions.forEach(action => {
         switch (action.name){
             case "toggle":
             case "boolean":
-                turnedOn = action.status == 1;
+                turnedOn = action.status == "1";
                 break;
             case "range":
-                min = action.properties.min;
-                max = action.properties.max;
-                step = action.properties.step;
+                min = action.properties.min as number;
+                max = action.properties.max as number;
+                step = action.properties.step as number;
                 break;
             case "rgb":
                 hex = action.status;
@@ -67,30 +100,30 @@
         </div>
     </div>
     <div class="flex-row flex justify-center gap-4 py-6">
-        {#each device.deviceActions as deviceAction}
-            {#if deviceAction.action.name == "toggle" || deviceAction.action.name == "boolean"}
+        {#each device.actions as deviceAction}
+            {#if deviceAction.actionName == "toggle" || deviceAction.actionName == "boolean"}
                 {#if turnedOn}
                     <SvelteTooltip tip="turn off" bottom >
-                        <button on:click={toBeTurnedOn} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
+                        <button on:click={toBeTurnedOn(deviceAction.id, "0")} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
                     </SvelteTooltip>
                 {:else}
                     <SvelteTooltip tip="turn on" bottom >
-                        <button on:click={toBeTurnedOn} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
+                        <button on:click={toBeTurnedOn(deviceAction.id, "1")} class={`rounded-full p-1 ${turnedOn ? "bg-accent" : "bg-light"}`}><PowerIcon/></button>
                     </SvelteTooltip>
                 {/if}
             {/if}
-            {#if deviceAction.action.name == "range"}
-                <SvelteTooltip tip={deviceAction.displayName} bottom >
-                    <button on:click={intensityToBeSet} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
+            {#if deviceAction.actionName == "range"}
+                <SvelteTooltip tip={deviceAction.name} bottom >
+                    <button on:click={intensityToBeSet(deviceAction.id)} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
                 </SvelteTooltip>
             {/if}
-            {#if deviceAction.action.name == "rgb"}
-                <SvelteTooltip tip={deviceAction.displayName} bottom >
-                    <button on:click={colourToBeSet} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
+            {#if deviceAction.actionName == "rgb"}
+                <SvelteTooltip tip={deviceAction.name} bottom >
+                    <button on:click={colourToBeSet(deviceAction.id)} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
                 </SvelteTooltip>
             {/if}
-            {#if deviceAction.action.name == "readonly-number"}
-                <SvelteTooltip tip={deviceAction.displayName} bottom >
+            {#if deviceAction.actionName == "readonly-number"}
+                <SvelteTooltip tip={deviceAction.name} bottom >
                     <button on:click={TemperatureToBeChecked} class={`rounded-full p-1 ${checkTemperature ? "bg-accent" : "bg-light"}`}><ThermometerIcon/></button>
                 </SvelteTooltip>
             {/if}
@@ -98,10 +131,10 @@
     </div>
     <div class="h-full flex-col flex justify-center">
         {#if setIntensity}
-            <RangeAction value={60} min={min} max={max} step={step} device_type="light"></RangeAction>
-        {/if}
+            <RangeAction on:stop={sendIntensity} bind:value={intensity} min={min} max={max} step={step} device_type="light"></RangeAction>
+            {/if}
         {#if setColour}
-            <ColorPickerAction hex={hex}></ColorPickerAction>
+            <ColorPickerAction on:color={sendColor} hex={hex}></ColorPickerAction>
         {/if}
         {#if checkTemperature}
             <div class="text-2xl flex-row flex justify-center">

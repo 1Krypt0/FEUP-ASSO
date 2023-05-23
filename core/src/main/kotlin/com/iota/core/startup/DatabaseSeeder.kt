@@ -19,7 +19,7 @@ class DatabaseSeeder(
         addAction("toggle", "bool")
         addAction("boolean", "bool")
         addAction("range", "number", true, mutableListOf("min", "max", "step"))
-        addAction("rgb", "number")
+        addAction("rgb", "string")
         addAction("readonly-number", "number", false)
     }
 
