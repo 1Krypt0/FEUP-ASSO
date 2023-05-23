@@ -10,7 +10,7 @@
 	</div>
 	<a
 		href="/device/{id}"
-		class="self-end px-8 mx-5 text-center text-white font-bold my-6  py-3 rounded-full bg-primary"
+		class="self-end px-8 mx-5 text-center text-white font-bold my-6 py-3 rounded-full bg-primary"
 		>See more</a
 	>
 </section>

@@ -3,6 +3,6 @@
     export let hex:string;
 </script>
 
-<section>
+<section class="flex-row flex justify-center">
     <ColorPicker bind:hex isAlpha={false} canChangeMode={false}/>
 </section>

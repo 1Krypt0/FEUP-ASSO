@@ -37,7 +37,7 @@
         {#if setIntensity}
             <RangeAction value={60} min={0} max={100} step={1} device_type="light"></RangeAction>
         {:else}
-            <ColorPickerAction hex="#00ff00"></ColorPickerAction>
+            <ColorPickerAction hex="#8c2d19"></ColorPickerAction>
         {/if}
     </div>
 </section>
