@@ -70,6 +70,7 @@
 				<button
 					type="button"
 					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
+					disabled={formData.displayName === ''}
 					on:click={() => step++}>Continue</button
 				>
 			{:else if step === 1}
@@ -106,7 +107,7 @@
 						bind:value={formData.roomID}
 					>
 						{#each data.rooms as room}
-							<option value={room.id}>{room.name}</option>
+							<option selected={room.id === roomID} value={room.id}>{room.name}</option>
 						{/each}
 					</select>
 				</div>

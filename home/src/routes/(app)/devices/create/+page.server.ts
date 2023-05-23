@@ -1,15 +1,11 @@
+import type { Device } from '$lib/types/device';
 import type { PageServerLoad } from './$types';
 
-export const load = (() => {
-	// TODO: Fetch devices with room = NULL to get the new devices;
-	const foundDevices = [
-		{ name: 'default name 1', id: 0 },
-		{ name: 'default name 2', id: 1 },
-		{ name: 'MI Wireless Headphones', id: 2 },
-		{ name: 'Samsung Galaxy Buds 2', id: 3 },
-		{ name: 'Samsung Galaxy Buds 2', id: 4 },
-		{ name: 'Samsung Galaxy Buds 2', id: 5 },
-		{ name: 'Samsung Galaxy Buds 2', id: 6 }
-	];
+const BASE_URL = 'http://localhost:8080';
+
+export const load = (async () => {
+	const res = await fetch(`${BASE_URL}/devices/?room=0`);
+	const foundDevices: Device[] = await res.json();
+
 	return { foundDevices };
 }) satisfies PageServerLoad;

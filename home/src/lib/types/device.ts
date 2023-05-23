@@ -1,6 +1,7 @@
 export type Device = {
 	id: number;
 	dataTopic: string;
+	displayName: string;
 	actionTopic: string;
 	name: string;
 	macAddress: string;

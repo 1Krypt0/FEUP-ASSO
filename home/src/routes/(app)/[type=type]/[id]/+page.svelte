@@ -37,6 +37,8 @@
 				<DeviceCard name={device.name} id={device.id}
 					><DropletIcon class="stroke-accent" /></DeviceCard
 				>
+			{:else}
+				<DeviceCard name={device.name} id={device.id}><SunIcon class="stroke-accent" /></DeviceCard>
 			{/if}
 		{/each}
 	</section>

@@ -13,18 +13,12 @@ export const POST = (async ({ request }) => {
 	const deviceID = data['deviceID'];
 	const displayName = data['displayName'];
 
-	// TODO: Check received fields and update backend
-
-	console.log(
-		`Name: ${customName}, Room: ${roomID}, Category: ${deviceID}, Device Name: ${displayName}`
-	);
-
-	// TODO: Save new device to database, put to /devices/id
 	const res = await fetch(`${BASE_URL}/devices/${deviceID}`, {
 		method: 'PUT',
 		body: JSON.stringify({
-			name: displayName,
-			room: roomID
+			name: customName,
+			room: roomID,
+			displayName
 		}),
 		headers: headers
 	});
