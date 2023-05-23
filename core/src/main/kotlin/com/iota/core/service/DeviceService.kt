@@ -22,12 +22,16 @@ class DeviceService(
     private val actionRepository: ActionRepository,
     private val roomService: RoomService,
 ) {
-    fun findAll(type: DeviceType?): List<Device> {
-        return if (type == null) {
-            deviceRepository.findAll().toList()
-        } else {
-            deviceRepository.findAllByType(type).toList()
+    fun findAll(category: DeviceType?, room: Long?): List<Device> {
+        if (category != null && room != null) {
+            return deviceRepository.findAllByTypeAndRoomId(type, room).toList()
+        } else if (category != null) {
+            return deviceRepository.findAllByType(type).toList()
+        } else if (room != null) {
+            return deviceRepository.findAllByRoomId(room).toList()
         }
+
+        return deviceRepository.findAll().toList()
     }
 
     fun device(id: Long): Device {

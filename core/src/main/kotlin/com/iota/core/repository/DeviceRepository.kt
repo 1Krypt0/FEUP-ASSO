@@ -8,7 +8,9 @@ import java.util.*
 
 @Repository
 interface DeviceRepository : CrudRepository<Device, Long> {
+    fun findAllByRoomId(roomId: Long): Iterable<Device>
     fun findAllByType(type: DeviceType): Iterable<Device>
+    fun findAllByTypeAndRoomId(type: DeviceType, roomId: Long): MutableIterable<Device>
 
     fun findDeviceByMacAddress(macAddress: String): Optional<Device>
 }
