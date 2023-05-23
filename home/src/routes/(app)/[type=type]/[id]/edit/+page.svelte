@@ -6,11 +6,11 @@
 	export let data: PageData;
 </script>
 
-<div class="flex flex-col w-full">
-	<h1 class="font-bold pl-20 pt-12 text-5xl">Edit {data.room.name}</h1>
-	<section class="w-full h-full">
-		<form method="post" class="w-1/4 h-2/3 mx-auto flex flex-col items-center justify-center">
-			<div class="flex items-center">
+<div class="flex flex-col w-full h-full">
+	<h1 class="font-bold md:pl-20 pt-12 text-center md:text-start text-5xl">Edit {data.room.name}</h1>
+	<section class="w-full h-full flex items-center justify-center">
+		<form method="post" class="flex flex-col justify-center">
+			<div class="pl-5">
 				<label for="device-name" class="pr-5">Name</label>
 				<input
 					id="device-name"
@@ -18,7 +18,7 @@
 					type="text"
 					placeholder="Enter the new Room name here"
 					value={data.room.name}
-					class="py-3 px-5 rounded-full"
+					class="py-3 px-2 md:px-5 rounded-full mt-5 sm:ml-5"
 				/>
 			</div>
 			{#if form?.missing}

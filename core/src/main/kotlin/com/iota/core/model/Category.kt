@@ -4,8 +4,8 @@ import jakarta.persistence.*
 import jakarta.validation.constraints.NotEmpty
 
 @Entity
-@Table(name = "room")
-class Room {
+@Table(name = "category")
+class Category {
     @Id
     @GeneratedValue
     var id: Long = 0
@@ -13,6 +13,8 @@ class Room {
     @NotEmpty
     var name: String = ""
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    var icon: String = ""
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     var devices: Set<Device> = setOf()
 }

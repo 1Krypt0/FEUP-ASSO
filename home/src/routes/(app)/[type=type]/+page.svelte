@@ -7,7 +7,7 @@
 </svelte:head>
 
 <section class="w-full h-full flex justify-center items-center">
-	<a href="/room/create">
+	<a href="/rooms/create">
 		<PlusIcon />
 	</a>
 </section>

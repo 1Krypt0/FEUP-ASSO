@@ -10,7 +10,6 @@ import com.iota.core.dto.device.DeviceUpdate
 import com.iota.core.dto.model.DeviceDto
 import com.iota.core.exception.device.ActionNotFoundException
 import com.iota.core.exception.device.ActionNotUpdatableException
-import com.iota.core.model.DeviceType
 import com.iota.core.model.discoverability.StatusUpdate
 import com.iota.core.service.DeviceService
 import jakarta.validation.Valid
@@ -21,13 +20,16 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/devices")
 class DeviceController(
     private val service: DeviceService,
-    private val brokerConfig: BrokerConfig
+    brokerConfig: BrokerConfig
 ) {
     private val broker = brokerConfig.broker()
 
     @GetMapping("/")
-    fun list(@RequestParam(required = false) type: DeviceType?): List<DeviceGet> {
-        return service.findAll(type).map { DeviceGet(it) }
+    fun list(
+        @RequestParam(required = false) category: Long?,
+        @RequestParam(required = false) room: Long?
+    ): List<DeviceGet> {
+        return service.findAll(category, room).map { DeviceGet(it) }
     }
 
     @GetMapping("/{id}")
