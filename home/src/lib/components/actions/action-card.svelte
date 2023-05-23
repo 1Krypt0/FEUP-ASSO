@@ -2,6 +2,7 @@
 	import { DropletIcon, PercentIcon, PowerIcon, XIcon } from 'svelte-feather-icons';
 	import RangeAction from './range-action.svelte';
 	import ColorPickerAction from './color-picker-action.svelte';
+    import SvelteTooltip from 'svelte-tooltip';
 
 	export let name: string;
 	export let roomID: number;
@@ -30,8 +31,12 @@
     </div>
     <div class="flex-row flex justify-center gap-4 py-6">
         <button><PowerIcon/></button>
-        <button on:click={intensityToBeSet} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
-        <button on:click={colourToBeSet} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
+        <SvelteTooltip tip="set intensity" bottom >
+            <button on:click={intensityToBeSet} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
+        </SvelteTooltip>
+        <SvelteTooltip tip="set colour" bottom >
+            <button on:click={colourToBeSet} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
+        </SvelteTooltip>
     </div>
     <div class="h-full flex-col flex justify-center">
         {#if setIntensity}
