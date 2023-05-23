@@ -6,7 +6,7 @@ import com.iota.core.model.DeviceAction
 open class DeviceActionGetSimple(deviceAction: DeviceAction) {
     var id: Long = 0
     var name: String = ""
-    var displayName: String = ""
+    private var displayName: String = ""
     var properties: Properties = mutableMapOf()
     var status: String = ""
     var actionName: String? = null

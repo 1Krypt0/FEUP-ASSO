@@ -9,12 +9,6 @@ enum class NetworkStatus {
     DISCONNECTED
 }
 
-enum class DeviceType {
-    LIGHT,
-    MEDIA,
-    CLIMATE
-}
-
 @Entity
 @Table(
     uniqueConstraints = [
@@ -35,6 +29,8 @@ class Device {
     @NotEmpty
     var name: String = ""
 
+    var displayName: String? = ""
+
     @NotEmpty
     var macAddress: String = ""
 
@@ -43,9 +39,8 @@ class Device {
 
     var added: Boolean = false
 
-    @NotNull
-    @Enumerated
-    var type: DeviceType? = null
+    @ManyToOne
+    var category: Category? = null
 
     @NotNull
     @Enumerated
@@ -65,7 +60,7 @@ class Device {
         if (room != other.room) return false
         if (added != other.added) return false
         if (macAddress != other.macAddress) return false
-        if (type != other.type) return false
+        if (category != other.category) return false
         return status == other.status
     }
 
@@ -77,7 +72,7 @@ class Device {
         result = 31 * result + room.hashCode()
         result = 31 * result + added.hashCode()
         result = 31 * result + macAddress.hashCode()
-        result = 31 * result + (type?.hashCode() ?: 0)
+        result = 31 * result + (category?.hashCode() ?: 0)
         result = 31 * result + (status?.hashCode() ?: 0)
         return result
     }

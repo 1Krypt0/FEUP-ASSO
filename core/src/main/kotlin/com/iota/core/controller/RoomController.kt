@@ -3,6 +3,7 @@ package com.iota.core.controller
 import com.iota.core.dto.model.RoomDto
 import com.iota.core.dto.room.RoomDeleted
 import com.iota.core.dto.room.RoomGet
+import com.iota.core.dto.room.RoomGetSimple
 import com.iota.core.dto.room.RoomUpdate
 import com.iota.core.service.RoomService
 import jakarta.validation.Valid
@@ -14,8 +15,8 @@ class RoomController(
     private val service: RoomService,
 ) {
     @PostMapping("/")
-    fun newRoom(@Valid @RequestBody dto: RoomDto): RoomGet {
-        return RoomGet(service.new(dto))
+    fun newRoom(@Valid @RequestBody dto: RoomDto): RoomGetSimple {
+        return RoomGetSimple(service.new(dto))
     }
 
     @GetMapping("/{id}")
@@ -24,13 +25,13 @@ class RoomController(
     }
 
     @GetMapping("/")
-    fun list(): List<RoomGet> {
-        return service.findAll().map { RoomGet(it) }
+    fun list(): List<RoomGetSimple> {
+        return service.findAll().map { RoomGetSimple(it) }
     }
 
     @PutMapping("/{id}")
-    fun updateRoom(@PathVariable id: Long, @Valid @RequestBody dto: RoomUpdate): RoomGet {
-        return RoomGet(service.update(id, dto))
+    fun updateRoom(@PathVariable id: Long, @Valid @RequestBody dto: RoomUpdate): RoomGetSimple {
+        return RoomGetSimple(service.update(id, dto))
     }
 
     @DeleteMapping("/{id}")

@@ -49,8 +49,8 @@ class DeviceDtoTests {
             status = "2"
         }
 
-        assertTrue(actionIdValidator.validate(dto.actionName));
-        assertTrue(propertiesValidator.validate(dto));
+        assertTrue(actionIdValidator.validate(dto.actionName))
+        assertTrue(propertiesValidator.validate(dto))
     }
 
     @Test
@@ -63,8 +63,8 @@ class DeviceDtoTests {
             status = "2"
         }
 
-        assertFalse(actionIdValidator.validate(dto.actionName));
-        assertTrue(propertiesValidator.validate(dto));
+        assertFalse(actionIdValidator.validate(dto.actionName))
+        assertTrue(propertiesValidator.validate(dto))
     }
 
     @Test
@@ -77,7 +77,7 @@ class DeviceDtoTests {
             status = "2"
         }
 
-        assertTrue(actionIdValidator.validate(dto.actionName));
-        assertFalse(propertiesValidator.validate(dto));
+        assertTrue(actionIdValidator.validate(dto.actionName))
+        assertFalse(propertiesValidator.validate(dto))
     }
 }

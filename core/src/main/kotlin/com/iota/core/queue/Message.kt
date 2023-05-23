@@ -4,9 +4,9 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.util.*
 
 class Message(
-    val address: String,
-    val content: Map<String, Any>,
-    val timestamp: Date,
+    private val address: String,
+    private val content: Map<String, Any>,
+    private val timestamp: Date,
 ) {
     fun serialize(): String =
         jacksonObjectMapper().writeValueAsString(

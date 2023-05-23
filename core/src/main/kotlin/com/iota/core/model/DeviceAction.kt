@@ -66,7 +66,7 @@ class DeviceAction {
     }
 
     private fun validateNumber(value: String) {
-        var number = value.toFloat()
+        val number = value.toFloat()
         properties["min"]?.let { min ->
             if (number < min.toString().toFloat()) {
                 throw InvalidActionException(value)
