@@ -12,6 +12,9 @@ class DeviceUpdate {
     @Size(min=1, max=255)
     val name: String? = null
 
+    @Size(min=1, max=255)
+    val displayName: String? = null
+
     @Min(1)
     val room: Long? = null
 }

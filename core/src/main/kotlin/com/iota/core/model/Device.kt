@@ -36,6 +36,9 @@ class Device {
     var name: String = ""
 
     @NotEmpty
+    var displayName: String = ""
+
+    @NotEmpty
     var macAddress: String = ""
 
     @ManyToOne

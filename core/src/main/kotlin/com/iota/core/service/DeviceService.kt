@@ -108,6 +108,7 @@ class DeviceService(
             val room = roomService.room(it)
             device.room = room
         }
+        dto.displayName?.let { device.displayName = it }
 
         device.added = true;
 

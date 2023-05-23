@@ -10,6 +10,7 @@ class DeviceGet(device: Device) {
     var dataTopic: String = ""
     var actionTopic: String = ""
     var name: String = ""
+    var displayName: String = ""
     var macAddress: String = ""
     var room: Long? = null
     var added: Boolean = false
@@ -22,6 +23,7 @@ class DeviceGet(device: Device) {
         this.dataTopic = device.dataTopic
         this.actionTopic = device.actionTopic
         this.name = device.name
+        this.displayName = device.displayName
         this.macAddress = device.macAddress
         this.type = device.type
         this.status = device.status!!
