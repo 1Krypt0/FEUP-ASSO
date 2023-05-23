@@ -1,79 +1,28 @@
+import type { Device } from '$lib/types/device';
 import type { PageServerLoad } from './$types';
-// import { getDevice } from '$lib/services/devices';
 
-interface Device {
-	[index: string]: number | string;
-	id: number;
-	name: string;
-	room: number;
-	category: string;
-}
+const BASE_URL = 'http://localhost:8080';
 
 export const load = (async ({ params, parent }) => {
 	const parentData = await parent();
 
-	// TODO: If the category is not found, redirect to 404
+	let name = '';
+	let isRoom = true;
 
-	let divisionName;
-	let isRoom;
+	const field = params.type === 'categories' ? 'category' : params.type === 'rooms' ? 'room' : '';
+	const res = await fetch(`${BASE_URL}/devices/?${field}=${params.id}`);
+	const devices: Device[] = await res.json();
 	if (params.type === 'categories') {
-		divisionName = params.id.charAt(0).toUpperCase() + params.id.slice(1);
+		name = parentData.categories.find((elem) => elem.id === Number.parseInt(params.id))?.name || '';
 		isRoom = false;
 	} else if (params.type === 'rooms') {
-		const room = parentData.rooms.find((elem) => elem.id == Number.parseInt(params.id));
-		divisionName = room?.name;
+		name = parentData.rooms.find((elem) => elem.id === Number.parseInt(params.id))?.name || '';
 		isRoom = true;
 	}
 
-	// TODO: Change to data fetching when available
-	const devices: Device[] = [
-		{
-			id: 1,
-			name: 'Device 1',
-			room: 1,
-			category: 'lights'
-		},
-		{
-			id: 2,
-			name: 'Device 2',
-			room: 0,
-			category: 'media'
-		},
-		{
-			id: 3,
-			name: 'Device 3',
-			room: 1,
-			category: 'media'
-		},
-		{
-			id: 4,
-			name: 'Device 4',
-			room: 3,
-			category: 'climate'
-		},
-		{
-			id: 5,
-			name: 'Device 5',
-			room: 1,
-			category: 'climate'
-		},
-
-		{
-			id: 6,
-			name: 'Device 6',
-			room: 1,
-			category: 'lights'
-		},
-		{
-			id: 7,
-			name: 'Device 7',
-			room: 1,
-			category: 'lights'
-		}
-	];
-
-	const idx = params.type === 'rooms' ? 'room' : params.type === 'categories' ? 'category' : '';
-
-	const divisionDevices = devices.filter((elem) => elem[idx] == params.id);
-	return { divisionDevices, divisionName, isRoom };
+	return {
+		name,
+		devices,
+		isRoom
+	};
 }) satisfies PageServerLoad;
