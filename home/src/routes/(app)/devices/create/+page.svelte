@@ -15,6 +15,9 @@
 		deviceID: -1
 	};
 
+	let errorMsg = '';
+	let isError = false;
+
 	async function submit() {
 		const response = await fetch('/devices/create', {
 			method: 'POST',
@@ -22,7 +25,13 @@
 		});
 
 		if (response.ok) {
-			goto('/');
+			goto(`/rooms/${roomID}`);
+		} else {
+			isError = true;
+			step--;
+
+			const data = await response.json();
+			errorMsg = data.message;
 		}
 	}
 </script>
@@ -35,7 +44,35 @@
 			on:submit|preventDefault={submit}
 			class="flex flex-col justify-center gap-6"
 		>
-			{#if step === 1}
+			{#if step === 0}
+				{#if isError}
+					<p>{errorMsg}</p>
+				{/if}
+				<h2 class="font-bold text-center md:text-start text-3xl">Search Results</h2>
+
+				<section
+					class="flex flex-col items-center gap-6 max-h-56 md:max-h-72 lg:max-h-96 overflow-auto py-6"
+				>
+					{#each data.foundDevices as result}
+						<button
+							type="button"
+							class="bg-white px-5 drop-shadow-lg rounded-full text-center text-lg py-3 w-full focus:bg-accent focus:text-white"
+							on:click={() => {
+								formData.displayName = result.name;
+								formData.deviceID = result.id;
+							}}
+						>
+							{result.name}
+						</button>
+					{/each}
+				</section>
+
+				<button
+					type="button"
+					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
+					on:click={() => step++}>Continue</button
+				>
+			{:else if step === 1}
 				<div class="pl-5">
 					<label for="device-name">Device Name</label>
 					<input
@@ -78,31 +115,6 @@
 					type="submit"
 					class="self-end px-8 mx-5 text-center text-white font-bold my-6 py-3 rounded-full bg-primary"
 					>Create</button
-				>
-			{:else if step === 0}
-				<h2 class="font-bold text-center md:text-start text-3xl">Search Results</h2>
-
-				<section
-					class="flex flex-col items-center gap-6 max-h-56 md:max-h-72 lg:max-h-96 overflow-auto py-6"
-				>
-					{#each data.foundDevices as result}
-						<button
-							type="button"
-							class="bg-white px-5 drop-shadow-lg rounded-full text-center text-lg py-3 w-full focus:bg-accent focus:text-white"
-							on:click={() => {
-								formData.displayName = result.name;
-								formData.deviceID = result.id;
-							}}
-						>
-							{result.name}
-						</button>
-					{/each}
-				</section>
-
-				<button
-					type="button"
-					class="self-end px-8 mx-5 text-center text-white font-bold my-12 py-3 rounded-full bg-primary"
-					on:click={() => step++}>Continue</button
 				>
 			{/if}
 		</form>
