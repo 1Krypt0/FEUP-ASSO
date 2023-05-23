@@ -8,20 +8,20 @@ type ConditionNode = {
 };
 
 type EventNode = {
-	device: string;
-	action: string;
+	device: number | string;
+	action: number | string;
 	conditionNodes: ConditionNode[];
 	operation: Operation;
 };
 
 type ActionNode = {
-	device: string;
-	action: string;
+	device: number | string;
+	action: number | string;
 	value: string;
 };
 
 export type Workflow = {
-	id: string;
+	id: number;
 	name: string;
 	active: boolean;
 	eventNodes: EventNode[];

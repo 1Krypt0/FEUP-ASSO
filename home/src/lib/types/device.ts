@@ -1,10 +1,22 @@
-export type Device = {
-	actionTopic: string;
-	currentValue: string;
-	dataTopic: string;
-	id: string;
-	macAddress: string;
+type Action = {
+	id: number;
+	type: string;
+	required: string[] | undefined;
+};
+
+type DeviceAction = {
+	id: number;
+	action: Action;
 	name: string;
-	status: 'CONNECTED' | 'DISCONNECTED';
-	type: 'LIGHT' | 'MEDIA' | 'CLIMATE';
+	properties: object | undefined;
+	state: string;
+};
+
+export type Device = {
+	id: number;
+	category: string;
+	displayName: string;
+	customName: string;
+	room: number;
+	actions: DeviceAction[];
 };
