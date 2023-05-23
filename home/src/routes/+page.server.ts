@@ -1,22 +1,12 @@
+import type { Room } from '$lib/types/room';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load = (() => {
-	// TODO: Fetch the rooms and if none is present redirect to this one. Otherwise redirect to the first one that shows up
-	const rooms: { name: string; id: number }[] = [
-		{
-			name: 'Room 1',
-			id: 1
-		},
-		{
-			name: 'Room 2',
-			id: 2
-		},
-		{
-			name: 'Room 3',
-			id: 3
-		}
-	];
+const ROOMS_URL = 'http://localhost:8080/rooms/';
+
+export const load = (async () => {
+	const res = await fetch(ROOMS_URL);
+	const rooms: Room[] = await res.json();
 
 	if (rooms.length === 0) {
 		throw redirect(303, 'rooms/create');
