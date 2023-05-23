@@ -7,11 +7,14 @@
 	export let roomID: number;
     
     let setIntensity = true;
+    let setColour = false;
     function intensityToBeSet() {
         setIntensity = true;
+        setColour = false;
     }
     function colourToBeSet() {
         setIntensity = false;
+        setColour = true;
     }
 </script>
 
@@ -25,10 +28,10 @@
             <a href="/room/{roomID}"><XIcon /></a>
         </div>
     </div>
-    <div>
+    <div class="flex-row flex justify-center gap-4 py-6">
         <button><PowerIcon/></button>
-        <button on:click={intensityToBeSet}><PercentIcon/></button>
-        <button on:click={colourToBeSet}><DropletIcon/></button>
+        <button on:click={intensityToBeSet} class={`rounded-full p-1 ${setIntensity ? "bg-accent" : "bg-light"}`}><PercentIcon/></button>
+        <button on:click={colourToBeSet} class={`rounded-full p-1 ${setColour ? "bg-accent" : "bg-light"}`}><DropletIcon/></button>
     </div>
     <div class="h-full flex-col flex justify-center">
         {#if setIntensity}
