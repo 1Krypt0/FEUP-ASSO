@@ -41,3 +41,6 @@ mosquitto/data/mosquitto.db
 iota-be-h2-db.*
 
 logs/
+*.db
+*.log
+*.log.*.gz
