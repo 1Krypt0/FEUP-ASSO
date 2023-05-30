@@ -24,4 +24,18 @@ This design is far more scalable and makes it easy to operate with any kind of d
 
 ### Simple to use
 
+The best products are the ones that abstract away all the hard work and present to the user only a simple, albeit powerful interface. This was our goal with the frontend application that was devised, called Home.
+
+In Home, you start by creating an account which holds all your data. Then, it is necessary to create some Rooms. A Room is just a way of grouping devices together. When you have at least one room set up, you can start adding devices!
+
+To add a device, you simply select the room you want to add it in later, and hit the plus sign.
+
+Automatically, all the devices nearby are discovered and presented for pairing, much like with Bluetooth. The types of actions allowed are inferred directly from the device itself, so the user can configure it straight away.
+
+In the device page, the actions show up with a intuitive UI, and you can start updating it straight away.
+
+### Automation
+
+TODO: talk about workflows
+
 ## How to Use it
