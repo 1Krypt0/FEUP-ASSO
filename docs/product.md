@@ -26,6 +26,18 @@ This design is far more scalable and makes it easy to operate with any kind of d
 
 The best products are the ones that abstract away all the hard work and present to the user only a simple, albeit powerful interface. This was our goal with the frontend application that was devised, called Home.
 
+One idea was to easily group related devices together, not only spacially but also by their capabilities. That's why the user can filter the devices shown by room or by category. One example of a category would be media devices, or climate devices.
+
+Also, every action should feel natural and responsive, so not only should the devices update rapidly, but also the UI itself should respond to events quickly.
+
+### Automation
+
+TODO: talk about workflows
+
+## How to Use it
+
+Before starting, do make sure that the hub is running, and that mosquitto container is also active, otherwise Home won't be able to fetch the necessary data.
+
 In Home, you start by creating an account which holds all your data. Then, it is necessary to create some Rooms. A Room is just a way of grouping devices together. When you have at least one room set up, you can start adding devices!
 
 To add a device, you simply select the room you want to add it in later, and hit the plus sign.
@@ -33,9 +45,3 @@ To add a device, you simply select the room you want to add it in later, and hit
 Automatically, all the devices nearby are discovered and presented for pairing, much like with Bluetooth. The types of actions allowed are inferred directly from the device itself, so the user can configure it straight away.
 
 In the device page, the actions show up with a intuitive UI, and you can start updating it straight away.
-
-### Automation
-
-TODO: talk about workflows
-
-## How to Use it
