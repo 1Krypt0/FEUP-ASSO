@@ -40,11 +40,92 @@ The utilization of Tailwind CSS significantly enhanced the frontend experience, 
 
 ## Devices
 
+### Protocol
+
+Each device will send information to the system about their device, such as name, actions and other meaninful information.
+
+```json
+{
+  "mac": "B",
+  "name": "Virtual Iota Colorful 1.0",
+  "actions": [
+    {
+      "id": "1",
+      "deviceAction": "toggle",
+      "name": "toggle",
+      "displayName": "Toggle",
+      "status": "0"
+    },
+    {
+      "id": "2",
+      "deviceAction": "range",
+      "name": "intensity",
+      "displayName": "Intensity",
+      "status": "150",
+      "properties": {
+        "min": "0",
+        "max": "100",
+        "step": "1"
+      }
+    },
+    {
+      "id": "3",
+      "deviceAction": "rgb",
+      "name": "color",
+      "displayName": "Color",
+      "status": "8c2d19"
+    }
+  ]
+}
+
+```
+
+#### Discoverability
+
+The device posts its configuration to the `DISCOVERABILITY` topic, which the core system is subscribed. Upon the receiption of these messages, the core system will store the device information in the database and post an acknowledge message in a different topic. Upon receiving the confirmation message, the device changes its state to the normal behaviour.
+
+#### Updating values
+
+In order to interact with the device, a json containing the action id and the value must be sent to the `ACTION-<MAC ADDRESS>` topic, which the device is subscribed. Upon receiption of these messages, the device updates its information and starts publishing the updated state of the device. The received information is in the following json format: 
+
+```
+{
+    "id": "1",
+    "status": "1"
+}
+```
+
+
+The device also publishes its updated information to the `DATA-<MAC ADDRESS>` topic, so that the core system has the updated information without having to poll all of the devices. The device sends the information in the following json format:
+
+```json
+
+[
+  {
+    "id": "1",
+    "status": "1"
+  },
+  {
+    "id": "2",
+    "status": "100"
+  },
+  {
+    "id": "3",
+    "status": "00ff00"
+  }
+]
+```
+
+
 ### Real Devices
+
+The real device, which was a blinking light, was implemented using Arduino. This languaged allows to easily develop and IoT device by providing several well implemented libraries. We used the `WiFiManager` library which allows the user to customize the device internet connection without editing the code directly. The user connects to a Wifi network hosted by the IoT device to setup the wifi ssid and password, and then the device works as expected.
+
+To interact with the mosquitto broker, we used the `PubSubClient` library, which allowed us to quickly read and write to a topic in the mosquitto broker.
 
 ### Virtual Devices
 
-<!-- @Dustini -->
+The virtual devices are implemented using pygame to allow a more interesting experience and demonstration, and they use the `paho-mqtt` python library to interact with the mosquitto broker. Each of the devices can be called using `python <virtual device script>.py <desired fake mac address>`.
 
 # Design and architecture
 <!-- Document design and architecture problems and solutions, described preferably using pattern instances. Justify all design and architectural choices. -->
