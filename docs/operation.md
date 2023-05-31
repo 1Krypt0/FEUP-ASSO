@@ -29,5 +29,3 @@ In order to run the mosquitto broker in the core machine, we can simply run the 
 Depending on the operating system, we can either use `gradle` or `./gradlew` for linux operating systems, and `.\gradlew.bat` for windows operating system.
 
 First, we need to build the application using either `gradle assemble`. Then we can run the application using `gradle bootRun`. We can only run the application after initializing the mosquitto broker.
-
-<!-- falta para o backend - @Dustini -->
