@@ -32,11 +32,19 @@ The utilization of Tailwind CSS significantly enhanced the frontend experience, 
 
 ### Spring Boot
 
-<!-- Nuno -->
+Spring Boot, an extension of the Spring Framework, offers a toolkit for developing web applications. It supports both Java and Kotlin programming languages, with Kotlin being selected for this project due to its modernity and interoperability with Java.
 
-### Mosquitto
+Spring Boot was chosen because it is a framework that is easy to use, and has a well of documentation and community resources. It implements many features out of the box, like database access, relational mapping, and data validation. This allows us to focus on the business logic of the application, rather than spending time implementing these base components from scratch. Additionally, since some team members already had experience with Java and Kotlin, adopting Spring Boot provided a valuable opportunity to learn something new.
 
-<!-- Nuno -->
+### MQTT
+
+MQTT is a lightweight, publish-subscribe, machine to machine network protocol for message queue/message queuing service [Wikipedia](https://en.wikipedia.org/wiki/MQTT). 
+
+MQTT was chosen due to its lightweight nature, which makes it ideal for IoT devices that don't have a lot of processing power or memory, and because it is a publish-subscribe protocol, which means that it is easy to add new devices to the system. It is also a widely used protocol, which means that there is a lot of documentation and community resources available, like client implementations for many programming languages.
+
+For the MQTT broker, we chose the [Eclipse Mosquitto](https://mosquitto.org/) broker, which is an open-source broker that can be easily deployed on a server, as it is available as a Docker image.
+
+We also used the [Eclipse Paho](https://www.eclipse.org/paho/) client library for both the Kotlin backend and the Python virtual devices, and the [PubSubClient](https://pubsubclient.knolleary.net/) library for the ESP32 devices.
 
 ## Devices
 
@@ -71,5 +79,6 @@ The visitor pattern provides a useful alternative. It allows functionality to be
 
 Despite this, it is more complex to implement and, similar to the switch case expression, the visitor interface and implementations also need to be updated whenever a new node type is created.
 
-## Entity component element
+## Entity-Component System
  <!--  Nuno -->
+ <!-- Talk about extensibilty using custom adapters-->
