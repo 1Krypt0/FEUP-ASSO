@@ -32,7 +32,21 @@ Also, every action should feel natural and responsive, so not only should the de
 
 ### Automation
 
-<!-- TODO: talk about workflows avó Margarida -->
+Workflows, also referred as triggers and actions, play a crucial role in the automation of the project. They enable users to define specific conditions and corresponding actions that should be executed when those conditions are met. Automation is essential in the project as it allows users to streamline their daily routines, improve efficiency, and enhance the overall experience of managing their home automation devices. 
+
+This functionality really ads value to our product, for different reasons:
+
+- Customization: workflows allow users to customize and personalize their system according to their specific needs and preferences. By defining triggers and corresponding actions, users can tailor their devices' behavior to align with their daily routines and lifestyle, thus adapting to individual requirements and enhancing user satisfaction and convenience.
+
+- Efficiency/time-saving: automation (workflows) eliminates the need for manual intervention in controlling various devices, this way saving time and effort for users, as they no longer have to individually operate each device or monitor their status continuously. Instead, the system handles routine tasks, allowing users to focus on other activities or enjoy a more streamlined living experience.
+
+- Energy conservation: the ability to define workflows based on environmental conditions or occupancy patterns also contributes to energy conservation. For instance, users can set triggers to turn off lights, adjust thermostats, or power down appliances when certain conditions are met, such as when a room is unoccupied or when daylight is sufficient. This proactive approach to energy management promotes sustainability and reduces unnecessary energy consumption, leading to cost savings and a greener living environment.
+
+- Safety and security: workflows also play a vital role in enhancing safety and security within the home. By integrating sensors and other security devices, users can set triggers to detect specific events, such as unauthorized access or the presence of smoke or carbon monoxide. The corresponding actions can include sending notifications, activating alarms, or initiating emergency protocols. This automation provides real-time monitoring and immediate responses, improving overall safety and security measures.
+
+- Scalability and flexibility: the ability to easily add new kinds of devices and support various communication infrastructures ensures the scalability and flexibility of the application.
+
+In summary, automation, achieved in the form of the so-called workflows, brings numerous benefits. By empowering users to define specific conditions and corresponding actions, this functionality enhances the overall experience, simplifies daily routines, and enables the system to operate autonomously, promoting a more intelligent, efficient, and convenient living environment.
 
 ## How to Use it
 
