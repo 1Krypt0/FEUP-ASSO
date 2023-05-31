@@ -19,13 +19,14 @@
 
 ## Front-end Technologies
 
-### Sveltekit
+### SvelteKit
 
-<!-- Kat -->
+One of the main reasons SvelteKit was chosen is its intuitive nature. SvelteKit embraces a component-based approach, making it easier to work with. 
+Furthermore, SvelteKit's extensive documentation is a big help when starting to work with the framework. Finally, integrating TypeScript into SvelteKit was very easy, thanks to its compatibility and straightforward configuration process.
 
-### Tailwindcss
+### Tailwind CSS
 
-<!-- Kat -->
+The utilization of Tailwind CSS significantly enhanced the frontend experience, offering a modern and efficient approach to building user interfaces. Tailwind CSS is a framework that provides a comprehensive set of pre-designed utility classes, which allowed to rapidly prototype and style the application. It is highly extensible and customizable and was used because some team members had already experience working with it.
 
 ## Back-end Technologies
 
