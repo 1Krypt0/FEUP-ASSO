@@ -15,3 +15,5 @@ Building Home is simple, since Svelte has scripts set up for it. All that is nec
 To deploy Home, the best option would be to use a service like Vercel or Netlify. With this, it is only necessary to associate a git repository, and the service will usually detect the precise commands to deploy the system and automate the remaining steps.
 
 Something that should need to change in the frontend is the fetch URLs. Since this was only tested on development purposes, it is necessary to take into account that most items were fetched from `localhost`. This means that, in production, the URLs should be changed to fetch from wherever the backend is being hosted.
+
+<!-- falta para o backend - @Dustini -->

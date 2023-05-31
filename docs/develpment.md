@@ -1,0 +1,74 @@
+# High-level architecture 
+<!-- Provide higher-level views over these three types of elements using Package diagrams, if appropriate -->
+
+## Components
+
+![component-diagram](./component-diagram.png)
+
+## Activities
+
+<!-- use activity diagram  Ricky-->
+
+## Infrastructure
+
+<!-- use deployment diagram Ricky -->
+
+# Technologies
+
+<!-- Tools and rationale for choosing them (programming languages, frameworks, libraries, database engines, message queues). -->
+
+## Front-end Technologies
+
+### Sveltekit
+
+<!-- Kat -->
+
+### Tailwindcss
+
+<!-- Kat -->
+
+## Back-end Technologies
+
+### Spring Boot
+
+<!-- Nuno -->
+
+### Mosquitto
+
+<!-- Nuno -->
+
+## Devices
+
+<!-- @Dustini -->
+
+# Design and architecture
+<!-- Document design and architecture problems and solutions, described preferably using pattern instances. Justify all design and architectural choices. -->
+
+## Interpreter
+
+<!-- Dustini -->
+
+### Visitor
+
+#### Context
+
+The worfklow graphs need to be traversed to determine what actions should be executed. However, these graphs have different types of nodes that require different interpretations such as boolean operators, conditions, and actions. To address this, the visitor pattern is a useful tool for adding functionality to these nodes without requiring significant changes to their classes. The visitor pattern also allows for different implementations to be designed for different visitors.
+
+#### Mapping
+
+The nodes are the elements being visited. Each node type is a concrete implementation of the element interface and will have a method that accepts the visitor interface. The visitor interface defines the function signatures for the different node types.
+
+One of the concrete visitors will be the workflow traversal visitor. This visitor is responsible for traversing the workflow graphs, verifying conditions, performing boolean logic, and executing actions depending on the node types encountered.
+
+#### Consequences
+
+One approach is to use a switch case expression to check the class or type of the node, and then execute the appropriate action. This approach is simpler to implement and more permissive. However, every time a new node type is created, the switch case expression needs to be updated. While this is not expected to happen frequently, it can be a maintenance burden.
+
+Another approach is to implement this functionality on the node subclasses themselves. This is the simplest implementation of all, and it allows access to private elements. However, this approach can make the code more complex and harder to read as the logic for different node types will be scattered across different classes.
+
+The visitor pattern provides a useful alternative. It allows functionality to be added to the nodes without requiring significant changes to their classes. The visitor pattern also enforces that all node classes have implementations, even if the implementation does nothing. This improves readability and separates the different functionalities into a single class, which can also improve readability. Additionally, the visitor pattern is useful for accumulating information when traversing the graph, which could be used for flowing state through the nodes. The visitor pattern has another advantage in that it allows for multiple visitor implementations to add different functionalities. For example, one implementation could count the number of node types in the workflow.
+
+Despite this, it is more complex to implement and, similar to the switch case expression, the visitor interface and implementations also need to be updated whenever a new node type is created.
+
+## Entity component element
+ <!--  Nuno -->

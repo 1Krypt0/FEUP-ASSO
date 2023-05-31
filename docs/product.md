@@ -32,7 +32,7 @@ Also, every action should feel natural and responsive, so not only should the de
 
 ### Automation
 
-TODO: talk about workflows
+<!-- TODO: talk about workflows avó Margarida -->
 
 ## How to Use it
 
