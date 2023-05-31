@@ -178,6 +178,35 @@ It allows functionality to be added to the nodes without requiring significant c
 
 Everytime we need to create a new type of node, we simply need to add the method to the `NodeVisitor` class for the new type of node and veriify if it is the correct node. 
 
-## Entity-Component System
- <!--  Nuno -->
- <!-- Talk about extensibilty using custom adapters-->
+## Entity Component System
+
+![](ecs.png)
+
+[Image Credits](https://www.codeproject.com/Articles/1216420/The-Entity-Component-System-BountyHunter-Game-Part)
+
+## Context
+
+The application aims to support various types of devices, with different purposes. Furthermore, it should allow new types of devices without requiring significant changes to the system. To address this, the entity component system is a useful pattern for adding new types of devices.
+
+## Mapping
+
+Entity component system (ECS) is a software architectural pattern commonly employed in video game development for the representation of objects in the game world. An ECS comprises entities composed from components of data, with systems which operate on entities' components.
+
+ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components. [Wikipedia](https://en.wikipedia.org/wiki/Entity_component_system)
+
+In ECS, entities are the objects that are being represented. Components hold data that labels the entities as having a certain property, for example health, or position. Systems act on entities that have the required components, for example a movement system would act on entities that have a position component.
+
+In our application, we have identified the following components of the ECS:
+
+- **Entities**: The entities in our application are represented by devices. These devices encompass the physical or virtual entities that we control or monitor.
+- **Components**: Our components are the device actions associated with each device. These actions define the specific properties or capabilities of the device. Examples include checkbox, toggle, number, color, string, and range. Each device has a set of device actions, with each action having a name, value, and type. For example a light device might have a "toggle" action, with the value "true" and is called "on/off".
+- **Systems**: Our application incorporates various systems that respond to different events and actions. Within each device, we have systems that act upon receiving MQTT messages. For instance, a system can process a "toggle" action on a light device to switch it on or off. We also have systems that react to device state updates, such as publishing temperature values from a sensor device to the MQTT broker. Additionally, workflows trigger systems that perform actions on devices. For instance, if a workflow is activated to turn on a light, a corresponding system sends a message to the light device to initiate the action. Furthermore, although it does not fall strictly within the definition of a system because it does not act on entities, the renderer displays the devices and their actions to the user.
+
+## Consequences
+
+The entity component system brings several advantages to our appplication. One of them is the ability to integrate new devices into the system with minimal modifications to the core application. We can create new entities with the necessary components and the system will automatically recognize them. The relevant systems will automatically act on the new entities if they have the required components. This allows for a high degree of flexibility and customization.
+
+It also offers users the opportunity to create their own devices or adapt existing devices to suit their specific needs. Users can design devices with unique combinations of actions and further enhance their functionality through workflows, providing a plug-and-play experience.
+
+However, the entity component system also has some drawbacks. One of them is that even though creating entities is easy, creating new components and systems can be more difficult. This is because the components and systems need to be programmed and integrated into the application. Furthermore, ensuring validation of the values associated with these components can be challenging. For instance, if a component is a range, we need to ensure that the value is within the specified range. This can be difficult to implement in a generic way that works for all components.
+
