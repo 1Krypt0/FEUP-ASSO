@@ -7,11 +7,11 @@
 
 ## Activities
 
-<!-- use activity diagram  Ricky-->
+![activity-diagram](./activity-diagram.png)
 
 ## Infrastructure
 
-<!-- use deployment diagram Ricky -->
+![deployment-diagram](./deployment-diagram.png)
 
 # Technologies
 
